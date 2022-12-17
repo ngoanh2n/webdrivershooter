@@ -1,0 +1,32 @@
+/**
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @since 2022-11-25
+ */
+group(property("prj.groupId"))
+version(property("prj.version"))
+description(property("prj.desc") as String)
+
+apply plugin: "java"
+apply plugin: "idea"
+
+apply from: "gradle/testing.gradle"
+apply from: "gradle/compiling.gradle"
+apply from: "gradle/publishing.gradle"
+apply from: "gradle/dependencies.gradle"
+
+repositories {
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {}
+}
+
+clean.doFirst {
+    delete project.file("out")
+}
