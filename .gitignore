@@ -1,0 +1,15 @@
+# IDEA
+*.iml
+.idea/
+
+# Java
+*/build/
+out/
+*.log
+
+# Gradle
+.gradle/
+build/
+
+# Others
+lombok.config

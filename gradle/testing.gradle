@@ -1,0 +1,21 @@
+/**
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @since 2022-11-25
+ */
+test {
+    useJUnitPlatform() {
+        includeEngines("junit-jupiter")
+    }
+
+    testLogging {
+        showStandardStreams = true
+        events "passed", "skipped", "failed"
+    }
+
+    systemProperty("file.encoding", "UTF-8")
+    systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
+
+    ignoreFailures = true
+    outputs.upToDateWhen { false }
+    systemProperties = System.getProperties() as Map<String, ?>
+}
