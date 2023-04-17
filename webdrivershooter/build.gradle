@@ -2,5 +2,6 @@
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 dependencies {
+    implementation("com.github.ngoanh2n:webdriverchecker:$versionWebDriverChecker")
     testImplementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
 }
