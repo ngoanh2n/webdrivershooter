@@ -1,8 +1,0 @@
-/**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @since 2022-11-25
- */
-dependencies {
-    testImplementation("org.slf4j:slf4j-log4j12:2.0.5")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
-}

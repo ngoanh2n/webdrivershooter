@@ -1,5 +1,3 @@
-/**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @since 2022-11-25
- */
-rootProject.name = "empty5"
+rootProject.setName("wds")
+
+include("webdrivershooter")
