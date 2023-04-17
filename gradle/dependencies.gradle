@@ -1,0 +1,7 @@
+/**
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
+dependencies {
+    implementation("com.github.ngoanh2n:commons:$versionCommons")
+    testImplementation("org.slf4j:slf4j-log4j12:$versionSlf4j")
+}

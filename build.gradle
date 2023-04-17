@@ -20,6 +20,7 @@ subprojects {
     apply plugin: "maven-publish"
 
     apply from: rootProject.file("gradle/compilation.gradle")
+    apply from: rootProject.file("gradle/dependencies.gradle")
 
     clean.doFirst {
         delete project.file("out")
