@@ -19,6 +19,8 @@ subprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
 
+    apply from: rootProject.file("gradle/compilation.gradle")
+
     clean.doFirst {
         delete project.file("out")
         delete rootProject.files("build")
