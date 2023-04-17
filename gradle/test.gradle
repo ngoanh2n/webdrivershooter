@@ -1,0 +1,29 @@
+/**
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
+reporting {
+    baseDir = "$buildDir/reports"
+}
+testResultsDirName = reporting.baseDir
+
+test {
+    ignoreFailures = true
+    outputs.upToDateWhen { false }
+
+    reports {
+        junitXml {
+            mergeReruns = true
+            outputPerTestCase = true
+        }
+    }
+    useJUnitPlatform() {
+        includeEngines("junit-jupiter")
+    }
+    testLogging {
+        showStandardStreams = true
+        events "passed", "skipped", "failed"
+    }
+
+    systemProperty("file.encoding", "UTF-8")
+    systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
+}
