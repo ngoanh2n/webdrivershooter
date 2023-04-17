@@ -2,4 +2,5 @@
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
 }
