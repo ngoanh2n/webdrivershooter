@@ -3,7 +3,7 @@
  */
 ext {
     versionCommons                  =   "1.0.0"
-    versionWebDriverChecker         =   "2.5.0"
+    versionSelenium                 =   "4.8.3"
     versionJunitJupiter             =   "5.9.2"
     versionSlf4j                    =   "2.0.7"
 }
