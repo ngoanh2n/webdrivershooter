@@ -1,4 +1,7 @@
 package com.github.ngoanh2n.wds;
 
-public class WdsDriverProvider {
+import org.openqa.selenium.WebDriver;
+
+public interface WdsDriverProvider {
+    WebDriver provide();
 }
