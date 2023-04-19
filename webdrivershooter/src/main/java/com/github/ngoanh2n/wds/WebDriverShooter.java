@@ -50,7 +50,7 @@ public abstract class WebDriverShooter {
             case 3:
                 return new Screenshot(shooter.shootScrollVertical(options, driver, browser));
             default:
-                return new Screenshot(shooter.shootHorizontalScroll(options, driver, browser));
+                return new Screenshot(shooter.shootScrollHorizontal(options, driver, browser));
         }
     }
 
@@ -76,5 +76,5 @@ public abstract class WebDriverShooter {
 
     protected abstract BufferedImage shootScrollVertical(ShooterOptions options, WebDriver driver, Browser browser);
 
-    protected abstract BufferedImage shootHorizontalScroll(ShooterOptions options, WebDriver driver, Browser browser);
+    protected abstract BufferedImage shootScrollHorizontal(ShooterOptions options, WebDriver driver, Browser browser);
 }
