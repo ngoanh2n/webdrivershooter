@@ -46,11 +46,11 @@ public abstract class WebDriverShooter {
             case 1:
                 return new Screenshot(shooter.shootViewport(options, driver, browser));
             case 2:
-                return new Screenshot(shooter.shootFullScroll(options, driver, browser));
-            case 3:
                 return new Screenshot(shooter.shootScrollVertical(options, driver, browser));
-            default:
+            case 3:
                 return new Screenshot(shooter.shootScrollHorizontal(options, driver, browser));
+            default:
+                return new Screenshot(shooter.shootScrollBothDirection(options, driver, browser));
         }
     }
 
@@ -72,9 +72,9 @@ public abstract class WebDriverShooter {
 
     protected abstract BufferedImage shootViewport(ShooterOptions options, WebDriver driver, Browser browser);
 
-    protected abstract BufferedImage shootFullScroll(ShooterOptions options, WebDriver driver, Browser browser);
-
     protected abstract BufferedImage shootScrollVertical(ShooterOptions options, WebDriver driver, Browser browser);
 
     protected abstract BufferedImage shootScrollHorizontal(ShooterOptions options, WebDriver driver, Browser browser);
+
+    protected abstract BufferedImage shootScrollBothDirection(ShooterOptions options, WebDriver driver, Browser browser);
 }
