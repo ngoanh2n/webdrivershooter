@@ -26,7 +26,7 @@ public interface ShooterOptions {
             return (T) this;
         }
 
-        public T fullScroll() {
+        public T shootScrollVertical() {
             this.shooterStrategy = 2;
             return (T) this;
         }
