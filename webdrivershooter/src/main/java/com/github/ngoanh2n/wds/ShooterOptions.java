@@ -16,7 +16,7 @@ public interface ShooterOptions {
         protected int delayDurationForScrolling;
 
         protected Builder() {
-            this.shooterStrategy = 2;
+            this.shooterStrategy = 4;
             this.checkDevicePixelRatio = true;
             this.delayDurationForScrolling = 100;
         }
@@ -36,7 +36,7 @@ public interface ShooterOptions {
             return (T) this;
         }
 
-        public T horizontalScroll() {
+        public T shootScrollBothDirection() {
             this.shooterStrategy = 4;
             return (T) this;
         }
