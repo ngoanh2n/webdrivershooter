@@ -13,9 +13,9 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 
 public abstract class WebDriverShooter {
-    protected static void sleep(ShooterOptions options) {
+    protected static void sleep(long millis) {
         try {
-            Thread.sleep(options.delayDurationForScrolling());
+            Thread.sleep(millis);
         } catch (InterruptedException e) {
             throw new RuntimeError(e);
         }
