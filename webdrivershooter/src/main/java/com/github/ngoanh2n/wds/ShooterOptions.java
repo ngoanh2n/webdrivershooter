@@ -31,7 +31,7 @@ public interface ShooterOptions {
             return (T) this;
         }
 
-        public T verticalScroll() {
+        public T shootScrollHorizontal() {
             this.shooterStrategy = 3;
             return (T) this;
         }
