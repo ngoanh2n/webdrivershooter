@@ -21,7 +21,7 @@ public interface ShooterOptions {
             this.delayDurationForScrolling = 100;
         }
 
-        public T viewport() {
+        public T shootViewport() {
             this.shooterStrategy = 1;
             return (T) this;
         }
