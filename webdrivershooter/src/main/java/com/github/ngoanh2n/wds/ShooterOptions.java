@@ -18,7 +18,7 @@ public interface ShooterOptions {
         protected Builder() {
             this.shooterStrategy = 4;
             this.checkDevicePixelRatio = true;
-            this.delayDurationForScrolling = 100;
+            this.delayDurationForScrolling = 400;
         }
 
         public T shootViewport() {
