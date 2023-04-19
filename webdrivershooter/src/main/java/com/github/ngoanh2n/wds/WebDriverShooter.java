@@ -56,7 +56,7 @@ public abstract class WebDriverShooter {
 
     //-------------------------------------------------------------------------------//
 
-    protected BufferedImage shootScreen(WebDriver driver) {
+    protected BufferedImage screenshot(WebDriver driver) {
         File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             return ImageIO.read(file);
