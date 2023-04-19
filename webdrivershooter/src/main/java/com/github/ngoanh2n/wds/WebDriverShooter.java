@@ -40,17 +40,15 @@ public abstract class WebDriverShooter {
 
     protected static Screenshot shoot(WebDriverShooter shooter, ShooterOptions options, WebDriver... args) {
         WebDriver driver = driver(args);
-        Browser browser = new Browser(driver, options);
-
         switch (options.shooterStrategy()) {
             case 1:
-                return new Screenshot(shooter.shootViewport(options, driver, browser));
+                return new Screenshot(shooter.shootViewport(options, driver));
             case 2:
-                return new Screenshot(shooter.shootScrollVertical(options, driver, browser));
+                return new Screenshot(shooter.shootScrollVertical(options, driver));
             case 3:
-                return new Screenshot(shooter.shootScrollHorizontal(options, driver, browser));
+                return new Screenshot(shooter.shootScrollHorizontal(options, driver));
             default:
-                return new Screenshot(shooter.shootScrollBothDirection(options, driver, browser));
+                return new Screenshot(shooter.shootScrollBothDirection(options, driver));
         }
     }
 
@@ -70,11 +68,11 @@ public abstract class WebDriverShooter {
         }
     }
 
-    protected abstract BufferedImage shootViewport(ShooterOptions options, WebDriver driver, Browser browser);
+    protected abstract BufferedImage shootViewport(ShooterOptions options, WebDriver driver);
 
-    protected abstract BufferedImage shootScrollVertical(ShooterOptions options, WebDriver driver, Browser browser);
+    protected abstract BufferedImage shootScrollVertical(ShooterOptions options, WebDriver driver);
 
-    protected abstract BufferedImage shootScrollHorizontal(ShooterOptions options, WebDriver driver, Browser browser);
+    protected abstract BufferedImage shootScrollHorizontal(ShooterOptions options, WebDriver driver);
 
-    protected abstract BufferedImage shootScrollBothDirection(ShooterOptions options, WebDriver driver, Browser browser);
+    protected abstract BufferedImage shootScrollBothDirection(ShooterOptions options, WebDriver driver);
 }
