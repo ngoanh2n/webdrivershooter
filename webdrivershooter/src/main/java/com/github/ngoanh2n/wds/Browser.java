@@ -18,4 +18,15 @@ public class Browser {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         return jsExecutor.executeScript(script, args);
     }
+
+    //-------------------------------------------------------------------------------//
+
+    private double getDPR(ShooterOptions options) {
+        if (!options.checkDevicePixelRatio()) {
+            return 1.0;
+        } else {
+            Object value = executeScript("com/github/ngoanh2n/wds/GetDPR.js");
+            return value instanceof Double ? (Double) value : (Long) value * 1.0;
+        }
+    }
 }
