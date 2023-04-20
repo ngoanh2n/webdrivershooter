@@ -27,6 +27,14 @@ public class Browser {
         return documentWidth;
     }
 
+    public int getDocumentHeight() {
+        if (documentHeight == -1) {
+            Object value = executeScript("com/github/ngoanh2n/wds/GetDocumentHeight.js");
+            documentHeight = (int) (Double.parseDouble(value.toString()) * dpr);
+        }
+        return documentHeight;
+    }
+
     public Object executeScript(String resourceName, Object... args) {
         String script = Resource.getContent(resourceName);
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
