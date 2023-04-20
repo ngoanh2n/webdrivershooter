@@ -10,7 +10,7 @@ public class Browser {
 
     public Browser(WebDriver driver, ShooterOptions options) {
         this.driver = driver;
-        this.dpr = 1.0;
+        this.dpr = getDPR(options);
     }
 
     public Object executeScript(String resourceName, Object... args) {
