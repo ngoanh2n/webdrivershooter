@@ -51,6 +51,12 @@ public class Browser {
         return viewportHeight;
     }
 
+    public int getScrollBarWidth() {
+        Object value = executeScript("com/github/ngoanh2n/wds/GetScrollBarWidth.js");
+        int width = (int) (Double.parseDouble(value.toString()) * dpr);
+        return Math.max(width, 40);
+    }
+
     public Object executeScript(String resourceName, Object... args) {
         String script = Resource.getContent(resourceName);
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
