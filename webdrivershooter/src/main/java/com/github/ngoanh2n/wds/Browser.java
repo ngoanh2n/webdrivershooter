@@ -62,6 +62,11 @@ public class Browser {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    public int getCurrentScrollY() {
+        Object value = executeScript("com/github/ngoanh2n/wds/GetCurrentScrollY.js");
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     public Object executeScript(String resourceName, Object... args) {
         String script = Resource.getContent(resourceName);
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
