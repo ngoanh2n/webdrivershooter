@@ -35,6 +35,14 @@ public class Browser {
         return documentHeight;
     }
 
+    public int getViewportWidth() {
+        if (viewportWidth == -1) {
+            Object value = executeScript("com/github/ngoanh2n/wds/GetViewportWidth.js");
+            viewportWidth = (int) (Double.parseDouble(value.toString()) * dpr);
+        }
+        return viewportWidth;
+    }
+
     public Object executeScript(String resourceName, Object... args) {
         String script = Resource.getContent(resourceName);
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
