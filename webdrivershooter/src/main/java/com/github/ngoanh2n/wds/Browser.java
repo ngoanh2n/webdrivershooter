@@ -2,6 +2,7 @@ package com.github.ngoanh2n.wds;
 
 import com.github.ngoanh2n.Resource;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 
 public class Browser {
@@ -65,6 +66,10 @@ public class Browser {
     public int getCurrentScrollY() {
         Object value = executeScript("com/github/ngoanh2n/wds/GetCurrentScrollY.js");
         return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
+    public void scrollToPoint(Point point) {
+        executeScript("com/github/ngoanh2n/wds/ScrollToPoint.js", (point.x / dpr), (point.y / dpr));
     }
 
     public Object executeScript(String resourceName, Object... args) {
