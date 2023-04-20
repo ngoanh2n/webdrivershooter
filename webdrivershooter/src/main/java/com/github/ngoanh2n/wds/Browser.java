@@ -5,6 +5,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class Browser {
     private final double dpr;
     private final WebDriver driver;
@@ -13,7 +16,7 @@ public class Browser {
     private int viewportWidth = -1;
     private int viewportHeight = -1;
 
-    public Browser(WebDriver driver, ShooterOptions options) {
+    public Browser(ShooterOptions options, WebDriver driver) {
         this.driver = driver;
         this.dpr = getDPR(options);
     }
