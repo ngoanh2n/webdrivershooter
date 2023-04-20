@@ -17,6 +17,16 @@ public class Browser {
         this.dpr = getDPR(options);
     }
 
+    //-------------------------------------------------------------------------------//
+
+    public int getDocumentWidth() {
+        if (documentWidth == -1) {
+            Object value = executeScript("com/github/ngoanh2n/wds/GetDocumentWidth.js");
+            documentWidth = (int) (Double.parseDouble(value.toString()) * dpr);
+        }
+        return documentWidth;
+    }
+
     public Object executeScript(String resourceName, Object... args) {
         String script = Resource.getContent(resourceName);
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
