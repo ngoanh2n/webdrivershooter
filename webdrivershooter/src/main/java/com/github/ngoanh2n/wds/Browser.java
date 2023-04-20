@@ -5,8 +5,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class Browser {
+    private final double dpr;
     private final WebDriver driver;
-    private final Double dpr;
+    private int documentWidth = -1;
+    private int documentHeight = -1;
+    private int viewportWidth = -1;
+    private int viewportHeight = -1;
 
     public Browser(WebDriver driver, ShooterOptions options) {
         this.driver = driver;
