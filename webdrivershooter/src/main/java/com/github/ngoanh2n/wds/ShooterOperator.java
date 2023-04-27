@@ -53,6 +53,12 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return (int) Math.ceil(((double) outerH) / innerH);
     }
 
+    protected int getPartsX() {
+        int outerW = screener.getOuterRect().getWidth();
+        int innerW = screener.getInnerRect().getWidth();
+        return (int) Math.ceil(((double) outerW) / innerW);
+    }
+
     //-------------------------------------------------------------------------------//
 
     private Screenshot createScreenshot() {
