@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-public abstract class WebDriverShooter<X extends ShooterOptions, Y extends ShooterOperator<X>> {
+public abstract class WebDriverShooter<X extends ShooterOptions, Y extends ShooterOperator<X>> extends ShooterStrategy<X, Y> {
     protected static WebDriver getDriver(WebDriver... args) {
         if (args.length != 0) {
             if (args[0] != null) {
