@@ -120,4 +120,11 @@ public class Screener {
         double y = point.y / dpr;
         executeScript(driver, "com/github/ngoanh2n/wds/ScrollToPoint.js", x, y);
     }
+
+    //-------------------------------------------------------------------------------//
+
+    public int getElementRectLeft(WebElement element) {
+        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectLeft.js", element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
 }
