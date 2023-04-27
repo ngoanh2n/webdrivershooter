@@ -162,4 +162,9 @@ public class Screener {
         Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollHeight.js", element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
+
+    public int getElementScrollBarWidth(WebElement element) {
+        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollBarWidth.js", element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
 }
