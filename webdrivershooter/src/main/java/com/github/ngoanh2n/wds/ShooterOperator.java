@@ -5,6 +5,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -32,6 +33,8 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
     protected abstract int imageWidth();
 
     protected abstract int imageHeight();
+
+    protected abstract boolean imageFull(@Nonnull BufferedImage part);
 
     //-------------------------------------------------------------------------------//
 
