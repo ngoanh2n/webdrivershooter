@@ -1,5 +1,7 @@
 package com.github.ngoanh2n.wds;
 
+import java.awt.*;
+
 public interface ShooterOptions {
     static Builder<?> builder() {
         return new ShooterOptions.Builder<>();
@@ -17,6 +19,8 @@ public interface ShooterOptions {
 
     boolean checkDPR();
 
+    Color decoratedColor();
+
     //===============================================================================//
 
     @SuppressWarnings("unchecked")
@@ -24,11 +28,13 @@ public interface ShooterOptions {
         protected int scrollDelay;
         protected int shooterStrategy;
         protected boolean checkDevicePixelRatio;
+        protected Color decoratedColor;
 
         protected Builder() {
             this.scrollDelay = 400;
             this.shooterStrategy = 4;
             this.checkDevicePixelRatio = true;
+            this.decoratedColor = Color.GRAY;
         }
 
         public T shootViewport() {
@@ -76,6 +82,11 @@ public interface ShooterOptions {
                 @Override
                 public boolean checkDPR() {
                     return checkDevicePixelRatio;
+                }
+
+                @Override
+                public Color decoratedColor() {
+                    return decoratedColor;
                 }
             };
         }

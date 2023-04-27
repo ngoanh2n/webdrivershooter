@@ -1,5 +1,7 @@
 package com.github.ngoanh2n.wds;
 
+import java.awt.*;
+
 public interface PageOptions extends ShooterOptions {
     static Builder builder() {
         return new PageOptions.Builder();
@@ -8,8 +10,6 @@ public interface PageOptions extends ShooterOptions {
     static PageOptions defaults() {
         return builder().build();
     }
-
-    //-------------------------------------------------------------------------------//
 
     //===============================================================================//
 
@@ -33,6 +33,11 @@ public interface PageOptions extends ShooterOptions {
                 @Override
                 public boolean checkDPR() {
                     return checkDevicePixelRatio;
+                }
+
+                @Override
+                public Color decoratedColor() {
+                    return decoratedColor;
                 }
             };
         }
