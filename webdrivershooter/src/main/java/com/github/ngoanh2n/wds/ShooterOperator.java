@@ -70,6 +70,13 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return image;
     }
 
+    protected Graphics2D getGraphics() {
+        if (graphics == null) {
+            getImage();
+        }
+        return graphics;
+    }
+
     //-------------------------------------------------------------------------------//
 
     private Screenshot createScreenshot() {
