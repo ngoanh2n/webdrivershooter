@@ -1,5 +1,7 @@
 package com.github.ngoanh2n.wds;
 
+import org.openqa.selenium.WebElement;
+
 import java.awt.*;
 
 public interface ShooterOptions {
@@ -21,6 +23,8 @@ public interface ShooterOptions {
 
     Color decoratedColor();
 
+    WebElement ignoredElement();
+
     //===============================================================================//
 
     @SuppressWarnings("unchecked")
@@ -29,6 +33,7 @@ public interface ShooterOptions {
         protected int shooterStrategy;
         protected boolean checkDevicePixelRatio;
         protected Color decoratedColor;
+        protected WebElement ignoredElement;
 
         protected Builder() {
             this.scrollDelay = 400;
@@ -67,6 +72,11 @@ public interface ShooterOptions {
             return (T) this;
         }
 
+        public T ignoreElement(WebElement element) {
+            this.ignoredElement = element;
+            return (T) this;
+        }
+
         public ShooterOptions build() {
             return new ShooterOptions() {
                 @Override
@@ -87,6 +97,11 @@ public interface ShooterOptions {
                 @Override
                 public Color decoratedColor() {
                     return decoratedColor;
+                }
+
+                @Override
+                public WebElement ignoredElement() {
+                    return ignoredElement;
                 }
             };
         }

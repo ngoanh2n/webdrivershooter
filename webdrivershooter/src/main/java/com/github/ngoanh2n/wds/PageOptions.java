@@ -1,5 +1,7 @@
 package com.github.ngoanh2n.wds;
 
+import org.openqa.selenium.WebElement;
+
 import java.awt.*;
 
 public interface PageOptions extends ShooterOptions {
@@ -38,6 +40,11 @@ public interface PageOptions extends ShooterOptions {
                 @Override
                 public Color decoratedColor() {
                     return decoratedColor;
+                }
+
+                @Override
+                public WebElement ignoredElement() {
+                    return ignoredElement;
                 }
             };
         }
