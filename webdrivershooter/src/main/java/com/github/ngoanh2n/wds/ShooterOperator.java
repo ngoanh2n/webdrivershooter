@@ -29,6 +29,10 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
 
     //-------------------------------------------------------------------------------//
 
+    protected abstract int imageWidth();
+
+    //-------------------------------------------------------------------------------//
+
     private Screenshot createScreenshot() {
         List<Screengle> results = new ArrayList<>();
         if (options.ignoredElement() != null) {
