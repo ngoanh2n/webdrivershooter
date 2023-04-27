@@ -63,6 +63,16 @@ public class Screener {
 
     //-------------------------------------------------------------------------------//
 
+    public static Screener page(boolean checkDPR, WebDriver driver) {
+        return new Screener(checkDPR, driver);
+    }
+
+    public static Screener element(boolean checkDPR, WebDriver driver, WebElement element) {
+        return new Screener(checkDPR, driver, element);
+    }
+
+    //-------------------------------------------------------------------------------//
+
     public static double getDPR(boolean checkDPR, WebDriver driver) {
         if (!checkDPR) {
             return 1.0;
