@@ -25,4 +25,22 @@ public class Screengle {
     public static Screengle from(Point location, Dimension size) {
         return new Screengle(location, size);
     }
+
+    //-------------------------------------------------------------------------------//
+
+    public int getX() {
+        return location.x;
+    }
+
+    public int getY() {
+        return location.y;
+    }
+
+    public int getWidth() {
+        return size.width;
+    }
+
+    public int getHeight() {
+        return size.height;
+    }
 }
