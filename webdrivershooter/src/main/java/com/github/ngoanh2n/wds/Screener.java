@@ -147,4 +147,9 @@ public class Screener {
         Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollY.js", element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
+
+    public int getElementScrollX(WebElement element) {
+        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollX.js", element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
 }
