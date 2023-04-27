@@ -89,6 +89,20 @@ public class Screener {
 
     //-------------------------------------------------------------------------------//
 
+    public double getDPR() {
+        return dpr;
+    }
+
+    public Screengle getInnerRect() {
+        return innerRect;
+    }
+
+    public Screengle getOuterRect() {
+        return outerRect;
+    }
+
+    //-------------------------------------------------------------------------------//
+
     public int getViewportWidth() {
         Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetViewportWidth.js");
         return (int) (Double.parseDouble(value.toString()) * dpr);
