@@ -12,16 +12,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-public abstract class WebDriverShooter {
-    protected static void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeError(e);
-        }
-    }
-
-    protected static WebDriver driver(WebDriver... args) {
+public abstract class WebDriverShooter<X extends ShooterOptions, Y extends ShooterOperator<X>> {
+    protected static WebDriver getDriver(WebDriver... args) {
         if (args.length != 0) {
             if (args[0] != null) {
                 return args[0];
@@ -38,17 +30,16 @@ public abstract class WebDriverShooter {
         }
     }
 
-    protected static Screenshot shoot(WebDriverShooter shooter, ShooterOptions options, WebDriver... args) {
-        WebDriver driver = driver(args);
+    protected static <X extends ShooterOptions, Y extends ShooterOperator<X>> Screenshot shoot(WebDriverShooter<X, Y> shooter, X options, WebDriver... args) {
         switch (options.shooterStrategy()) {
             case 1:
-                return new Screenshot(shooter.shootViewport(options, driver));
+                return shooter.shootViewport(options, getDriver(args));
             case 2:
-                return new Screenshot(shooter.shootScrollVertical(options, driver));
+                return shooter.shootVerticalScroll(options, getDriver(args));
             case 3:
-                return new Screenshot(shooter.shootScrollHorizontal(options, driver));
+                return shooter.shootHorizontalScroll(options, getDriver(args));
             default:
-                return new Screenshot(shooter.shootScrollBothDirection(options, driver));
+                return shooter.shootBothDirectionScroll(options, getDriver(args));
         }
     }
 
@@ -68,11 +59,11 @@ public abstract class WebDriverShooter {
         }
     }
 
-    protected abstract BufferedImage shootViewport(ShooterOptions options, WebDriver driver);
+    protected abstract Screenshot shootViewport(X options, WebDriver driver);
 
-    protected abstract BufferedImage shootScrollVertical(ShooterOptions options, WebDriver driver);
+    protected abstract Screenshot shootVerticalScroll(X options, WebDriver driver);
 
-    protected abstract BufferedImage shootScrollHorizontal(ShooterOptions options, WebDriver driver);
+    protected abstract Screenshot shootHorizontalScroll(X options, WebDriver driver);
 
-    protected abstract BufferedImage shootScrollBothDirection(ShooterOptions options, WebDriver driver);
+    protected abstract Screenshot shootBothDirectionScroll(X options, WebDriver driver);
 }
