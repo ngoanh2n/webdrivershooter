@@ -59,6 +59,17 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return (int) Math.ceil(((double) outerW) / innerW);
     }
 
+    protected BufferedImage getImage() {
+        if (image == null) {
+            int w = imageWidth();
+            int h = imageHeight();
+            int t = BufferedImage.TYPE_INT_ARGB;
+            image = new BufferedImage(w, h, t);
+            graphics = image.createGraphics();
+        }
+        return image;
+    }
+
     //-------------------------------------------------------------------------------//
 
     private Screenshot createScreenshot() {
