@@ -1,5 +1,6 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.RuntimeError;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +36,16 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
     protected abstract int imageHeight();
 
     protected abstract boolean imageFull(@Nonnull BufferedImage part);
+
+    //-------------------------------------------------------------------------------//
+
+    protected void sleep() {
+        try {
+            Thread.sleep(options.scrollDelay());
+        } catch (InterruptedException e) {
+            throw new RuntimeError(e);
+        }
+    }
 
     //-------------------------------------------------------------------------------//
 
