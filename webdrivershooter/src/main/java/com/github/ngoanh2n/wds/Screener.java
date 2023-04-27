@@ -142,4 +142,9 @@ public class Screener {
         Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectHeight.js", element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
+
+    public int getElementScrollY(WebElement element) {
+        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollY.js", element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
 }
