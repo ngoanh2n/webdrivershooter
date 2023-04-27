@@ -1,24 +1,34 @@
 package com.github.ngoanh2n.wds;
 
 public interface ShooterOptions {
-    int shooterStrategy();
+    static Builder<?> builder() {
+        return new ShooterOptions.Builder<>();
+    }
 
-    boolean checkDevicePixelRatio();
-
-    int scrollDelay();
+    static ShooterOptions defaults() {
+        return builder().build();
+    }
 
     //-------------------------------------------------------------------------------//
 
+    int scrollDelay();
+
+    int shooterStrategy();
+
+    boolean checkDPR();
+
+    //===============================================================================//
+
     @SuppressWarnings("unchecked")
     class Builder<T extends Builder<?>> {
+        protected int scrollDelay;
         protected int shooterStrategy;
         protected boolean checkDevicePixelRatio;
-        protected int delayDurationForScrolling;
 
         protected Builder() {
+            this.scrollDelay = 400;
             this.shooterStrategy = 4;
             this.checkDevicePixelRatio = true;
-            this.delayDurationForScrolling = 400;
         }
 
         public T shootViewport() {
@@ -26,18 +36,23 @@ public interface ShooterOptions {
             return (T) this;
         }
 
-        public T shootScrollVertical() {
+        public T shootVerticalScroll() {
             this.shooterStrategy = 2;
             return (T) this;
         }
 
-        public T shootScrollHorizontal() {
+        public T shootHorizontalScroll() {
             this.shooterStrategy = 3;
             return (T) this;
         }
 
-        public T shootScrollBothDirection() {
+        public T shootBothDirectionScroll() {
             this.shooterStrategy = 4;
+            return (T) this;
+        }
+
+        public T setScrollDelay(int value) {
+            this.scrollDelay = value;
             return (T) this;
         }
 
@@ -46,25 +61,20 @@ public interface ShooterOptions {
             return (T) this;
         }
 
-        public T setDelayDurationForScrolling(int value) {
-            this.delayDurationForScrolling = value;
-            return (T) this;
-        }
-
         public ShooterOptions build() {
             return new ShooterOptions() {
+                @Override
+                public int scrollDelay() {
+                    return scrollDelay;
+                }
+
                 @Override
                 public int shooterStrategy() {
                     return shooterStrategy;
                 }
 
                 @Override
-                public int scrollDelay() {
-                    return delayDurationForScrolling;
-                }
-
-                @Override
-                public boolean checkDevicePixelRatio() {
+                public boolean checkDPR() {
                     return checkDevicePixelRatio;
                 }
             };
