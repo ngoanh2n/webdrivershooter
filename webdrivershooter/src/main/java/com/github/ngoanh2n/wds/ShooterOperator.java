@@ -47,6 +47,12 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         }
     }
 
+    protected int getPartsY() {
+        int outerH = screener.getOuterRect().getHeight();
+        int innerH = screener.getInnerRect().getHeight();
+        return (int) Math.ceil(((double) outerH) / innerH);
+    }
+
     //-------------------------------------------------------------------------------//
 
     private Screenshot createScreenshot() {
