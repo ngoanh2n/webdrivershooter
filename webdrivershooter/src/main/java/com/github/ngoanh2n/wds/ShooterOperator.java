@@ -20,6 +20,13 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
     protected BufferedImage image;
     protected Graphics2D graphics;
 
+    protected ShooterOperator(Options options, WebDriver driver) {
+        this.options = options;
+        this.driver = driver;
+        this.screener = Screener.page(options.checkDPR(), driver);
+        this.screenshot = createScreenshot();
+    }
+
     //-------------------------------------------------------------------------------//
 
     private Screenshot createScreenshot() {
