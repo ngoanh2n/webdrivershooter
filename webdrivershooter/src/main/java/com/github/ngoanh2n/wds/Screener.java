@@ -127,4 +127,9 @@ public class Screener {
         Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectLeft.js", element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
+
+    public int getElementRectTop(WebElement element) {
+        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectTop.js", element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
 }
