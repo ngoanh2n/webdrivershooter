@@ -6,4 +6,6 @@ public abstract class ShooterStrategy<Options extends ShooterOptions, Operator e
     protected abstract Operator viewport(Options options, WebDriver driver);
 
     protected abstract Operator verticalScroll(Options options, WebDriver driver);
+
+    protected abstract Operator horizontalScroll(Options options, WebDriver driver);
 }
