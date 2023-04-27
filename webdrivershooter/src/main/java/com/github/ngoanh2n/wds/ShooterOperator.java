@@ -77,6 +77,11 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return graphics;
     }
 
+    protected Screenshot getScreenshot() {
+        screenshot.setImage(getImage());
+        return screenshot;
+    }
+
     //-------------------------------------------------------------------------------//
 
     private Screenshot createScreenshot() {
