@@ -176,4 +176,10 @@ public class Screener {
     public void scrollElementIntoView(WebElement element) {
         executeScript(driver, "com/github/ngoanh2n/wds/ScrollElementIntoView.js", element);
     }
+
+    public void scrollElementToPoint(WebElement element, Point point) {
+        double x = point.x / dpr;
+        double y = point.y / dpr;
+        executeScript(driver, "com/github/ngoanh2n/wds/ScrollElementToPoint.js", element, x, y);
+    }
 }
