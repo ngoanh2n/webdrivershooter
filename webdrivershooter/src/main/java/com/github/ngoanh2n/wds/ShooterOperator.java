@@ -31,6 +31,8 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
 
     protected abstract int imageWidth();
 
+    protected abstract int imageHeight();
+
     //-------------------------------------------------------------------------------//
 
     private Screenshot createScreenshot() {
