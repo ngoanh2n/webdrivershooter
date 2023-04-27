@@ -14,4 +14,15 @@ public class Screengle {
         this.location = location;
         this.size = size;
     }
+
+    //-------------------------------------------------------------------------------//
+
+    public static Screengle from(Dimension size) {
+        Point location = new Point(0, 0);
+        return from(location, size);
+    }
+
+    public static Screengle from(Point location, Dimension size) {
+        return new Screengle(location, size);
+    }
 }
