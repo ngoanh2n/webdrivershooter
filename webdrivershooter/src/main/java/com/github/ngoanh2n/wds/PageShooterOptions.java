@@ -15,7 +15,7 @@ public interface PageShooterOptions extends ShooterOptions {
         public PageShooterOptions build() {
             return new PageShooterOptions() {
                 @Override
-                public int delayDurationForScrolling() {
+                public int scrollDelay() {
                     return delayDurationForScrolling;
                 }
 

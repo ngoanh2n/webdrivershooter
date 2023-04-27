@@ -5,7 +5,7 @@ public interface ShooterOptions {
 
     boolean checkDevicePixelRatio();
 
-    int delayDurationForScrolling();
+    int scrollDelay();
 
     //-------------------------------------------------------------------------------//
 
@@ -59,7 +59,7 @@ public interface ShooterOptions {
                 }
 
                 @Override
-                public int delayDurationForScrolling() {
+                public int scrollDelay() {
                     return delayDurationForScrolling;
                 }
 
