@@ -35,4 +35,10 @@ public abstract class PageOperator extends ShooterOperator<PageOptions> {
         int y = screener.getInnerRect().getHeight() * multiplierY;
         getGraphics().drawImage(part, x, y, null);
     }
+
+    protected void mergePartX0(BufferedImage part, int multiplierX) {
+        int x = screener.getInnerRect().getWidth() * multiplierX;
+        int y = 0;
+        getGraphics().drawImage(part, x, y, null);
+    }
 }
