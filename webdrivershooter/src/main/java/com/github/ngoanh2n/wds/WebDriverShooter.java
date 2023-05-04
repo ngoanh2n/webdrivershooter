@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-public abstract class WebDriverShooter<X extends ShooterOptions, Y extends ShooterOperator<X>> extends ShooterStrategy<X, Y> {
+public abstract class WebDriverShooter<Options extends ShooterOptions, Operator extends ShooterOperator<Options>> extends ShooterStrategy<Options, Operator> {
     public static Screenshot page(WebDriver... driver) {
         return WebDriverShooter.page(PageOptions.defaults(), driver);
     }
@@ -40,7 +40,7 @@ public abstract class WebDriverShooter<X extends ShooterOptions, Y extends Shoot
         }
     }
 
-    protected static <X extends ShooterOptions, Y extends ShooterOperator<X>> Screenshot shoot(WebDriverShooter<X, Y> shooter, X options, WebDriver... args) {
+    protected static <Options extends ShooterOptions, Operator extends ShooterOperator<Options>> Screenshot shoot(WebDriverShooter<Options, Operator> shooter, Options options, WebDriver... args) {
         switch (options.shooterStrategy()) {
             case 1:
                 return shooter.shootViewport(options, getDriver(args));
@@ -69,11 +69,11 @@ public abstract class WebDriverShooter<X extends ShooterOptions, Y extends Shoot
         }
     }
 
-    protected abstract Screenshot shootViewport(X options, WebDriver driver);
+    protected abstract Screenshot shootViewport(Options options, WebDriver driver);
 
-    protected abstract Screenshot shootVerticalScroll(X options, WebDriver driver);
+    protected abstract Screenshot shootVerticalScroll(Options options, WebDriver driver);
 
-    protected abstract Screenshot shootHorizontalScroll(X options, WebDriver driver);
+    protected abstract Screenshot shootHorizontalScroll(Options options, WebDriver driver);
 
-    protected abstract Screenshot shootBothDirectionScroll(X options, WebDriver driver);
+    protected abstract Screenshot shootBothDirectionScroll(Options options, WebDriver driver);
 }
