@@ -7,16 +7,96 @@ import java.awt.image.BufferedImage;
 
 class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     @Override
-    protected Screenshot shootViewport(PageOptions options, WebDriver driver) {
-        PageOperator operator = viewport(options, driver);
+    protected PageOperator byScroll0(PageOptions options, WebDriver driver) {
+        return new PageOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getInnerRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getInnerRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageHeight() == part.getHeight(null);
+            }
+        };
+    }
+
+    @Override
+    protected PageOperator byScrollY(PageOptions options, WebDriver driver) {
+        return new PageOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getInnerRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getOuterRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageHeight() == part.getHeight(null);
+            }
+        };
+    }
+
+    @Override
+    protected PageOperator byScrollX(PageOptions options, WebDriver driver) {
+        return new PageOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getOuterRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getInnerRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageWidth() == part.getWidth(null);
+            }
+        };
+    }
+
+    @Override
+    protected PageOperator byScrollXY(PageOptions options, WebDriver driver) {
+        return new PageOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getOuterRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getOuterRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+            }
+        };
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    @Override
+    protected Screenshot shootScroll0(PageOptions options, PageOperator operator, WebDriver driver) {
         BufferedImage part = screenshot(driver);
         operator.mergePart0Y(part, 0);
         return operator.getScreenshot();
     }
 
     @Override
-    protected Screenshot shootVerticalScroll(PageOptions options, WebDriver driver) {
-        PageOperator operator = verticalScroll(options, driver);
+    protected Screenshot shootScrollY(PageOptions options, PageOperator operator, WebDriver driver) {
         int partsY = operator.getPartsY();
 
         for (int partY = 0; partY < partsY; partY++) {
@@ -35,8 +115,7 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     }
 
     @Override
-    protected Screenshot shootHorizontalScroll(PageOptions options, WebDriver driver) {
-        PageOperator operator = horizontalScroll(options, driver);
+    protected Screenshot shootScrollX(PageOptions options, PageOperator operator, WebDriver driver) {
         int partsX = operator.getPartsX();
 
         for (int partX = 0; partX < partsX; partX++) {
@@ -55,8 +134,7 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     }
 
     @Override
-    protected Screenshot shootBothDirectionScroll(PageOptions options, WebDriver driver) {
-        PageOperator operator = bothDirectionScroll(options, driver);
+    protected Screenshot shootScrollXY(PageOptions options, PageOperator operator, WebDriver driver) {
         int partsY = operator.getPartsY();
         int partsX = operator.getPartsX();
 
@@ -77,87 +155,5 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
             }
         }
         return operator.getScreenshot();
-    }
-
-    //-------------------------------------------------------------------------------//
-
-    @Override
-    protected PageOperator viewport(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return screener.getInnerRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return screener.getInnerRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageHeight() == part.getHeight(null);
-            }
-        };
-    }
-
-    @Override
-    protected PageOperator verticalScroll(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return screener.getInnerRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return screener.getOuterRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageHeight() == part.getHeight(null);
-            }
-        };
-    }
-
-    @Override
-    protected PageOperator horizontalScroll(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return screener.getOuterRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return screener.getInnerRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageWidth() == part.getWidth(null);
-            }
-        };
-    }
-
-    @Override
-    protected PageOperator bothDirectionScroll(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return screener.getOuterRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return screener.getOuterRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
-            }
-        };
     }
 }
