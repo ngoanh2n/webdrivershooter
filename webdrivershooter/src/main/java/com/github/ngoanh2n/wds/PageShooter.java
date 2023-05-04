@@ -16,7 +16,22 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
 
     @Override
     protected Screenshot shootVerticalScroll(PageOptions options, WebDriver driver) {
-        return null;
+        PageOperator operator = verticalScroll(options, driver);
+        int partsY = operator.getPartsY();
+
+        for (int partY = 0; partY < partsY; partY++) {
+            operator.scrollSY(partY);
+            operator.sleep();
+
+            BufferedImage part = screenshot(driver);
+            operator.mergePart0Y(part, partY);
+
+            if (operator.imageFull(part)) {
+                operator.getGraphics().dispose();
+                break;
+            }
+        }
+        return operator.getScreenshot();
     }
 
     @Override
@@ -53,7 +68,22 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
 
     @Override
     protected PageOperator verticalScroll(PageOptions options, WebDriver driver) {
-        return null;
+        return new PageOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getInnerRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getOuterRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageHeight() == part.getHeight(null);
+            }
+        };
     }
 
     @Override
