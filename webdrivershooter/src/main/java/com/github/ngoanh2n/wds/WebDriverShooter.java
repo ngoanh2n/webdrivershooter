@@ -13,6 +13,16 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 
 public abstract class WebDriverShooter<X extends ShooterOptions, Y extends ShooterOperator<X>> extends ShooterStrategy<X, Y> {
+    public static Screenshot page(WebDriver... driver) {
+        return WebDriverShooter.page(PageOptions.defaults(), driver);
+    }
+
+    public static Screenshot page(PageOptions options, WebDriver... driver) {
+        return WebDriverShooter.shoot(new PageShooter(), options, driver);
+    }
+
+    //-------------------------------------------------------------------------------//
+
     protected static WebDriver getDriver(WebDriver... args) {
         if (args.length != 0) {
             if (args[0] != null) {
