@@ -41,15 +41,22 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
     }
 
     protected static <Options extends ShooterOptions, Operator extends ShooterOperator<Options>> Screenshot shoot(WebDriverShooter<Options, Operator> shooter, Options options, WebDriver... args) {
+        Operator operator;
+        WebDriver driver = getDriver(args);
+
         switch (options.shooterStrategy()) {
             case 1:
-                return shooter.shootViewport(options, getDriver(args));
+                operator = shooter.byScroll0(options, driver);
+                return shooter.shootScroll0(options, operator, driver);
             case 2:
-                return shooter.shootVerticalScroll(options, getDriver(args));
+                operator = shooter.byScrollY(options, driver);
+                return shooter.shootScrollY(options, operator, driver);
             case 3:
-                return shooter.shootHorizontalScroll(options, getDriver(args));
+                operator = shooter.byScrollX(options, driver);
+                return shooter.shootScrollX(options, operator, driver);
             default:
-                return shooter.shootBothDirectionScroll(options, getDriver(args));
+                operator = shooter.byScrollXY(options, driver);
+                return shooter.shootScrollXY(options, operator, driver);
         }
     }
 
@@ -69,11 +76,11 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         }
     }
 
-    protected abstract Screenshot shootViewport(Options options, WebDriver driver);
+    protected abstract Screenshot shootScroll0(Options options, Operator operator, WebDriver driver);
 
-    protected abstract Screenshot shootVerticalScroll(Options options, WebDriver driver);
+    protected abstract Screenshot shootScrollY(Options options, Operator operator, WebDriver driver);
 
-    protected abstract Screenshot shootHorizontalScroll(Options options, WebDriver driver);
+    protected abstract Screenshot shootScrollX(Options options, Operator operator, WebDriver driver);
 
-    protected abstract Screenshot shootBothDirectionScroll(Options options, WebDriver driver);
+    protected abstract Screenshot shootScrollXY(Options options, Operator operator, WebDriver driver);
 }
