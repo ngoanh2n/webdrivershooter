@@ -3,6 +3,8 @@ package com.github.ngoanh2n.wds;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 
+import java.awt.image.BufferedImage;
+
 public abstract class PageOperator extends ShooterOperator<PageOptions> {
     protected PageOperator(PageOptions options, WebDriver driver) {
         super(options, driver);
@@ -26,5 +28,11 @@ public abstract class PageOperator extends ShooterOperator<PageOptions> {
         int pointX = screener.getInnerRect().getWidth() * multiplierX;
         int pointY = screener.getInnerRect().getHeight() * multiplierY;
         screener.scrollToPoint(new Point(pointX, pointY));
+    }
+
+    protected void mergePart0Y(BufferedImage part, int multiplierY) {
+        int x = 0;
+        int y = screener.getInnerRect().getHeight() * multiplierY;
+        getGraphics().drawImage(part, x, y, null);
     }
 }
