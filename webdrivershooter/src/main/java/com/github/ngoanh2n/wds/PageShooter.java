@@ -2,10 +2,16 @@ package com.github.ngoanh2n.wds;
 
 import org.openqa.selenium.WebDriver;
 
+import javax.annotation.Nonnull;
+import java.awt.image.BufferedImage;
+
 class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     @Override
     protected Screenshot shootViewport(PageOptions options, WebDriver driver) {
-        return null;
+        PageOperator operator = viewport(options, driver);
+        BufferedImage part = screenshot(driver);
+        operator.mergePart0Y(part, 0);
+        return operator.getScreenshot();
     }
 
     @Override
@@ -27,7 +33,22 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
 
     @Override
     protected PageOperator viewport(PageOptions options, WebDriver driver) {
-        return null;
+        return new PageOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getInnerRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getInnerRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageHeight() == part.getHeight(null);
+            }
+        };
     }
 
     @Override
