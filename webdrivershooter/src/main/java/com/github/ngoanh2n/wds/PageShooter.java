@@ -56,7 +56,27 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
 
     @Override
     protected Screenshot shootBothDirectionScroll(PageOptions options, WebDriver driver) {
-        return null;
+        PageOperator operator = bothDirectionScroll(options, driver);
+        int partsY = operator.getPartsY();
+        int partsX = operator.getPartsX();
+
+        for (int partY = 0; partY < partsY; partY++) {
+            operator.scrollXY(0, partY);
+
+            for (int partX = 0; partX < partsX; partX++) {
+                operator.scrollXY(partX, partY);
+                operator.sleep();
+
+                BufferedImage part = screenshot(driver);
+                operator.mergePartSS(part);
+
+                if (operator.imageFull(part)) {
+                    operator.getGraphics().dispose();
+                    break;
+                }
+            }
+        }
+        return operator.getScreenshot();
     }
 
     //-------------------------------------------------------------------------------//
@@ -123,6 +143,21 @@ class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
 
     @Override
     protected PageOperator bothDirectionScroll(PageOptions options, WebDriver driver) {
-        return null;
+        return new PageOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getOuterRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getOuterRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+            }
+        };
     }
 }
