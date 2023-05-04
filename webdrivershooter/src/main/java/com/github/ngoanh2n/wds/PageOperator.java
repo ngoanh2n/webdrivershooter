@@ -15,4 +15,10 @@ public abstract class PageOperator extends ShooterOperator<PageOptions> {
         int pointY = screener.getInnerRect().getHeight() * multiplierY;
         screener.scrollToPoint(new Point(pointX, pointY));
     }
+
+    protected void scrollXS(int multiplierX) {
+        int pointX = screener.getInnerRect().getWidth() * multiplierX;
+        int pointY = screener.getDocumentScrollY();
+        screener.scrollToPoint(new Point(pointX, pointY));
+    }
 }
