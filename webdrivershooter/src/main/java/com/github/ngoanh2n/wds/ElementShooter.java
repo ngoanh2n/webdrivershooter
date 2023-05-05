@@ -48,7 +48,22 @@ class ElementShooter extends WebDriverShooter<ElementOptions, ElementOperator> {
 
     @Override
     protected ElementOperator byScrollX(ElementOptions options, WebDriver driver) {
-        return null;
+        return new ElementOperator(options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getOuterRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getInnerRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageWidth() == part.getWidth(null);
+            }
+        };
     }
 
     @Override
@@ -94,7 +109,22 @@ class ElementShooter extends WebDriverShooter<ElementOptions, ElementOperator> {
 
     @Override
     protected Screenshot shootScrollX(ElementOptions options, ElementOperator operator, WebDriver driver) {
-        return null;
+        int partsX = operator.getPartsX();
+
+        for (int partX = 0; partX < partsX; partX++) {
+            operator.scrollXS(partX);
+            operator.sleep();
+
+            Screenshot screenshot = page(driver);
+            BufferedImage part = screenshot.getImage();
+            operator.mergePartS0(part);
+
+            if (operator.imageFull(part)) {
+                operator.getGraphics().dispose();
+                break;
+            }
+        }
+        return operator.getScreenshot();
     }
 
     @Override
