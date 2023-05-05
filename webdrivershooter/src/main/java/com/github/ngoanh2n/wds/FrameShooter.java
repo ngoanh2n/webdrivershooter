@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import javax.annotation.Nonnull;
 import java.awt.image.BufferedImage;
 
-class FrameShooter extends PageShooter {
+public class FrameShooter extends PageShooter {
     @Override
     protected Screenshot shootScroll0(PageOptions options, PageOperator operator, WebDriver driver) {
         operator.sleep();
