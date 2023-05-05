@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import javax.annotation.Nonnull;
 import java.awt.image.BufferedImage;
 
-class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
+public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     @Override
     protected PageOperator byScroll0(PageOptions options, WebDriver driver) {
         return new PageOperator(options, driver) {
