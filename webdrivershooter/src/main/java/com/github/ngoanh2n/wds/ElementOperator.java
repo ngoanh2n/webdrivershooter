@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.image.BufferedImage;
 
 @ParametersAreNonnullByDefault
 public abstract class ElementOperator extends ShooterOperator<ElementOptions> {
@@ -35,5 +36,13 @@ public abstract class ElementOperator extends ShooterOperator<ElementOptions> {
         int pointX = multiplierX * screener.getInnerRect().getWidth();
         int pointY = multiplierY * screener.getInnerRect().getHeight();
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
+    }
+
+    protected BufferedImage getElementPart(BufferedImage part) {
+        int x = screener.getOuterRect().getX();
+        int y = screener.getOuterRect().getY();
+        int w = screener.getInnerRect().getWidth();
+        int h = screener.getInnerRect().getHeight();
+        return part.getSubimage(x, y, w, h);
     }
 }
