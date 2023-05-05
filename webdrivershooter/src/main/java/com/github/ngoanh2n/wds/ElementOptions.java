@@ -2,11 +2,9 @@ package com.github.ngoanh2n.wds;
 
 import org.openqa.selenium.WebElement;
 
-import java.awt.*;
-
 public interface ElementOptions extends ShooterOptions {
     static Builder builder() {
-        return new ElementOptions.Builder();
+        return new Builder();
     }
 
     static ElementOptions defaults() {
@@ -22,48 +20,26 @@ public interface ElementOptions extends ShooterOptions {
     class Builder extends ShooterOptions.Builder<Builder> {
         private WebElement element;
 
-        private Builder() {
-            super();
-            this.element = null;
-        }
-
         public Builder setElement(WebElement element) {
             this.element = element;
             return this;
         }
 
         public ElementOptions build() {
-            return new ElementOptions() {
-                @Override
-                public WebElement element() {
-                    return element;
-                }
+            return new Defaults(this);
+        }
+    }
 
-                @Override
-                public int scrollDelay() {
-                    return scrollDelay;
-                }
+    //===============================================================================//
 
-                @Override
-                public int shooterStrategy() {
-                    return shooterStrategy;
-                }
+    class Defaults extends ShooterOptions.Defaults implements ElementOptions {
+        protected Defaults(ElementOptions.Builder builder) {
+            super(builder);
+        }
 
-                @Override
-                public boolean checkDPR() {
-                    return checkDevicePixelRatio;
-                }
-
-                @Override
-                public Color decoratedColor() {
-                    return decoratedColor;
-                }
-
-                @Override
-                public WebElement[] ignoredElements() {
-                    return ignoredElements;
-                }
-            };
+        @Override
+        public WebElement element() {
+            return ((ElementOptions.Builder) builder).element;
         }
     }
 }

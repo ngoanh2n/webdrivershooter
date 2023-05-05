@@ -6,7 +6,7 @@ import java.awt.*;
 
 public interface ShooterOptions {
     static Builder<?> builder() {
-        return new ShooterOptions.Builder<>();
+        return new Builder<>();
     }
 
     static ShooterOptions defaults() {
@@ -28,17 +28,17 @@ public interface ShooterOptions {
     //===============================================================================//
 
     @SuppressWarnings("unchecked")
-    class Builder<T extends Builder<?>> {
+    class Builder<T extends Builder<T>> {
         protected int scrollDelay;
         protected int shooterStrategy;
-        protected boolean checkDevicePixelRatio;
+        protected boolean checkDPR;
         protected Color decoratedColor;
         protected WebElement[] ignoredElements;
 
         protected Builder() {
             this.scrollDelay = 400;
             this.shooterStrategy = 4;
-            this.checkDevicePixelRatio = true;
+            this.checkDPR = true;
             this.decoratedColor = Color.GRAY;
         }
 
@@ -68,7 +68,7 @@ public interface ShooterOptions {
         }
 
         public T checkDevicePixelRatio(boolean enabled) {
-            this.checkDevicePixelRatio = enabled;
+            this.checkDPR = enabled;
             return (T) this;
         }
 
@@ -78,32 +78,42 @@ public interface ShooterOptions {
         }
 
         public ShooterOptions build() {
-            return new ShooterOptions() {
-                @Override
-                public int scrollDelay() {
-                    return scrollDelay;
-                }
+            return new Defaults(this);
+        }
+    }
 
-                @Override
-                public int shooterStrategy() {
-                    return shooterStrategy;
-                }
+    //===============================================================================//
 
-                @Override
-                public boolean checkDPR() {
-                    return checkDevicePixelRatio;
-                }
+    class Defaults implements ShooterOptions {
+        protected Builder<?> builder;
 
-                @Override
-                public Color decoratedColor() {
-                    return decoratedColor;
-                }
+        protected Defaults(Builder<?> builder) {
+            this.builder = builder;
+        }
 
-                @Override
-                public WebElement[] ignoredElements() {
-                    return ignoredElements;
-                }
-            };
+        @Override
+        public int scrollDelay() {
+            return builder.scrollDelay;
+        }
+
+        @Override
+        public int shooterStrategy() {
+            return builder.shooterStrategy;
+        }
+
+        @Override
+        public boolean checkDPR() {
+            return builder.checkDPR;
+        }
+
+        @Override
+        public Color decoratedColor() {
+            return builder.decoratedColor;
+        }
+
+        @Override
+        public WebElement[] ignoredElements() {
+            return builder.ignoredElements;
         }
     }
 }
