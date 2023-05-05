@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import javax.annotation.Nonnull;
 import java.awt.image.BufferedImage;
 
-class ElementShooter extends WebDriverShooter<ElementOptions, ElementOperator> {
+public class ElementShooter extends WebDriverShooter<ElementOptions, ElementOperator> {
     @Override
     protected ElementOperator byScroll0(ElementOptions options, WebDriver driver) {
         return new ElementOperator(options, driver) {
