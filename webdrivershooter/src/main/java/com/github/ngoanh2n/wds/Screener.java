@@ -77,7 +77,8 @@ public class Screener {
         if (!checkDPR) {
             return 1.0;
         } else {
-            Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetDevicePixelRatio.js");
+            String resource = "com/github/ngoanh2n/wds/GetDevicePixelRatio.js";
+            Object value = executeScript(driver, resource);
             return value instanceof Double ? (Double) value : (Long) value * 1.0;
         }
     }
@@ -104,37 +105,44 @@ public class Screener {
     //-------------------------------------------------------------------------------//
 
     public int getViewportWidth() {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetViewportWidth.js");
+        String resource = "com/github/ngoanh2n/wds/GetViewportWidth.js";
+        Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getViewportHeight() {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetViewportHeight.js");
+        String resource = "com/github/ngoanh2n/wds/GetViewportHeight.js";
+        Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getDocumentWidth() {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetDocumentWidth.js");
+        String resource = "com/github/ngoanh2n/wds/GetDocumentWidth.js";
+        Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getDocumentHeight() {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetDocumentHeight.js");
+        String resource = "com/github/ngoanh2n/wds/GetDocumentHeight.js";
+        Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getDocumentScrollX() {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetDocumentScrollX.js");
+        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollX.js";
+        Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getDocumentScrollY() {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetDocumentScrollY.js");
+        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollY.js";
+        Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getDocumentScrollBarWidth() {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetDocumentScrollBarWidth.js");
+        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollBarWidth.js";
+        Object value = executeScript(driver, resource);
         int width = (int) (Double.parseDouble(value.toString()) * dpr);
         return Math.max(width, 40);
     }
@@ -142,68 +150,81 @@ public class Screener {
     public void scrollToPoint(Point point) {
         double x = point.x / dpr;
         double y = point.y / dpr;
-        executeScript(driver, "com/github/ngoanh2n/wds/ScrollToPoint.js", x, y);
+        String resource = "com/github/ngoanh2n/wds/ScrollToPoint.js";
+        executeScript(driver, resource, x, y);
     }
 
     //-------------------------------------------------------------------------------//
 
     public int getElementRectLeft(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectLeft.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementRectLeft.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementRectTop(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectTop.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementRectTop.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementRectWidth(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectWidth.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementRectWidth.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementRectHeight(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementRectHeight.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementRectHeight.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementScrollY(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollY.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollY.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementScrollX(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollX.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollX.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementScrollWidth(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollWidth.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollWidth.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementScrollHeight(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollHeight.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollHeight.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementScrollBarWidth(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollBarWidth.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollBarWidth.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public int getElementScrollBarHeight(WebElement element) {
-        Object value = executeScript(driver, "com/github/ngoanh2n/wds/GetElementScrollBarHeight.js", element);
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollBarHeight.js";
+        Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public void scrollElementIntoView(WebElement element) {
-        executeScript(driver, "com/github/ngoanh2n/wds/ScrollElementIntoView.js", element);
+        String resource = "com/github/ngoanh2n/wds/ScrollElementIntoView.js";
+        executeScript(driver, resource, element);
     }
 
     public void scrollElementToPoint(WebElement element, Point point) {
         double x = point.x / dpr;
         double y = point.y / dpr;
-        executeScript(driver, "com/github/ngoanh2n/wds/ScrollElementToPoint.js", element, x, y);
+        String resource = "com/github/ngoanh2n/wds/ScrollElementToPoint.js";
+        executeScript(driver, resource, element, x, y);
     }
 }
