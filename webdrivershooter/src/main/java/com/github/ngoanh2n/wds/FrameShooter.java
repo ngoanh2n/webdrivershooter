@@ -7,6 +7,21 @@ import java.awt.image.BufferedImage;
 
 class FrameShooter extends PageShooter {
     @Override
+    protected Screenshot shootScroll0(PageOptions options, PageOperator operator, WebDriver driver) {
+        operator.sleep();
+
+        BufferedImage part = screenshot(driver);
+        ((FrameOperator) operator).mergePart00(part);
+
+        if (operator.imageFull(part)) {
+            operator.getGraphics().dispose();
+        }
+        return operator.getScreenshot();
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    @Override
     protected PageOperator byScroll0(PageOptions options, WebDriver driver) {
         return new FrameOperator((FrameOptions) options, driver) {
             @Override
