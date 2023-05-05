@@ -60,8 +60,8 @@ public interface FrameOptions extends PageOptions {
                 }
 
                 @Override
-                public WebElement ignoredElement() {
-                    return ignoredElement;
+                public WebElement[] ignoredElements() {
+                    return ignoredElements;
                 }
             };
         }
