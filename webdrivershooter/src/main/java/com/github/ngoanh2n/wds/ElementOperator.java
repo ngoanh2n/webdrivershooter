@@ -59,6 +59,13 @@ public abstract class ElementOperator extends ShooterOperator<ElementOptions> {
         getGraphics().drawImage(part, x, y, null);
     }
 
+    protected void mergePartSS(BufferedImage part) {
+        part = getElementPart(part);
+        int x = screener.getElementScrollX(element);
+        int y = screener.getElementScrollY(element);
+        getGraphics().drawImage(part, x, y, null);
+    }
+
     protected BufferedImage getElementPart(BufferedImage part) {
         int x = screener.getOuterRect().getX();
         int y = screener.getOuterRect().getY();
