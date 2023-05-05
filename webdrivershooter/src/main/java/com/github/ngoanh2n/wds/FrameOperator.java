@@ -24,6 +24,13 @@ public abstract class FrameOperator extends PageOperator {
 
     //-------------------------------------------------------------------------------//
 
+    protected void mergePart00(BufferedImage part) {
+        part = getFramePart(part);
+        getGraphics().drawImage(part, 0, 0, null);
+    }
+
+    //-------------------------------------------------------------------------------//
+
     protected BufferedImage getFramePart(BufferedImage part) {
         int x = framer.getInnerRect().getX();
         int y = framer.getInnerRect().getY();
