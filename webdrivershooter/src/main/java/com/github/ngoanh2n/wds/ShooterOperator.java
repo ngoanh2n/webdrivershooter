@@ -18,15 +18,16 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
     protected Options options;
     protected WebDriver driver;
     protected Screener screener;
-    protected Screenshot screenshot;
     protected BufferedImage image;
     protected Graphics2D graphics;
+    protected Screenshot screenshot;
 
     protected ShooterOperator(Options options, WebDriver driver) {
         this.options = options;
         this.driver = driver;
         this.screener = Screener.page(options.checkDPR(), driver);
-        this.screenshot = createScreenshot();
+        this.initializeImage();
+        this.initializeScreenshot();
     }
 
     //-------------------------------------------------------------------------------//
@@ -59,35 +60,27 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return (int) Math.ceil(((double) outerW) / innerW);
     }
 
-    protected BufferedImage getImage() {
-        if (image == null) {
-            int w = imageWidth();
-            int h = imageHeight();
-            int t = BufferedImage.TYPE_INT_ARGB;
-            image = new BufferedImage(w, h, t);
-            graphics = image.createGraphics();
-        }
-        return image;
-    }
-
     protected Graphics2D getGraphics() {
-        if (graphics == null) {
-            getImage();
-        }
         return graphics;
     }
 
     protected Screenshot getScreenshot() {
-        screenshot.setImage(getImage());
         return screenshot;
     }
 
     //-------------------------------------------------------------------------------//
 
-    private Screenshot createScreenshot() {
+    private void initializeImage() {
+        int w = imageWidth();
+        int h = imageHeight();
+        int t = BufferedImage.TYPE_INT_ARGB;
+        image = new BufferedImage(w, h, t);
+        graphics = image.createGraphics();
+    }
+
+    private void initializeScreenshot() {
         List<Screengle> results = new ArrayList<>();
-        if (options.ignoredElement() != null) {
-            WebElement element = options.ignoredElement();
+        for (WebElement element : options.ignoredElements()) {
             int x = (int) (element.getLocation().getX() * screener.getDPR());
             int y = (int) (element.getLocation().getY() * screener.getDPR());
             int w = (int) (element.getSize().getWidth() * screener.getDPR());
@@ -97,7 +90,8 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
             Dimension size = new Dimension(w, h);
             results.add(Screengle.from(location, size));
         }
-        Color color = options.decoratedColor();
-        return new Screenshot(color, results.toArray(new Screengle[]{}));
+        Color decoratedColor = options.decoratedColor();
+        Screengle[] ignoredScreengles = results.toArray(new Screengle[]{});
+        screenshot = new Screenshot(image, decoratedColor, ignoredScreengles);
     }
 }
