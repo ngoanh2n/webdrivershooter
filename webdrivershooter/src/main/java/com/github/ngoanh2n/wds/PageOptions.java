@@ -1,12 +1,8 @@
 package com.github.ngoanh2n.wds;
 
-import org.openqa.selenium.WebElement;
-
-import java.awt.*;
-
 public interface PageOptions extends ShooterOptions {
     static Builder builder() {
-        return new PageOptions.Builder();
+        return new Builder();
     }
 
     static PageOptions defaults() {
@@ -16,37 +12,16 @@ public interface PageOptions extends ShooterOptions {
     //===============================================================================//
 
     class Builder extends ShooterOptions.Builder<Builder> {
-        private Builder() {
-            super();
-        }
-
         public PageOptions build() {
-            return new PageOptions() {
-                @Override
-                public int scrollDelay() {
-                    return scrollDelay;
-                }
+            return new Defaults(this);
+        }
+    }
 
-                @Override
-                public int shooterStrategy() {
-                    return shooterStrategy;
-                }
+    //===============================================================================//
 
-                @Override
-                public boolean checkDPR() {
-                    return checkDevicePixelRatio;
-                }
-
-                @Override
-                public Color decoratedColor() {
-                    return decoratedColor;
-                }
-
-                @Override
-                public WebElement[] ignoredElements() {
-                    return ignoredElements;
-                }
-            };
+    class Defaults extends ShooterOptions.Defaults implements PageOptions {
+        protected Defaults(PageOptions.Builder builder) {
+            super(builder);
         }
     }
 }
