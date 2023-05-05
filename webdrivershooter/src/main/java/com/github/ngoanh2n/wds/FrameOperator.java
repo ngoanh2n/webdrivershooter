@@ -35,6 +35,12 @@ public abstract class FrameOperator extends PageOperator {
         super.mergePart0Y(part, multiplierY);
     }
 
+    @Override
+    protected void mergePartX0(BufferedImage part, int multiplierX) {
+        part = getFramePart(part);
+        super.mergePartX0(part, multiplierX);
+    }
+
     //-------------------------------------------------------------------------------//
 
     protected BufferedImage getFramePart(BufferedImage part) {
