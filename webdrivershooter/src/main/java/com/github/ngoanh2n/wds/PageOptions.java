@@ -43,8 +43,8 @@ public interface PageOptions extends ShooterOptions {
                 }
 
                 @Override
-                public WebElement ignoredElement() {
-                    return ignoredElement;
+                public WebElement[] ignoredElements() {
+                    return ignoredElements;
                 }
             };
         }

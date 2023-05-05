@@ -23,7 +23,7 @@ public interface ShooterOptions {
 
     Color decoratedColor();
 
-    WebElement ignoredElement();
+    WebElement[] ignoredElements();
 
     //===============================================================================//
 
@@ -33,7 +33,7 @@ public interface ShooterOptions {
         protected int shooterStrategy;
         protected boolean checkDevicePixelRatio;
         protected Color decoratedColor;
-        protected WebElement ignoredElement;
+        protected WebElement[] ignoredElements;
 
         protected Builder() {
             this.scrollDelay = 400;
@@ -72,8 +72,8 @@ public interface ShooterOptions {
             return (T) this;
         }
 
-        public T ignoreElement(WebElement element) {
-            this.ignoredElement = element;
+        public T ignoreElements(WebElement... elements) {
+            this.ignoredElements = elements;
             return (T) this;
         }
 
@@ -100,8 +100,8 @@ public interface ShooterOptions {
                 }
 
                 @Override
-                public WebElement ignoredElement() {
-                    return ignoredElement;
+                public WebElement[] ignoredElements() {
+                    return ignoredElements;
                 }
             };
         }
