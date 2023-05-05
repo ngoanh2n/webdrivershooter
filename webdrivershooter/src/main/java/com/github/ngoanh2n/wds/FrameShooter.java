@@ -25,4 +25,24 @@ class FrameShooter extends PageShooter {
             }
         };
     }
+
+    @Override
+    protected PageOperator byScrollY(PageOptions options, WebDriver driver) {
+        return new FrameOperator((FrameOptions) options, driver) {
+            @Override
+            protected int imageWidth() {
+                return screener.getInnerRect().getWidth();
+            }
+
+            @Override
+            protected int imageHeight() {
+                return screener.getOuterRect().getHeight();
+            }
+
+            @Override
+            protected boolean imageFull(@Nonnull BufferedImage part) {
+                return imageHeight() == part.getHeight(null);
+            }
+        };
+    }
 }
