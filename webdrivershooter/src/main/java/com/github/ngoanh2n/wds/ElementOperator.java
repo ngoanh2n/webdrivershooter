@@ -30,4 +30,10 @@ public abstract class ElementOperator extends ShooterOperator<ElementOptions> {
         int pointY = screener.getElementScrollY(element);
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
     }
+
+    protected void scrollXY(int multiplierX, int multiplierY) {
+        int pointX = multiplierX * screener.getInnerRect().getWidth();
+        int pointY = multiplierY * screener.getInnerRect().getHeight();
+        screener.scrollElementToPoint(element, new Point(pointX, pointY));
+    }
 }
