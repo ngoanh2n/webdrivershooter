@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.image.BufferedImage;
 
 @ParametersAreNonnullByDefault
 public abstract class FrameOperator extends PageOperator {
@@ -19,5 +20,15 @@ public abstract class FrameOperator extends PageOperator {
         this.framer = Screener.element(checkDPR, driver, frame);
         this.driver.switchTo().frame(frame);
         this.screener = Screener.page(checkDPR, driver);
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    protected BufferedImage getFramePart(BufferedImage part) {
+        int x = framer.getInnerRect().getX();
+        int y = framer.getInnerRect().getY();
+        int w = framer.getInnerRect().getWidth();
+        int h = framer.getInnerRect().getHeight();
+        return part.getSubimage(x, y, w, h);
     }
 }
