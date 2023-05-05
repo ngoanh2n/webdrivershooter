@@ -17,8 +17,16 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         return WebDriverShooter.page(PageOptions.defaults(), driver);
     }
 
+    public static Screenshot element(WebDriver... driver) {
+        return WebDriverShooter.element(ElementOptions.defaults(), driver);
+    }
+
     public static Screenshot page(PageOptions options, WebDriver... driver) {
         return WebDriverShooter.shoot(new PageShooter(), options, driver);
+    }
+
+    public static Screenshot element(ElementOptions options, WebDriver... driver) {
+        return WebDriverShooter.shoot(new ElementShooter(), options, driver);
     }
 
     //-------------------------------------------------------------------------------//
