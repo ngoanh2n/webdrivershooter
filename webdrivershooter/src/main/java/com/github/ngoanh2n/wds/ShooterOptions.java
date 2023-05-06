@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import java.awt.*;
 
 public interface ShooterOptions {
-    static Builder<?> builder() {
+    static <T extends Builder<T>> Builder<T> builder() {
         return new Builder<>();
     }
 
@@ -40,6 +40,7 @@ public interface ShooterOptions {
             this.scrollDelay = 400;
             this.shooterStrategy = 4;
             this.maskedColor = Color.GRAY;
+            this.maskedElements = new WebElement[]{};
         }
 
         public T shootViewport() {

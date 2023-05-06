@@ -3,8 +3,11 @@ package com.github.ngoanh2n.wds;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
+@ParametersAreNonnullByDefault
 public abstract class PageOperator extends ShooterOperator<PageOptions> {
     protected PageOperator(PageOptions options, WebDriver driver) {
         super(options, driver);
@@ -46,5 +49,16 @@ public abstract class PageOperator extends ShooterOperator<PageOptions> {
         int x = screener.getDocumentScrollX();
         int y = screener.getDocumentScrollY();
         getGraphics().drawImage(part, x, y, null);
+    }
+
+    @Override
+    protected void initializeScreenshot() {
+        if (!options.isExcepted()) {
+            super.initializeScreenshot();
+        } else {
+            Color maskedColor = options.maskedColor();
+            Screengle[] screengles = getScreengles(options.maskedElements());
+            screenshot = new Screenshot(image, screengles, maskedColor, true);
+        }
     }
 }
