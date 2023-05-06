@@ -79,8 +79,8 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
     }
 
     private void initializeScreenshot() {
-        List<Screengle> results = new ArrayList<>();
-        for (WebElement element : options.ignoredElements()) {
+        List<Screengle> screengles = new ArrayList<>();
+        for (WebElement element : options.maskedElements()) {
             int x = (int) (element.getLocation().getX() * screener.getDPR());
             int y = (int) (element.getLocation().getY() * screener.getDPR());
             int w = (int) (element.getSize().getWidth() * screener.getDPR());
@@ -88,10 +88,10 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
 
             Point location = new Point(x, y);
             Dimension size = new Dimension(w, h);
-            results.add(Screengle.from(location, size));
+            screengles.add(Screengle.from(location, size));
         }
-        Color decoratedColor = options.decoratedColor();
-        Screengle[] ignoredScreengles = results.toArray(new Screengle[]{});
-        screenshot = new Screenshot(image, decoratedColor, ignoredScreengles);
+        Color maskedColor = options.maskedColor();
+        Screengle[] maskedScreengles = screengles.toArray(new Screengle[]{});
+        screenshot = new Screenshot(image, maskedColor, maskedScreengles);
     }
 }
