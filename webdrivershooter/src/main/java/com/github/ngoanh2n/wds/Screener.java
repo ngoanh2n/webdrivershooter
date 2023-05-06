@@ -1,16 +1,19 @@
 package com.github.ngoanh2n.wds;
 
 import com.github.ngoanh2n.Resource;
-import org.openqa.selenium.*;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.*;
 
 @ParametersAreNonnullByDefault
 public class Screener {
     private final double dpr;
     private final WebDriver driver;
-    private final Screengle innerRect;
-    private final Screengle outerRect;
+    private final Rectangle innerRect;
+    private final Rectangle outerRect;
 
     public Screener(boolean checkDPR, WebDriver driver) {
         this.dpr = getDPR(checkDPR, driver);
@@ -30,8 +33,8 @@ public class Screener {
             innerW = innerW - outerSBW;
         }
 
-        this.innerRect = Screengle.from(new Dimension(innerW, innerH));
-        this.outerRect = Screengle.from(new Dimension(outerW, outerH));
+        this.innerRect = new Rectangle(new Dimension(innerW, innerH));
+        this.outerRect = new Rectangle(new Dimension(outerW, outerH));
     }
 
     public Screener(boolean checkDPR, WebDriver driver, WebElement element) {
@@ -57,8 +60,8 @@ public class Screener {
             innerW = innerW - outerSBW;
         }
 
-        this.innerRect = Screengle.from(new Point(innerX, innerY), new Dimension(innerW, innerH));
-        this.outerRect = Screengle.from(new Point(outerX, outerY), new Dimension(outerW, outerH));
+        this.innerRect = new Rectangle(new Point(innerX, innerY), new Dimension(innerW, innerH));
+        this.outerRect = new Rectangle(new Point(outerX, outerY), new Dimension(outerW, outerH));
     }
 
     //-------------------------------------------------------------------------------//
@@ -94,11 +97,11 @@ public class Screener {
         return dpr;
     }
 
-    public Screengle getInnerRect() {
+    public Rectangle getInnerRect() {
         return innerRect;
     }
 
-    public Screengle getOuterRect() {
+    public Rectangle getOuterRect() {
         return outerRect;
     }
 

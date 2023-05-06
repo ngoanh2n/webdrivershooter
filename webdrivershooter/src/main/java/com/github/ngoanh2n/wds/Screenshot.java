@@ -7,16 +7,16 @@ import java.awt.image.BufferedImage;
 @ParametersAreNonnullByDefault
 public class Screenshot {
     private final BufferedImage image;
-    private final Screengle[] screengles;
+    private final Rectangle[] rectangles;
     private final Color maskedColor;
     private final boolean isExcepted;
     private final boolean isMasked;
     private BufferedImage maskedImage;
     private Graphics2D maskedGraphics;
 
-    public Screenshot(BufferedImage image, Screengle[] screengles, Color maskedColor, boolean isExcepted) {
+    public Screenshot(BufferedImage image, Rectangle[] rectangles, Color maskedColor, boolean isExcepted) {
         this.image = image;
-        this.screengles = screengles;
+        this.rectangles = rectangles;
         this.maskedColor = maskedColor;
         this.isExcepted = isExcepted;
         this.isMasked = false;
@@ -34,15 +34,15 @@ public class Screenshot {
             drawMaskedImage();
             if (isExcepted) {
                 maskedImage = maskImage(maskedImage);
-                for (Screengle screengle : screengles) {
-                    BufferedImage elementImage = cutImage(screengle);
-                    drawElementOverMaskedImage(elementImage, screengle);
+                for (Rectangle rectangle : rectangles) {
+                    BufferedImage elementImage = cutImage(rectangle);
+                    drawElementOverMaskedImage(elementImage, rectangle);
                 }
             } else {
-                for (Screengle screengle : screengles) {
-                    BufferedImage elementImage = cutImage(screengle);
+                for (Rectangle rectangle : rectangles) {
+                    BufferedImage elementImage = cutImage(rectangle);
                     elementImage = maskImage(elementImage);
-                    drawElementOverMaskedImage(elementImage, screengle);
+                    drawElementOverMaskedImage(elementImage, rectangle);
                 }
             }
             disposeMaskedImage();
@@ -52,11 +52,11 @@ public class Screenshot {
 
     //-------------------------------------------------------------------------------//
 
-    protected BufferedImage cutImage(Screengle screengle) {
-        int x = screengle.getX();
-        int y = screengle.getY();
-        int w = screengle.getWidth();
-        int h = screengle.getHeight();
+    protected BufferedImage cutImage(Rectangle rectangle) {
+        int x = (int) rectangle.getX();
+        int y = (int) rectangle.getY();
+        int w = (int) rectangle.getWidth();
+        int h = (int) rectangle.getHeight();
         int t = BufferedImage.TYPE_INT_ARGB;
 
         BufferedImage eImage = new BufferedImage(w, h, t);
@@ -82,9 +82,9 @@ public class Screenshot {
         maskedGraphics.dispose();
     }
 
-    protected void drawElementOverMaskedImage(BufferedImage elementImage, Screengle screengle) {
+    protected void drawElementOverMaskedImage(BufferedImage elementImage, Rectangle rectangle) {
         maskedGraphics.drawImage(maskedImage, 0, 0, null);
-        maskedGraphics.drawImage(elementImage, screengle.getX(), screengle.getY(), null);
+        maskedGraphics.drawImage(elementImage, (int) rectangle.getX(), (int) rectangle.getY(), null);
     }
 
     //-------------------------------------------------------------------------------//

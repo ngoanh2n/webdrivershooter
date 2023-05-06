@@ -1,9 +1,9 @@
 package com.github.ngoanh2n.wds;
 
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 @ParametersAreNonnullByDefault
@@ -16,30 +16,30 @@ public abstract class PageOperator extends ShooterOperator<PageOptions> {
 
     protected void scrollSY(int multiplierY) {
         int pointX = screener.getDocumentScrollX();
-        int pointY = screener.getInnerRect().getHeight() * multiplierY;
+        int pointY = (int) screener.getInnerRect().getHeight() * multiplierY;
         screener.scrollToPoint(new Point(pointX, pointY));
     }
 
     protected void scrollXS(int multiplierX) {
-        int pointX = screener.getInnerRect().getWidth() * multiplierX;
+        int pointX = (int) screener.getInnerRect().getWidth() * multiplierX;
         int pointY = screener.getDocumentScrollY();
         screener.scrollToPoint(new Point(pointX, pointY));
     }
 
     protected void scrollXY(int multiplierX, int multiplierY) {
-        int pointX = screener.getInnerRect().getWidth() * multiplierX;
-        int pointY = screener.getInnerRect().getHeight() * multiplierY;
+        int pointX = (int) screener.getInnerRect().getWidth() * multiplierX;
+        int pointY = (int) screener.getInnerRect().getHeight() * multiplierY;
         screener.scrollToPoint(new Point(pointX, pointY));
     }
 
     protected void mergePart0Y(BufferedImage part, int multiplierY) {
         int x = 0;
-        int y = screener.getInnerRect().getHeight() * multiplierY;
+        int y = (int) screener.getInnerRect().getHeight() * multiplierY;
         getGraphics().drawImage(part, x, y, null);
     }
 
     protected void mergePartX0(BufferedImage part, int multiplierX) {
-        int x = screener.getInnerRect().getWidth() * multiplierX;
+        int x = (int) screener.getInnerRect().getWidth() * multiplierX;
         int y = 0;
         getGraphics().drawImage(part, x, y, null);
     }

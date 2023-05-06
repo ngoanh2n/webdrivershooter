@@ -50,10 +50,10 @@ public abstract class FrameOperator extends PageOperator {
     //-------------------------------------------------------------------------------//
 
     protected BufferedImage getFramePart(BufferedImage part) {
-        int x = framer.getInnerRect().getX();
-        int y = framer.getInnerRect().getY();
-        int w = framer.getInnerRect().getWidth();
-        int h = framer.getInnerRect().getHeight();
+        int x = (int) framer.getInnerRect().getX();
+        int y = (int) framer.getInnerRect().getY();
+        int w = (int) framer.getInnerRect().getWidth();
+        int h = (int) framer.getInnerRect().getHeight();
         return part.getSubimage(x, y, w, h);
     }
 }

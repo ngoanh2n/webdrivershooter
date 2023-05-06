@@ -1,10 +1,10 @@
 package com.github.ngoanh2n.wds;
 
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 @ParametersAreNonnullByDefault
@@ -22,19 +22,19 @@ public abstract class ElementOperator extends ShooterOperator<ElementOptions> {
 
     protected void scrollSY(int multiplierY) {
         int pointX = screener.getElementScrollX(element);
-        int pointY = multiplierY * screener.getInnerRect().getHeight();
+        int pointY = (int) (multiplierY * screener.getInnerRect().getHeight());
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
     }
 
     protected void scrollXS(int multiplierX) {
-        int pointX = multiplierX * screener.getInnerRect().getWidth();
+        int pointX = (int) (multiplierX * screener.getInnerRect().getWidth());
         int pointY = screener.getElementScrollY(element);
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
     }
 
     protected void scrollXY(int multiplierX, int multiplierY) {
-        int pointX = multiplierX * screener.getInnerRect().getWidth();
-        int pointY = multiplierY * screener.getInnerRect().getHeight();
+        int pointX = (int) (multiplierX * screener.getInnerRect().getWidth());
+        int pointY = (int) (multiplierY * screener.getInnerRect().getHeight());
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
     }
 
@@ -67,10 +67,10 @@ public abstract class ElementOperator extends ShooterOperator<ElementOptions> {
     }
 
     protected BufferedImage getElementPart(BufferedImage part) {
-        int x = screener.getOuterRect().getX();
-        int y = screener.getOuterRect().getY();
-        int w = screener.getInnerRect().getWidth();
-        int h = screener.getInnerRect().getHeight();
+        int x = (int) screener.getOuterRect().getX();
+        int y = (int) screener.getOuterRect().getY();
+        int w = (int) screener.getInnerRect().getWidth();
+        int h = (int) screener.getInnerRect().getHeight();
         return part.getSubimage(x, y, w, h);
     }
 }
