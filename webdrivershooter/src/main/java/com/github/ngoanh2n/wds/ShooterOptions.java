@@ -15,31 +15,31 @@ public interface ShooterOptions {
 
     //-------------------------------------------------------------------------------//
 
+    boolean checkDPR();
+
     int scrollDelay();
 
     int shooterStrategy();
 
-    boolean checkDPR();
+    Color maskedColor();
 
-    Color decoratedColor();
-
-    WebElement[] ignoredElements();
+    WebElement[] maskedElements();
 
     //===============================================================================//
 
     @SuppressWarnings("unchecked")
     class Builder<T extends Builder<T>> {
+        protected boolean checkDPR;
         protected int scrollDelay;
         protected int shooterStrategy;
-        protected boolean checkDPR;
-        protected Color decoratedColor;
-        protected WebElement[] ignoredElements;
+        protected Color maskedColor;
+        protected WebElement[] maskedElements;
 
         protected Builder() {
+            this.checkDPR = true;
             this.scrollDelay = 400;
             this.shooterStrategy = 4;
-            this.checkDPR = true;
-            this.decoratedColor = Color.GRAY;
+            this.maskedColor = Color.GRAY;
         }
 
         public T shootViewport() {
@@ -62,18 +62,23 @@ public interface ShooterOptions {
             return (T) this;
         }
 
-        public T setScrollDelay(int value) {
-            this.scrollDelay = value;
-            return (T) this;
-        }
-
         public T checkDevicePixelRatio(boolean enabled) {
             this.checkDPR = enabled;
             return (T) this;
         }
 
+        public T setScrollDelay(int value) {
+            this.scrollDelay = value;
+            return (T) this;
+        }
+
+        public T setMaskedColor(Color color) {
+            this.maskedColor = color;
+            return (T) this;
+        }
+
         public T ignoreElements(WebElement... elements) {
-            this.ignoredElements = elements;
+            this.maskedElements = elements;
             return (T) this;
         }
 
@@ -92,6 +97,11 @@ public interface ShooterOptions {
         }
 
         @Override
+        public boolean checkDPR() {
+            return builder.checkDPR;
+        }
+
+        @Override
         public int scrollDelay() {
             return builder.scrollDelay;
         }
@@ -102,18 +112,13 @@ public interface ShooterOptions {
         }
 
         @Override
-        public boolean checkDPR() {
-            return builder.checkDPR;
+        public Color maskedColor() {
+            return builder.maskedColor;
         }
 
         @Override
-        public Color decoratedColor() {
-            return builder.decoratedColor;
-        }
-
-        @Override
-        public WebElement[] ignoredElements() {
-            return builder.ignoredElements;
+        public WebElement[] maskedElements() {
+            return builder.maskedElements;
         }
     }
 }
