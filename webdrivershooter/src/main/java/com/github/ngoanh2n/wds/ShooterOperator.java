@@ -40,12 +40,6 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
 
     //-------------------------------------------------------------------------------//
 
-    protected void initializeScreenshot() {
-        Color maskedColor = options.maskedColor();
-        Screengle[] screengles = getScreengles(options.maskedElements());
-        screenshot = new Screenshot(image, screengles, maskedColor);
-    }
-
     protected void sleep() {
         try {
             Thread.sleep(options.scrollDelay());
@@ -97,5 +91,12 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         int t = BufferedImage.TYPE_INT_ARGB;
         image = new BufferedImage(w, h, t);
         graphics = image.createGraphics();
+    }
+
+    private void initializeScreenshot() {
+        Color maskedColor = options.maskedColor();
+        boolean isExcepted = options.isExcepted();
+        Screengle[] screengles = getScreengles(options.elements());
+        screenshot = new Screenshot(image, screengles, maskedColor, isExcepted);
     }
 }
