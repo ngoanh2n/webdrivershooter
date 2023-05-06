@@ -23,7 +23,9 @@ public interface ShooterOptions {
 
     Color maskedColor();
 
-    WebElement[] maskedElements();
+    WebElement[] elements();
+
+    boolean isExcepted();
 
     //===============================================================================//
 
@@ -33,14 +35,16 @@ public interface ShooterOptions {
         protected int scrollDelay;
         protected int shooterStrategy;
         protected Color maskedColor;
-        protected WebElement[] maskedElements;
+        protected WebElement[] elements;
+        protected boolean isExcepted;
 
         protected Builder() {
             this.checkDPR = true;
             this.scrollDelay = 400;
             this.shooterStrategy = 4;
             this.maskedColor = Color.GRAY;
-            this.maskedElements = new WebElement[]{};
+            this.elements = new WebElement[]{};
+            this.isExcepted = false;
         }
 
         public T shootViewport() {
@@ -79,7 +83,14 @@ public interface ShooterOptions {
         }
 
         public T ignoreElements(WebElement... elements) {
-            this.maskedElements = elements;
+            this.isExcepted = false;
+            this.elements = elements;
+            return (T) this;
+        }
+
+        public T ignoreExceptingElements(WebElement... elements) {
+            this.isExcepted = true;
+            this.elements = elements;
             return (T) this;
         }
 
@@ -118,8 +129,13 @@ public interface ShooterOptions {
         }
 
         @Override
-        public WebElement[] maskedElements() {
-            return builder.maskedElements;
+        public WebElement[] elements() {
+            return builder.elements;
+        }
+
+        @Override
+        public boolean isExcepted() {
+            return builder.isExcepted;
         }
     }
 }

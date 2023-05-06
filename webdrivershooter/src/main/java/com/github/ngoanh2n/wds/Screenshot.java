@@ -14,10 +14,6 @@ public class Screenshot {
     private BufferedImage maskedImage;
     private Graphics2D maskedGraphics;
 
-    public Screenshot(BufferedImage image, Screengle[] screengles, Color maskedColor) {
-        this(image, screengles, maskedColor, false);
-    }
-
     public Screenshot(BufferedImage image, Screengle[] screengles, Color maskedColor, boolean isExcepted) {
         this.image = image;
         this.screengles = screengles;
