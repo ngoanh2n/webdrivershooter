@@ -17,7 +17,7 @@ public interface FrameOptions extends PageOptions {
 
     //===============================================================================//
 
-    class Builder extends ShooterOptions.Builder<Builder> {
+    class Builder extends PageOptions.Builder<Builder> {
         private WebElement frame;
 
         public Builder setFrame(WebElement frame) {
@@ -32,7 +32,7 @@ public interface FrameOptions extends PageOptions {
 
     //===============================================================================//
 
-    class Defaults extends ShooterOptions.Defaults implements FrameOptions {
+    class Defaults extends PageOptions.Defaults implements FrameOptions {
         protected Defaults(FrameOptions.Builder builder) {
             super(builder);
         }

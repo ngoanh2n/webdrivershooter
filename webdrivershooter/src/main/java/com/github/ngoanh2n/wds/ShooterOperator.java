@@ -40,6 +40,12 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
 
     //-------------------------------------------------------------------------------//
 
+    protected void initializeScreenshot() {
+        Color maskedColor = options.maskedColor();
+        Screengle[] screengles = getScreengles(options.maskedElements());
+        screenshot = new Screenshot(image, screengles, maskedColor);
+    }
+
     protected void sleep() {
         try {
             Thread.sleep(options.scrollDelay());
@@ -68,19 +74,9 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return screenshot;
     }
 
-    //-------------------------------------------------------------------------------//
-
-    private void initializeImage() {
-        int w = imageWidth();
-        int h = imageHeight();
-        int t = BufferedImage.TYPE_INT_ARGB;
-        image = new BufferedImage(w, h, t);
-        graphics = image.createGraphics();
-    }
-
-    private void initializeScreenshot() {
+    protected Screengle[] getScreengles(WebElement... elements) {
         List<Screengle> screengles = new ArrayList<>();
-        for (WebElement element : options.maskedElements()) {
+        for (WebElement element : elements) {
             int x = (int) (element.getLocation().getX() * screener.getDPR());
             int y = (int) (element.getLocation().getY() * screener.getDPR());
             int w = (int) (element.getSize().getWidth() * screener.getDPR());
@@ -90,8 +86,16 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
             Dimension size = new Dimension(w, h);
             screengles.add(Screengle.from(location, size));
         }
-        Color maskedColor = options.maskedColor();
-        Screengle[] maskedScreengles = screengles.toArray(new Screengle[]{});
-        screenshot = new Screenshot(image, maskedColor, maskedScreengles);
+        return screengles.toArray(new Screengle[]{});
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    private void initializeImage() {
+        int w = imageWidth();
+        int h = imageHeight();
+        int t = BufferedImage.TYPE_INT_ARGB;
+        image = new BufferedImage(w, h, t);
+        graphics = image.createGraphics();
     }
 }

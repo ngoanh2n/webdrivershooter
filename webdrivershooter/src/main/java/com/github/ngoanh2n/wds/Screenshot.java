@@ -7,17 +7,23 @@ import java.awt.image.BufferedImage;
 @ParametersAreNonnullByDefault
 public class Screenshot {
     private final BufferedImage image;
-    private final boolean isMasked;
+    private final Screengle[] screengles;
     private final Color maskedColor;
-    private final Screengle[] maskedScreengles;
+    private final boolean isExcepted;
+    private final boolean isMasked;
     private BufferedImage maskedImage;
     private Graphics2D maskedGraphics;
 
-    public Screenshot(BufferedImage image, Color maskedColor, Screengle[] maskedScreengles) {
+    public Screenshot(BufferedImage image, Screengle[] screengles, Color maskedColor) {
+        this(image, screengles, maskedColor, false);
+    }
+
+    public Screenshot(BufferedImage image, Screengle[] screengles, Color maskedColor, boolean isExcepted) {
         this.image = image;
-        this.isMasked = false;
+        this.screengles = screengles;
         this.maskedColor = maskedColor;
-        this.maskedScreengles = maskedScreengles;
+        this.isExcepted = isExcepted;
+        this.isMasked = false;
         this.initializeMaskedImage();
     }
 
@@ -29,13 +35,21 @@ public class Screenshot {
 
     public BufferedImage getMaskedImage() {
         if (!isMasked) {
-            maskedGraphics.drawImage(image, 0, 0, null);
-            for (Screengle maskedScreengle : maskedScreengles) {
-                BufferedImage elementImage = cutImage(maskedScreengle);
-                BufferedImage maskedElementImage = maskImage(elementImage);
-                drawElementOverMaskedImage(maskedScreengle, maskedElementImage);
+            drawMaskedImage();
+            if (isExcepted) {
+                maskedImage = maskImage(maskedImage);
+                for (Screengle screengle : screengles) {
+                    BufferedImage elementImage = cutImage(screengle);
+                    drawElementOverMaskedImage(elementImage, screengle);
+                }
+            } else {
+                for (Screengle screengle : screengles) {
+                    BufferedImage elementImage = cutImage(screengle);
+                    elementImage = maskImage(elementImage);
+                    drawElementOverMaskedImage(elementImage, screengle);
+                }
             }
-            maskedGraphics.dispose();
+            disposeMaskedImage();
         }
         return maskedImage;
     }
@@ -51,7 +65,7 @@ public class Screenshot {
 
         BufferedImage eImage = new BufferedImage(w, h, t);
         Graphics graphics = eImage.getGraphics();
-        graphics.drawImage(image, x, y, null);
+        graphics.drawImage(image, 0, 0, w, h, x, y, w + x, h + y, null);
         graphics.dispose();
         return eImage;
     }
@@ -64,7 +78,15 @@ public class Screenshot {
         return image;
     }
 
-    protected void drawElementOverMaskedImage(Screengle screengle, BufferedImage elementImage) {
+    protected void drawMaskedImage() {
+        maskedGraphics.drawImage(image, 0, 0, null);
+    }
+
+    protected void disposeMaskedImage() {
+        maskedGraphics.dispose();
+    }
+
+    protected void drawElementOverMaskedImage(BufferedImage elementImage, Screengle screengle) {
         maskedGraphics.drawImage(maskedImage, 0, 0, null);
         maskedGraphics.drawImage(elementImage, screengle.getX(), screengle.getY(), null);
     }
