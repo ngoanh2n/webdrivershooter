@@ -1,8 +1,6 @@
 package com.github.ngoanh2n.wds;
 
 import com.github.ngoanh2n.RuntimeError;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -49,14 +47,14 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
     }
 
     protected int getPartsY() {
-        int outerH = screener.getOuterRect().getHeight();
-        int innerH = screener.getInnerRect().getHeight();
+        int outerH = (int) screener.getOuterRect().getHeight();
+        int innerH = (int) screener.getInnerRect().getHeight();
         return (int) Math.ceil(((double) outerH) / innerH);
     }
 
     protected int getPartsX() {
-        int outerW = screener.getOuterRect().getWidth();
-        int innerW = screener.getInnerRect().getWidth();
+        int outerW = (int) screener.getOuterRect().getWidth();
+        int innerW = (int) screener.getInnerRect().getWidth();
         return (int) Math.ceil(((double) outerW) / innerW);
     }
 
@@ -68,8 +66,8 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return screenshot;
     }
 
-    protected Screengle[] getScreengles(WebElement... elements) {
-        List<Screengle> screengles = new ArrayList<>();
+    protected Rectangle[] getRectangles(WebElement... elements) {
+        List<Rectangle> rectangles = new ArrayList<>();
         for (WebElement element : elements) {
             int x = (int) (element.getLocation().getX() * screener.getDPR());
             int y = (int) (element.getLocation().getY() * screener.getDPR());
@@ -78,9 +76,9 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
 
             Point location = new Point(x, y);
             Dimension size = new Dimension(w, h);
-            screengles.add(Screengle.from(location, size));
+            rectangles.add(new Rectangle(location, size));
         }
-        return screengles.toArray(new Screengle[]{});
+        return rectangles.toArray(new Rectangle[]{});
     }
 
     //-------------------------------------------------------------------------------//
@@ -96,7 +94,7 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
     private void initializeScreenshot() {
         Color maskedColor = options.maskedColor();
         boolean isExcepted = options.isExcepted();
-        Screengle[] screengles = getScreengles(options.elements());
-        screenshot = new Screenshot(image, screengles, maskedColor, isExcepted);
+        Rectangle[] rectangles = getRectangles(options.elements());
+        screenshot = new Screenshot(image, rectangles, maskedColor, isExcepted);
     }
 }

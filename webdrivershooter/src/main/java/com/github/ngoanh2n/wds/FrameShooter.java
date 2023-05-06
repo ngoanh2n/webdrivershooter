@@ -26,12 +26,12 @@ public class FrameShooter extends PageShooter {
         return new FrameOperator((FrameOptions) options, driver) {
             @Override
             protected int imageWidth() {
-                return framer.getInnerRect().getWidth();
+                return (int) framer.getInnerRect().getWidth();
             }
 
             @Override
             protected int imageHeight() {
-                return framer.getInnerRect().getHeight();
+                return (int) framer.getInnerRect().getHeight();
             }
 
             @Override
@@ -46,12 +46,12 @@ public class FrameShooter extends PageShooter {
         return new FrameOperator((FrameOptions) options, driver) {
             @Override
             protected int imageWidth() {
-                return screener.getInnerRect().getWidth();
+                return (int) screener.getInnerRect().getWidth();
             }
 
             @Override
             protected int imageHeight() {
-                return screener.getOuterRect().getHeight();
+                return (int) screener.getOuterRect().getHeight();
             }
 
             @Override
@@ -66,12 +66,12 @@ public class FrameShooter extends PageShooter {
         return new FrameOperator((FrameOptions) options, driver) {
             @Override
             protected int imageWidth() {
-                return screener.getOuterRect().getWidth();
+                return (int) screener.getOuterRect().getWidth();
             }
 
             @Override
             protected int imageHeight() {
-                return screener.getInnerRect().getHeight();
+                return (int) screener.getInnerRect().getHeight();
             }
 
             @Override
@@ -86,12 +86,12 @@ public class FrameShooter extends PageShooter {
         return new FrameOperator((FrameOptions) options, driver) {
             @Override
             protected int imageWidth() {
-                return screener.getOuterRect().getWidth();
+                return (int) screener.getOuterRect().getWidth();
             }
 
             @Override
             protected int imageHeight() {
-                return screener.getOuterRect().getHeight();
+                return (int) screener.getOuterRect().getHeight();
             }
 
             @Override
