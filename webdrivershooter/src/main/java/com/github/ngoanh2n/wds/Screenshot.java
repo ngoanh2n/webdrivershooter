@@ -29,14 +29,11 @@ public class Screenshot {
 
     public BufferedImage getMaskedImage() {
         if (!isMasked) {
-            if (maskedScreengles.length == 0) {
-                maskedImage = image;
-            } else {
-                for (Screengle maskedScreengle : maskedScreengles) {
-                    BufferedImage elementImage = cutImage(maskedScreengle);
-                    BufferedImage maskedElementImage = maskImage(elementImage);
-                    drawElementOverMaskedImage(maskedScreengle, maskedElementImage);
-                }
+            maskedGraphics.drawImage(image, 0, 0, null);
+            for (Screengle maskedScreengle : maskedScreengles) {
+                BufferedImage elementImage = cutImage(maskedScreengle);
+                BufferedImage maskedElementImage = maskImage(elementImage);
+                drawElementOverMaskedImage(maskedScreengle, maskedElementImage);
             }
             maskedGraphics.dispose();
         }
@@ -80,6 +77,5 @@ public class Screenshot {
         int t = BufferedImage.TYPE_INT_ARGB;
         maskedImage = new BufferedImage(w, h, t);
         maskedGraphics = maskedImage.createGraphics();
-        maskedGraphics.drawImage(image, 0, 0, null);
     }
 }
