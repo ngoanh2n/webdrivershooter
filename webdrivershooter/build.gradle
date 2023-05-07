@@ -3,5 +3,6 @@
  */
 dependencies {
     implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
+    implementation("com.github.ngoanh2n:image-comparator:$versionImageComparator")
     testImplementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
 }
