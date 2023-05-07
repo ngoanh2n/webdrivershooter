@@ -4,6 +4,7 @@ import com.github.ngoanh2n.RuntimeError;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,23 +15,29 @@ import java.util.ServiceLoader;
 
 public abstract class WebDriverShooter<Options extends ShooterOptions, Operator extends ShooterOperator<Options>> extends ShooterStrategy<Options, Operator> {
     public static Screenshot page(WebDriver... driver) {
-        return WebDriverShooter.page(PageOptions.defaults(), driver);
+        PageOptions options = PageOptions.defaults();
+        return WebDriverShooter.page(options, driver);
     }
 
-    public static Screenshot frame(WebDriver... driver) {
-        return WebDriverShooter.frame(FrameOptions.defaults(), driver);
-    }
-
-    public static Screenshot element(WebDriver... driver) {
-        return WebDriverShooter.element(ElementOptions.defaults(), driver);
+    public static Screenshot page(WebElement[] ignoredElements, WebDriver... driver) {
+        PageOptions options = PageOptions.builder().ignoreElements(ignoredElements).build();
+        return WebDriverShooter.page(options, driver);
     }
 
     public static Screenshot page(PageOptions options, WebDriver... driver) {
         return WebDriverShooter.shoot(new PageShooter(), options, driver);
     }
 
+    public static Screenshot frame(WebDriver... driver) {
+        return WebDriverShooter.frame(FrameOptions.defaults(), driver);
+    }
+
     public static Screenshot frame(FrameOptions options, WebDriver... driver) {
         return WebDriverShooter.shoot(new FrameShooter(), options, driver);
+    }
+
+    public static Screenshot element(WebDriver... driver) {
+        return WebDriverShooter.element(ElementOptions.defaults(), driver);
     }
 
     public static Screenshot element(ElementOptions options, WebDriver... driver) {
