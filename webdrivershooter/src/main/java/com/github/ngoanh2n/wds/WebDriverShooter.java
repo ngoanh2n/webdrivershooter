@@ -19,8 +19,8 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         return WebDriverShooter.page(options, driver);
     }
 
-    public static Screenshot page(WebElement[] ignoredElements, WebDriver... driver) {
-        PageOptions options = PageOptions.builder().ignoreElements(ignoredElements).build();
+    public static Screenshot page(WebElement[] elementsToIgnore, WebDriver... driver) {
+        PageOptions options = PageOptions.builder().ignoreElements(elementsToIgnore).build();
         return WebDriverShooter.page(options, driver);
     }
 
@@ -29,7 +29,18 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
     }
 
     public static Screenshot frame(WebDriver... driver) {
-        return WebDriverShooter.frame(FrameOptions.defaults(), driver);
+        FrameOptions options = FrameOptions.defaults();
+        return WebDriverShooter.frame(options, driver);
+    }
+
+    public static Screenshot frame(WebElement frame, WebDriver... driver) {
+        FrameOptions options = FrameOptions.builder().setFrame(frame).build();
+        return WebDriverShooter.frame(options, driver);
+    }
+
+    public static Screenshot frame(WebElement frame, WebElement[] elementsToIgnore, WebDriver... driver) {
+        FrameOptions options = FrameOptions.builder().setFrame(frame).ignoreElements(elementsToIgnore).build();
+        return WebDriverShooter.frame(options, driver);
     }
 
     public static Screenshot frame(FrameOptions options, WebDriver... driver) {
