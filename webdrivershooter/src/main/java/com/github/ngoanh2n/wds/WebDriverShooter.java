@@ -28,11 +28,6 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         return WebDriverShooter.shoot(new PageShooter(), options, driver);
     }
 
-    public static Screenshot frame(WebDriver... driver) {
-        FrameOptions options = FrameOptions.defaults();
-        return WebDriverShooter.frame(options, driver);
-    }
-
     public static Screenshot frame(WebElement frame, WebDriver... driver) {
         FrameOptions options = FrameOptions.builder().setFrame(frame).build();
         return WebDriverShooter.frame(options, driver);
@@ -47,8 +42,14 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         return WebDriverShooter.shoot(new FrameShooter(), options, driver);
     }
 
-    public static Screenshot element(WebDriver... driver) {
-        return WebDriverShooter.element(ElementOptions.defaults(), driver);
+    public static Screenshot element(WebElement element, WebDriver... driver) {
+        ElementOptions options = ElementOptions.builder().setElement(element).build();
+        return WebDriverShooter.element(options, driver);
+    }
+
+    public static Screenshot element(WebElement element, WebElement[] elementsToIgnore, WebDriver... driver) {
+        ElementOptions options = ElementOptions.builder().setElement(element).ignoreElements(elementsToIgnore).build();
+        return WebDriverShooter.element(options, driver);
     }
 
     public static Screenshot element(ElementOptions options, WebDriver... driver) {
