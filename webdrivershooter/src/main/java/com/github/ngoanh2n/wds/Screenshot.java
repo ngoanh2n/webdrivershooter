@@ -1,5 +1,9 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.img.ImageComparator;
+import com.github.ngoanh2n.img.ImageComparisonOptions;
+import com.github.ngoanh2n.img.ImageComparisonResult;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,7 +24,6 @@ public class Screenshot {
         this.maskedColor = maskedColor;
         this.isExcepted = isExcepted;
         this.isMasked = false;
-        this.initializeMaskedImage();
     }
 
     //-------------------------------------------------------------------------------//
@@ -32,17 +35,19 @@ public class Screenshot {
     public BufferedImage getMaskedImage() {
         if (!isMasked) {
             drawMaskedImage();
-            if (isExcepted) {
-                maskedImage = maskImage(maskedImage);
+            if (!isExcepted) {
                 for (Rectangle rectangle : rectangles) {
                     BufferedImage elementImage = cutImage(rectangle);
+                    maskImage(elementImage);
                     drawElementOverMaskedImage(elementImage, rectangle);
                 }
             } else {
-                for (Rectangle rectangle : rectangles) {
-                    BufferedImage elementImage = cutImage(rectangle);
-                    elementImage = maskImage(elementImage);
-                    drawElementOverMaskedImage(elementImage, rectangle);
+                if (rectangles.length > 0) {
+                    maskImage(maskedImage);
+                    for (Rectangle rectangle : rectangles) {
+                        BufferedImage elementImage = cutImage(rectangle);
+                        drawElementOverMaskedImage(elementImage, rectangle);
+                    }
                 }
             }
             disposeMaskedImage();
@@ -50,9 +55,38 @@ public class Screenshot {
         return maskedImage;
     }
 
+    public ImageComparisonResult compare(BufferedImage image) {
+        BufferedImage act = getMaskedImage();
+        return compare(image, ImageComparisonOptions.defaults());
+    }
+
+    public ImageComparisonResult compare(Screenshot screenshot) {
+        return compare(screenshot, ImageComparisonOptions.defaults());
+    }
+
+    public ImageComparisonResult compare(BufferedImage image, ImageComparisonOptions options) {
+        BufferedImage act = getMaskedImage();
+        return ImageComparator.compare(image, act, options);
+    }
+
+    public ImageComparisonResult compare(Screenshot screenshot, ImageComparisonOptions options) {
+        BufferedImage exp = screenshot.getMaskedImage();
+        BufferedImage act = getMaskedImage();
+        return ImageComparator.compare(exp, act, options);
+    }
+
     //-------------------------------------------------------------------------------//
 
-    protected BufferedImage cutImage(Rectangle rectangle) {
+    private void drawMaskedImage() {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        int t = BufferedImage.TYPE_INT_ARGB;
+        maskedImage = new BufferedImage(w, h, t);
+        maskedGraphics = maskedImage.createGraphics();
+        maskedGraphics.drawImage(image, 0, 0, null);
+    }
+
+    private BufferedImage cutImage(Rectangle rectangle) {
         int x = (int) rectangle.getX();
         int y = (int) rectangle.getY();
         int w = (int) rectangle.getWidth();
@@ -66,7 +100,7 @@ public class Screenshot {
         return eImage;
     }
 
-    protected BufferedImage maskImage(BufferedImage image) {
+    private BufferedImage maskImage(BufferedImage image) {
         Graphics2D graphics = image.createGraphics();
         graphics.setPaint(maskedColor);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
@@ -74,26 +108,12 @@ public class Screenshot {
         return image;
     }
 
-    protected void drawMaskedImage() {
-        maskedGraphics.drawImage(image, 0, 0, null);
-    }
-
-    protected void disposeMaskedImage() {
+    private void disposeMaskedImage() {
         maskedGraphics.dispose();
     }
 
-    protected void drawElementOverMaskedImage(BufferedImage elementImage, Rectangle rectangle) {
+    private void drawElementOverMaskedImage(BufferedImage elementImage, Rectangle rectangle) {
         maskedGraphics.drawImage(maskedImage, 0, 0, null);
         maskedGraphics.drawImage(elementImage, (int) rectangle.getX(), (int) rectangle.getY(), null);
-    }
-
-    //-------------------------------------------------------------------------------//
-
-    private void initializeMaskedImage() {
-        int w = image.getWidth();
-        int h = image.getHeight();
-        int t = BufferedImage.TYPE_INT_ARGB;
-        maskedImage = new BufferedImage(w, h, t);
-        maskedGraphics = maskedImage.createGraphics();
     }
 }
