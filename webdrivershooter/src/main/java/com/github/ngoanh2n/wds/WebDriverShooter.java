@@ -1,6 +1,5 @@
 package com.github.ngoanh2n.wds;
 
-import com.github.ngoanh2n.RuntimeError;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -63,7 +62,7 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
             if (args[0] != null) {
                 return args[0];
             }
-            throw new RuntimeError("You have passed a nullable WebDriver");
+            throw new ShooterException("You have passed a nullable WebDriver");
         } else {
             ServiceLoader<WebDriverProvider> serviceLoader = ServiceLoader.load(WebDriverProvider.class);
             Iterator<WebDriverProvider> serviceLoaders = serviceLoader.iterator();
@@ -71,7 +70,7 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
             if (serviceLoaders.hasNext()) {
                 return serviceLoaders.next().provide();
             }
-            throw new RuntimeError("You have not implemented WebDriverProvider");
+            throw new ShooterException("You have not implemented WebDriverProvider");
         }
     }
 
@@ -102,7 +101,7 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         try {
             return ImageIO.read(file);
         } catch (IOException e) {
-            throw new RuntimeError(e);
+            throw new ShooterException(e);
         } finally {
             if (file.exists()) {
                 //noinspection ResultOfMethodCallIgnored

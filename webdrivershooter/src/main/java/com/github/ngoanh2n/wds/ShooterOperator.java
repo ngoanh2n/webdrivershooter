@@ -1,6 +1,5 @@
 package com.github.ngoanh2n.wds;
 
-import com.github.ngoanh2n.RuntimeError;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -42,7 +41,7 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         try {
             Thread.sleep(options.scrollDelay());
         } catch (InterruptedException e) {
-            throw new RuntimeError(e);
+            throw new ShooterException(e);
         }
     }
 
