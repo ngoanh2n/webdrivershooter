@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-public abstract class WebDriverShooter<Options extends ShooterOptions, Operator extends ShooterOperator<Options>> extends ShooterStrategy<Options, Operator> {
+public abstract class WebDriverShooter<Options extends ShooterOptions, Operator extends ShooterOperator<Options>> implements ShooterStrategy<Options, Operator> {
     public static Screenshot page(WebDriver... driver) {
         PageOptions options = PageOptions.defaults();
         return WebDriverShooter.page(options, driver);

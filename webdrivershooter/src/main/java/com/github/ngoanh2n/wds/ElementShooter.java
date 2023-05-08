@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class ElementShooter extends WebDriverShooter<ElementOptions, ElementOperator> {
     @Override
-    protected ElementOperator byScroll0(ElementOptions options, WebDriver driver) {
+    public ElementOperator byScroll0(ElementOptions options, WebDriver driver) {
         return new ElementOperator(options, driver) {
             @Override
             protected int imageWidth() {
@@ -27,7 +27,7 @@ public class ElementShooter extends WebDriverShooter<ElementOptions, ElementOper
     }
 
     @Override
-    protected ElementOperator byScrollY(ElementOptions options, WebDriver driver) {
+    public ElementOperator byScrollY(ElementOptions options, WebDriver driver) {
         return new ElementOperator(options, driver) {
             @Override
             protected int imageWidth() {
@@ -47,7 +47,7 @@ public class ElementShooter extends WebDriverShooter<ElementOptions, ElementOper
     }
 
     @Override
-    protected ElementOperator byScrollX(ElementOptions options, WebDriver driver) {
+    public ElementOperator byScrollX(ElementOptions options, WebDriver driver) {
         return new ElementOperator(options, driver) {
             @Override
             protected int imageWidth() {
@@ -67,7 +67,7 @@ public class ElementShooter extends WebDriverShooter<ElementOptions, ElementOper
     }
 
     @Override
-    protected ElementOperator byScrollXY(ElementOptions options, WebDriver driver) {
+    public ElementOperator byScrollXY(ElementOptions options, WebDriver driver) {
         return new ElementOperator(options, driver) {
             @Override
             protected int imageWidth() {
