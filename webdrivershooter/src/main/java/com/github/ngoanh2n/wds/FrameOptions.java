@@ -26,6 +26,9 @@ public interface FrameOptions extends PageOptions {
         }
 
         public FrameOptions build() {
+            if (frame == null) {
+                throw new ShooterException("Frame cannot be null");
+            }
             return new Defaults(this);
         }
     }

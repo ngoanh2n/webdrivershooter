@@ -26,6 +26,9 @@ public interface ElementOptions extends ShooterOptions {
         }
 
         public ElementOptions build() {
+            if (element == null) {
+                throw new ShooterException("Element cannot be null");
+            }
             return new Defaults(this);
         }
     }
