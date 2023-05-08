@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     @Override
-    protected PageOperator byScroll0(PageOptions options, WebDriver driver) {
+    public PageOperator byScroll0(PageOptions options, WebDriver driver) {
         return new PageOperator(options, driver) {
             @Override
             protected int imageWidth() {
@@ -27,7 +27,7 @@ public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     }
 
     @Override
-    protected PageOperator byScrollY(PageOptions options, WebDriver driver) {
+    public PageOperator byScrollY(PageOptions options, WebDriver driver) {
         return new PageOperator(options, driver) {
             @Override
             protected int imageWidth() {
@@ -47,7 +47,7 @@ public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     }
 
     @Override
-    protected PageOperator byScrollX(PageOptions options, WebDriver driver) {
+    public PageOperator byScrollX(PageOptions options, WebDriver driver) {
         return new PageOperator(options, driver) {
             @Override
             protected int imageWidth() {
@@ -67,7 +67,7 @@ public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     }
 
     @Override
-    protected PageOperator byScrollXY(PageOptions options, WebDriver driver) {
+    public PageOperator byScrollXY(PageOptions options, WebDriver driver) {
         return new PageOperator(options, driver) {
             @Override
             protected int imageWidth() {
