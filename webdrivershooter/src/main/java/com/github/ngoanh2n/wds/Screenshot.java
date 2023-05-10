@@ -40,8 +40,17 @@ public class Screenshot {
         return saveImage(output.toFile());
     }
 
-    public File saveImage(File file) {
-        return save(getImage(), file);
+    public File saveImage(File output) {
+        return save(getImage(), output);
+    }
+
+    public File saveMaskedImage() {
+        Path output = createDefaultFileOutput();
+        return saveMaskedImage(output.toFile());
+    }
+
+    public File saveMaskedImage(File output) {
+        return save(getMaskedImage(), output);
     }
 
     public BufferedImage getImage() {
