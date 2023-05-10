@@ -8,14 +8,55 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 @ParametersAreNonnullByDefault
-public abstract class ElementOperator extends ShooterOperator<ElementOptions> {
+public class ElementOperator extends ShooterOperator {
     protected WebElement element;
 
-    protected ElementOperator(ElementOptions options, WebDriver driver) {
-        super(options, driver);
-        this.element = options.element();
-        this.screener = Screener.element(options.checkDPR(), driver, element);
+    protected ElementOperator(ShooterOptions options, WebDriver driver, WebElement element) {
+        super(options, driver, element);
+        this.element = element;
         this.screener.scrollElementIntoView(element);
+    }
+
+    @Override
+    protected Screener screener(WebElement... elements) {
+        WebElement element = elements[0];
+        return Screener.element(checkDPR, driver, element);
+    }
+
+    @Override
+    protected int imageWidth() {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 2:
+                return (int) screener.getInnerRect().getWidth();
+            default:
+                return (int) screener.getOuterRect().getWidth();
+        }
+    }
+
+    @Override
+    protected int imageHeight() {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 3:
+                return (int) screener.getInnerRect().getHeight();
+            default:
+                return (int) screener.getOuterRect().getHeight();
+        }
+    }
+
+    @Override
+    protected boolean imageFull(BufferedImage part) {
+        switch (options.shooterStrategy()) {
+            case 1:
+                return true;
+            case 2:
+                return imageHeight() == part.getHeight(null);
+            case 3:
+                return imageWidth() == part.getWidth(null);
+            default:
+                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+        }
     }
 
     //-------------------------------------------------------------------------------//

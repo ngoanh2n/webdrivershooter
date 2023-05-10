@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 import java.awt.*;
 
 public interface ShooterOptions {
-    static <T extends Builder<T>> Builder<T> builder() {
-        return new Builder<>();
+    static Builder builder() {
+        return new Builder();
     }
 
     static ShooterOptions defaults() {
@@ -29,8 +29,7 @@ public interface ShooterOptions {
 
     //===============================================================================//
 
-    @SuppressWarnings("unchecked")
-    class Builder<T extends Builder<T>> {
+    class Builder {
         protected boolean checkDPR;
         protected int scrollDelay;
         protected int shooterStrategy;
@@ -40,58 +39,58 @@ public interface ShooterOptions {
 
         protected Builder() {
             this.checkDPR = true;
-            this.scrollDelay = 400;
+            this.scrollDelay = 100;
             this.shooterStrategy = 4;
             this.maskedColor = Color.GRAY;
             this.elements = new WebElement[]{};
             this.isExcepted = false;
         }
 
-        public T shootViewport() {
+        public Builder shootViewport() {
             this.shooterStrategy = 1;
-            return (T) this;
+            return this;
         }
 
-        public T shootVerticalScroll() {
+        public Builder shootVerticalScroll() {
             this.shooterStrategy = 2;
-            return (T) this;
+            return this;
         }
 
-        public T shootHorizontalScroll() {
+        public Builder shootHorizontalScroll() {
             this.shooterStrategy = 3;
-            return (T) this;
+            return this;
         }
 
-        public T shootBothDirectionScroll() {
+        public Builder shootBothDirectionScroll() {
             this.shooterStrategy = 4;
-            return (T) this;
+            return this;
         }
 
-        public T checkDevicePixelRatio(boolean enabled) {
+        public Builder checkDevicePixelRatio(boolean enabled) {
             this.checkDPR = enabled;
-            return (T) this;
+            return this;
         }
 
-        public T setScrollDelay(int value) {
+        public Builder setScrollDelay(int value) {
             this.scrollDelay = value;
-            return (T) this;
+            return this;
         }
 
-        public T setMaskedColor(Color color) {
+        public Builder setMaskedColor(Color color) {
             this.maskedColor = color;
-            return (T) this;
+            return this;
         }
 
-        public T ignoreElements(WebElement... elements) {
+        public Builder ignoreElements(WebElement... elements) {
             this.isExcepted = false;
             this.elements = elements;
-            return (T) this;
+            return this;
         }
 
-        public T ignoreExceptingElements(WebElement... elements) {
+        public Builder ignoreExceptingElements(WebElement... elements) {
             this.isExcepted = true;
             this.elements = elements;
-            return (T) this;
+            return this;
         }
 
         public ShooterOptions build() {
@@ -102,9 +101,9 @@ public interface ShooterOptions {
     //===============================================================================//
 
     class Defaults implements ShooterOptions {
-        protected Builder<?> builder;
+        protected Builder builder;
 
-        protected Defaults(Builder<?> builder) {
+        protected Defaults(Builder builder) {
             this.builder = builder;
         }
 

@@ -1,15 +1,58 @@
 package com.github.ngoanh2n.wds;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 @ParametersAreNonnullByDefault
-public abstract class PageOperator extends ShooterOperator<PageOptions> {
-    protected PageOperator(PageOptions options, WebDriver driver) {
-        super(options, driver);
+public class PageOperator extends ShooterOperator {
+    protected PageOperator(ShooterOptions options, WebDriver driver, WebElement... elements) {
+        super(options, driver, elements);
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    @Override
+    protected Screener screener(WebElement... elements) {
+        return Screener.page(checkDPR, driver);
+    }
+
+    @Override
+    protected int imageWidth() {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 2:
+                return (int) screener.getInnerRect().getWidth();
+            default:
+                return (int) screener.getOuterRect().getWidth();
+        }
+    }
+
+    @Override
+    protected int imageHeight() {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 3:
+                return (int) screener.getInnerRect().getHeight();
+            default:
+                return (int) screener.getOuterRect().getHeight();
+        }
+    }
+
+    @Override
+    protected boolean imageFull(BufferedImage part) {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 2:
+                return imageHeight() == part.getHeight(null);
+            case 3:
+                return imageWidth() == part.getWidth(null);
+            default:
+                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+        }
     }
 
     //-------------------------------------------------------------------------------//

@@ -7,19 +7,37 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.image.BufferedImage;
 
 @ParametersAreNonnullByDefault
-public abstract class FrameOperator extends PageOperator {
-    protected WebElement frame;
+public class FrameOperator extends PageOperator {
     protected Screener framer;
 
-    protected FrameOperator(FrameOptions options, WebDriver driver) {
-        super(options, driver);
-        this.frame = options.frame();
-        this.screener.scrollElementIntoView(frame);
+    protected FrameOperator(ShooterOptions options, WebDriver driver, WebElement frame) {
+        super(options, driver, frame);
+    }
 
-        boolean checkDPR = options.checkDPR();
-        this.framer = Screener.element(checkDPR, driver, frame);
-        this.driver.switchTo().frame(frame);
-        this.screener = Screener.page(checkDPR, driver);
+    //-------------------------------------------------------------------------------//
+
+    @Override
+    protected Screener screener(WebElement... elements) {
+        WebElement frame = elements[0];
+        super.screener().scrollElementIntoView(frame);
+
+        framer = Screener.element(checkDPR, driver, frame);
+        driver.switchTo().frame(frame);
+        return Screener.page(checkDPR, driver);
+    }
+
+    @Override
+    protected boolean imageFull(BufferedImage part) {
+        switch (options.shooterStrategy()) {
+            case 1:
+                return true;
+            case 2:
+                return imageHeight() == part.getHeight(null);
+            case 3:
+                return imageWidth() == part.getWidth(null);
+            default:
+                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+        }
     }
 
     //-------------------------------------------------------------------------------//
@@ -46,8 +64,6 @@ public abstract class FrameOperator extends PageOperator {
         part = getFramePart(part);
         super.mergePartSS(part);
     }
-
-    //-------------------------------------------------------------------------------//
 
     protected BufferedImage getFramePart(BufferedImage part) {
         int x = (int) framer.getInnerRect().getX();
