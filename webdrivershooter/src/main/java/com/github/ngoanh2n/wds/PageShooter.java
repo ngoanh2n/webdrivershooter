@@ -2,101 +2,23 @@ package com.github.ngoanh2n.wds;
 
 import org.openqa.selenium.WebDriver;
 
-import javax.annotation.Nonnull;
 import java.awt.image.BufferedImage;
 
-public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
+public class PageShooter extends WebDriverShooter<PageOperator> {
     @Override
-    public PageOperator byScroll0(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return (int) screener.getInnerRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return (int) screener.getInnerRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageHeight() == part.getHeight(null);
-            }
-        };
+    protected PageOperator operator(ShooterOptions options, WebDriver driver) {
+        return new PageOperator(options, driver);
     }
 
     @Override
-    public PageOperator byScrollY(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return (int) screener.getInnerRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return (int) screener.getOuterRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageHeight() == part.getHeight(null);
-            }
-        };
-    }
-
-    @Override
-    public PageOperator byScrollX(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return (int) screener.getOuterRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return (int) screener.getInnerRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageWidth() == part.getWidth(null);
-            }
-        };
-    }
-
-    @Override
-    public PageOperator byScrollXY(PageOptions options, WebDriver driver) {
-        return new PageOperator(options, driver) {
-            @Override
-            protected int imageWidth() {
-                return (int) screener.getOuterRect().getWidth();
-            }
-
-            @Override
-            protected int imageHeight() {
-                return (int) screener.getOuterRect().getHeight();
-            }
-
-            @Override
-            protected boolean imageFull(@Nonnull BufferedImage part) {
-                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
-            }
-        };
-    }
-
-    //-------------------------------------------------------------------------------//
-
-    @Override
-    protected Screenshot shootScroll0(PageOptions options, PageOperator operator, WebDriver driver) {
+    public Screenshot shootViewport(ShooterOptions options, WebDriver driver, PageOperator operator) {
         BufferedImage part = screenshot(driver);
         operator.mergePart0Y(part, 0);
         return operator.getScreenshot();
     }
 
     @Override
-    protected Screenshot shootScrollY(PageOptions options, PageOperator operator, WebDriver driver) {
+    public Screenshot shootVerticalScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
         int partsY = operator.getPartsY();
 
         for (int partY = 0; partY < partsY; partY++) {
@@ -115,7 +37,7 @@ public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     }
 
     @Override
-    protected Screenshot shootScrollX(PageOptions options, PageOperator operator, WebDriver driver) {
+    public Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
         int partsX = operator.getPartsX();
 
         for (int partX = 0; partX < partsX; partX++) {
@@ -134,7 +56,7 @@ public class PageShooter extends WebDriverShooter<PageOptions, PageOperator> {
     }
 
     @Override
-    protected Screenshot shootScrollXY(PageOptions options, PageOperator operator, WebDriver driver) {
+    public Screenshot shootBothDirectionScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
         int partsY = operator.getPartsY();
         int partsX = operator.getPartsX();
 

@@ -2,12 +2,25 @@ package com.github.ngoanh2n.wds;
 
 import org.openqa.selenium.WebDriver;
 
-public interface ShooterStrategy<Options extends ShooterOptions, Operator extends ShooterOperator<Options>> {
-    Operator byScroll0(Options options, WebDriver driver);
+public interface ShooterStrategy<Operator extends ShooterOperator> {
+    default Screenshot shoot(ShooterOptions options, WebDriver driver, Operator operator) {
+        switch (options.shooterStrategy()) {
+            case 1:
+                return shootViewport(options, driver, operator);
+            case 2:
+                return shootVerticalScroll(options, driver, operator);
+            case 3:
+                return shootHorizontalScroll(options, driver, operator);
+            default:
+                return shootBothDirectionScroll(options, driver, operator);
+        }
+    }
 
-    Operator byScrollY(Options options, WebDriver driver);
+    Screenshot shootViewport(ShooterOptions options, WebDriver driver, Operator operator);
 
-    Operator byScrollX(Options options, WebDriver driver);
+    Screenshot shootVerticalScroll(ShooterOptions options, WebDriver driver, Operator operator);
 
-    Operator byScrollXY(Options options, WebDriver driver);
+    Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, Operator operator);
+
+    Screenshot shootBothDirectionScroll(ShooterOptions options, WebDriver driver, Operator operator);
 }

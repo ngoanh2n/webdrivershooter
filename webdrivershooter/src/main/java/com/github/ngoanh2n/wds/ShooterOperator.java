@@ -3,7 +3,6 @@ package com.github.ngoanh2n.wds;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,29 +10,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
-public abstract class ShooterOperator<Options extends ShooterOptions> {
-    protected Options options;
+public abstract class ShooterOperator {
+    protected ShooterOptions options;
     protected WebDriver driver;
+    protected boolean checkDPR;
     protected Screener screener;
     protected BufferedImage image;
     protected Graphics2D graphics;
     protected Screenshot screenshot;
 
-    protected ShooterOperator(Options options, WebDriver driver) {
+    protected ShooterOperator(ShooterOptions options, WebDriver driver, WebElement... elements) {
         this.options = options;
         this.driver = driver;
-        this.screener = Screener.page(options.checkDPR(), driver);
+        this.checkDPR = options.checkDPR();
+        this.screener = this.screener(elements);
         this.initializeImage();
         this.initializeScreenshot();
     }
 
     //-------------------------------------------------------------------------------//
 
+    protected abstract Screener screener(WebElement... elements);
+
     protected abstract int imageWidth();
 
     protected abstract int imageHeight();
 
-    protected abstract boolean imageFull(@Nonnull BufferedImage part);
+    protected abstract boolean imageFull(BufferedImage part);
 
     //-------------------------------------------------------------------------------//
 
@@ -65,6 +68,21 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
         return screenshot;
     }
 
+    protected void initializeImage() {
+        int w = imageWidth();
+        int h = imageHeight();
+        int t = BufferedImage.TYPE_INT_ARGB;
+        image = new BufferedImage(w, h, t);
+        graphics = image.createGraphics();
+    }
+
+    protected void initializeScreenshot() {
+        Color maskedColor = options.maskedColor();
+        boolean isExcepted = options.isExcepted();
+        Rectangle[] rectangles = getRectangles(options.elements());
+        screenshot = new Screenshot(image, rectangles, maskedColor, isExcepted);
+    }
+
     protected Rectangle[] getRectangles(WebElement... elements) {
         List<Rectangle> rectangles = new ArrayList<>();
         for (WebElement element : elements) {
@@ -78,22 +96,5 @@ public abstract class ShooterOperator<Options extends ShooterOptions> {
             rectangles.add(new Rectangle(location, size));
         }
         return rectangles.toArray(new Rectangle[]{});
-    }
-
-    //-------------------------------------------------------------------------------//
-
-    private void initializeImage() {
-        int w = imageWidth();
-        int h = imageHeight();
-        int t = BufferedImage.TYPE_INT_ARGB;
-        image = new BufferedImage(w, h, t);
-        graphics = image.createGraphics();
-    }
-
-    private void initializeScreenshot() {
-        Color maskedColor = options.maskedColor();
-        boolean isExcepted = options.isExcepted();
-        Rectangle[] rectangles = getRectangles(options.elements());
-        screenshot = new Screenshot(image, rectangles, maskedColor, isExcepted);
     }
 }

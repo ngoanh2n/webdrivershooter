@@ -12,47 +12,47 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-public abstract class WebDriverShooter<Options extends ShooterOptions, Operator extends ShooterOperator<Options>> implements ShooterStrategy<Options, Operator> {
+public abstract class WebDriverShooter<Operator extends ShooterOperator> implements ShooterStrategy<Operator> {
     public static Screenshot page(WebDriver... driver) {
-        PageOptions options = PageOptions.defaults();
+        ShooterOptions options = ShooterOptions.defaults();
         return WebDriverShooter.page(options, driver);
     }
 
     public static Screenshot page(WebElement[] elementsToIgnore, WebDriver... driver) {
-        PageOptions options = PageOptions.builder().ignoreElements(elementsToIgnore).build();
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(elementsToIgnore).build();
         return WebDriverShooter.page(options, driver);
     }
 
-    public static Screenshot page(PageOptions options, WebDriver... driver) {
+    public static Screenshot page(ShooterOptions options, WebDriver... driver) {
         return WebDriverShooter.shoot(new PageShooter(), options, driver);
     }
 
     public static Screenshot frame(WebElement frame, WebDriver... driver) {
-        FrameOptions options = FrameOptions.builder().setFrame(frame).build();
-        return WebDriverShooter.frame(options, driver);
+        ShooterOptions options = ShooterOptions.builder().build();
+        return WebDriverShooter.frame(options, frame, driver);
     }
 
     public static Screenshot frame(WebElement frame, WebElement[] elementsToIgnore, WebDriver... driver) {
-        FrameOptions options = FrameOptions.builder().setFrame(frame).ignoreElements(elementsToIgnore).build();
-        return WebDriverShooter.frame(options, driver);
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(elementsToIgnore).build();
+        return WebDriverShooter.frame(options, frame, driver);
     }
 
-    public static Screenshot frame(FrameOptions options, WebDriver... driver) {
-        return WebDriverShooter.shoot(new FrameShooter(), options, driver);
+    public static Screenshot frame(ShooterOptions options, WebElement frame, WebDriver... driver) {
+        return WebDriverShooter.shoot(new FrameShooter(frame), options, driver);
     }
 
     public static Screenshot element(WebElement element, WebDriver... driver) {
-        ElementOptions options = ElementOptions.builder().setElement(element).build();
-        return WebDriverShooter.element(options, driver);
+        ShooterOptions options = ShooterOptions.builder().build();
+        return WebDriverShooter.element(options, element, driver);
     }
 
     public static Screenshot element(WebElement element, WebElement[] elementsToIgnore, WebDriver... driver) {
-        ElementOptions options = ElementOptions.builder().setElement(element).ignoreElements(elementsToIgnore).build();
-        return WebDriverShooter.element(options, driver);
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(elementsToIgnore).build();
+        return WebDriverShooter.element(options, element, driver);
     }
 
-    public static Screenshot element(ElementOptions options, WebDriver... driver) {
-        return WebDriverShooter.shoot(new ElementShooter(), options, driver);
+    public static Screenshot element(ShooterOptions options, WebElement element, WebDriver... driver) {
+        return WebDriverShooter.shoot(new ElementShooter(element), options, driver);
     }
 
     //-------------------------------------------------------------------------------//
@@ -74,24 +74,10 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         }
     }
 
-    protected static <Options extends ShooterOptions, Operator extends ShooterOperator<Options>> Screenshot shoot(WebDriverShooter<Options, Operator> shooter, Options options, WebDriver... args) {
-        Operator operator;
+    protected static <Operator extends ShooterOperator> Screenshot shoot(WebDriverShooter<Operator> shooter, ShooterOptions options, WebDriver... args) {
         WebDriver driver = getDriver(args);
-
-        switch (options.shooterStrategy()) {
-            case 1:
-                operator = shooter.byScroll0(options, driver);
-                return shooter.shootScroll0(options, operator, driver);
-            case 2:
-                operator = shooter.byScrollY(options, driver);
-                return shooter.shootScrollY(options, operator, driver);
-            case 3:
-                operator = shooter.byScrollX(options, driver);
-                return shooter.shootScrollX(options, operator, driver);
-            default:
-                operator = shooter.byScrollXY(options, driver);
-                return shooter.shootScrollXY(options, operator, driver);
-        }
+        Operator operator = shooter.operator(options, driver);
+        return shooter.shoot(options, driver, operator);
     }
 
     //-------------------------------------------------------------------------------//
@@ -110,11 +96,7 @@ public abstract class WebDriverShooter<Options extends ShooterOptions, Operator 
         }
     }
 
-    protected abstract Screenshot shootScroll0(Options options, Operator operator, WebDriver driver);
+    //-------------------------------------------------------------------------------//
 
-    protected abstract Screenshot shootScrollY(Options options, Operator operator, WebDriver driver);
-
-    protected abstract Screenshot shootScrollX(Options options, Operator operator, WebDriver driver);
-
-    protected abstract Screenshot shootScrollXY(Options options, Operator operator, WebDriver driver);
+    protected abstract Operator operator(ShooterOptions options, WebDriver driver);
 }
