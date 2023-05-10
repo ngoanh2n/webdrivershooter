@@ -146,8 +146,7 @@ public class Screener {
     public int getDocumentScrollBarWidth() {
         String resource = "com/github/ngoanh2n/wds/GetDocumentScrollBarWidth.js";
         Object value = executeScript(driver, resource);
-        int width = (int) (Double.parseDouble(value.toString()) * dpr);
-        return Math.max(width, 40);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
     public void scrollToPoint(Point point) {
