@@ -39,7 +39,7 @@ public interface ShooterOptions {
 
         protected Builder() {
             this.checkDPR = true;
-            this.scrollDelay = 100;
+            this.scrollDelay = 200;
             this.shooterStrategy = 4;
             this.maskedColor = Color.GRAY;
             this.elements = new WebElement[]{};
