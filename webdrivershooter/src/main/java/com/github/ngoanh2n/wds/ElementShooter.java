@@ -24,11 +24,11 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
         operator.sleep();
 
         Screenshot screenshot = page(driver);
-        BufferedImage part = screenshot.getImage();
-        operator.mergePart00(part);
+        BufferedImage image = screenshot.getImage();
+        operator.mergePart00(image);
 
-        if (operator.imageFull(part)) {
-            operator.getGraphics().dispose();
+        if (operator.imageFull(image)) {
+            operator.getScreenshot().dispose();
         }
         return operator.getScreenshot();
     }
@@ -42,11 +42,11 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
             operator.sleep();
 
             Screenshot screenshot = page(driver);
-            BufferedImage part = screenshot.getImage();
-            operator.mergePart0S(part);
+            BufferedImage image = screenshot.getImage();
+            operator.mergePart0S(image);
 
-            if (operator.imageFull(part)) {
-                operator.getGraphics().dispose();
+            if (operator.imageFull(image)) {
+                operator.screenshot.dispose();
                 break;
             }
         }
@@ -66,7 +66,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
             operator.mergePartS0(part);
 
             if (operator.imageFull(part)) {
-                operator.getGraphics().dispose();
+                operator.getScreenshot().dispose();
                 break;
             }
         }
@@ -90,7 +90,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
                 operator.mergePartSS(part);
 
                 if (operator.imageFull(part)) {
-                    operator.getGraphics().dispose();
+                    operator.getScreenshot().dispose();
                     break;
                 }
             }

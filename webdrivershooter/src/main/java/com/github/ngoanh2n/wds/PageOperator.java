@@ -78,18 +78,18 @@ public class PageOperator extends ShooterOperator {
     protected void mergePart0Y(BufferedImage part, int multiplierY) {
         int x = 0;
         int y = (int) screener.getInnerRect().getHeight() * multiplierY;
-        getGraphics().drawImage(part, x, y, null);
+        screenshot.mergePart(part, x, y);
     }
 
     protected void mergePartX0(BufferedImage part, int multiplierX) {
         int x = (int) screener.getInnerRect().getWidth() * multiplierX;
         int y = 0;
-        getGraphics().drawImage(part, x, y, null);
+        screenshot.mergePart(part, x, y);
     }
 
     protected void mergePartSS(BufferedImage part) {
         int x = screener.getDocumentScrollX();
         int y = screener.getDocumentScrollY();
-        getGraphics().drawImage(part, x, y, null);
+        screenshot.mergePart(part, x, y);
     }
 }

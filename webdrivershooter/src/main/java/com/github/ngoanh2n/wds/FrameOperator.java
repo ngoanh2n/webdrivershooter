@@ -44,7 +44,7 @@ public class FrameOperator extends PageOperator {
 
     protected void mergePart00(BufferedImage part) {
         part = getFramePart(part);
-        getGraphics().drawImage(part, 0, 0, null);
+        screenshot.mergePart(part, 0, 0);
     }
 
     @Override

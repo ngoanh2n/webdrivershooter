@@ -17,6 +17,8 @@ public class ElementOperator extends ShooterOperator {
         this.screener.scrollElementIntoView(element);
     }
 
+    //-------------------------------------------------------------------------------//
+
     @Override
     protected Screener screener(WebElement... elements) {
         WebElement element = elements[0];
@@ -83,28 +85,28 @@ public class ElementOperator extends ShooterOperator {
         part = getElementPart(part);
         int x = 0;
         int y = 0;
-        getGraphics().drawImage(part, x, y, null);
+        screenshot.mergePart(part, x, y);
     }
 
     protected void mergePart0S(BufferedImage part) {
         part = getElementPart(part);
         int x = 0;
         int y = screener.getElementScrollY(element);
-        getGraphics().drawImage(part, x, y, null);
+        screenshot.mergePart(part, x, y);
     }
 
     protected void mergePartS0(BufferedImage part) {
         part = getElementPart(part);
         int x = screener.getElementScrollX(element);
         int y = 0;
-        getGraphics().drawImage(part, x, y, null);
+        screenshot.mergePart(part, x, y);
     }
 
     protected void mergePartSS(BufferedImage part) {
         part = getElementPart(part);
         int x = screener.getElementScrollX(element);
         int y = screener.getElementScrollY(element);
-        getGraphics().drawImage(part, x, y, null);
+        screenshot.mergePart(part, x, y);
     }
 
     protected BufferedImage getElementPart(BufferedImage part) {
@@ -112,6 +114,7 @@ public class ElementOperator extends ShooterOperator {
         int y = (int) screener.getOuterRect().getY();
         int w = (int) screener.getInnerRect().getWidth();
         int h = (int) screener.getInnerRect().getHeight();
+        screenshot.updatedRectangles(x, y);
         return part.getSubimage(x, y, w, h);
     }
 }
