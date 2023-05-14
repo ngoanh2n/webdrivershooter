@@ -28,6 +28,10 @@ public class Screenshot {
     private BufferedImage maskedImage;
     private Graphics maskedGraphics;
 
+    public Screenshot(BufferedImage image, List<Rectangle> rectangles) {
+        this(image, rectangles, Color.GRAY, false);
+    }
+
     public Screenshot(BufferedImage image, List<Rectangle> rectangles, Color maskedColor, boolean isExcepted) {
         this.image = image;
         this.graphics = null;
