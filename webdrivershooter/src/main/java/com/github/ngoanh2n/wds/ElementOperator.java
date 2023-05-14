@@ -20,7 +20,7 @@ public class ElementOperator extends ShooterOperator {
     //-------------------------------------------------------------------------------//
 
     @Override
-    protected Screener screener(WebElement... elements) {
+    protected Screener createScreener(WebElement... elements) {
         WebElement element = elements[0];
         return Screener.element(checkDPR, driver, element);
     }

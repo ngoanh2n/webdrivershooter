@@ -22,13 +22,13 @@ public abstract class ShooterOperator {
         this.options = options;
         this.driver = driver;
         this.checkDPR = options.checkDPR();
-        this.screener = screener(elements);
+        this.screener = createScreener(elements);
         this.screenshot = createScreenshot();
     }
 
     //-------------------------------------------------------------------------------//
 
-    protected Screener screener(WebElement... elements) {
+    protected Screener createScreener(WebElement... elements) {
         return Screener.page(checkDPR, driver);
     }
 
