@@ -1,9 +1,6 @@
 package com.github.ngoanh2n.wds;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,8 +15,13 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
         return WebDriverShooter.page(options, driver);
     }
 
-    public static Screenshot page(WebElement[] elementsToIgnore, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(elementsToIgnore).build();
+    public static Screenshot page(By[] ignoredLocators, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredLocators).build();
+        return WebDriverShooter.page(options, driver);
+    }
+
+    public static Screenshot page(WebElement[] ignoredElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredElements).build();
         return WebDriverShooter.page(options, driver);
     }
 
@@ -32,8 +34,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
         return WebDriverShooter.frame(options, frame, driver);
     }
 
-    public static Screenshot frame(WebElement frame, WebElement[] elementsToIgnore, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(elementsToIgnore).build();
+    public static Screenshot frame(WebElement frame, WebElement[] ignoredElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredElements).build();
         return WebDriverShooter.frame(options, frame, driver);
     }
 
@@ -46,8 +48,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
         return WebDriverShooter.element(options, element, driver);
     }
 
-    public static Screenshot element(WebElement element, WebElement[] elementsToIgnore, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(elementsToIgnore).build();
+    public static Screenshot element(WebElement element, WebElement[] ignoredElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredElements).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
