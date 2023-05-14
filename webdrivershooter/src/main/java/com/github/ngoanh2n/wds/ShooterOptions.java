@@ -1,5 +1,6 @@
 package com.github.ngoanh2n.wds;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.awt.*;
@@ -28,6 +29,8 @@ public interface ShooterOptions {
 
     Color maskedColor();
 
+    List<By> locators();
+
     List<WebElement> elements();
 
     boolean isExcepted();
@@ -40,6 +43,7 @@ public interface ShooterOptions {
         protected int shooterStrategy;
         protected Color maskedColor;
         protected List<WebElement> elements;
+        protected List<By> locators;
         protected boolean isExcepted;
 
         protected Builder() {
@@ -47,6 +51,7 @@ public interface ShooterOptions {
             this.scrollDelay = 200;
             this.shooterStrategy = 4;
             this.maskedColor = Color.GRAY;
+            this.locators = new ArrayList<>();
             this.elements = new ArrayList<>();
             this.isExcepted = false;
         }
@@ -90,9 +95,21 @@ public interface ShooterOptions {
             return this;
         }
 
+        public Builder ignoreElements(By... locators) {
+            this.isExcepted = false;
+            this.validateLocators(locators);
+            return this;
+        }
+
         public Builder ignoreElements(WebElement... elements) {
             this.isExcepted = false;
             this.validateElements(elements);
+            return this;
+        }
+
+        public Builder ignoreExceptingElements(By... locators) {
+            this.isExcepted = true;
+            this.validateLocators(locators);
             return this;
         }
 
@@ -104,6 +121,10 @@ public interface ShooterOptions {
 
         public ShooterOptions build() {
             return new Defaults(this);
+        }
+
+        private void validateLocators(By... locators) {
+            this.locators = Arrays.stream(locators).filter(Objects::nonNull).collect(Collectors.toList());
         }
 
         private void validateElements(WebElement... elements) {
@@ -138,6 +159,11 @@ public interface ShooterOptions {
         @Override
         public Color maskedColor() {
             return builder.maskedColor;
+        }
+
+        @Override
+        public List<By> locators() {
+            return builder.locators;
         }
 
         @Override

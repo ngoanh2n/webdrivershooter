@@ -15,48 +15,6 @@ public class PageOperator extends ShooterOperator {
 
     //-------------------------------------------------------------------------------//
 
-    @Override
-    protected Screener screener(WebElement... elements) {
-        return Screener.page(checkDPR, driver);
-    }
-
-    @Override
-    protected int imageWidth() {
-        switch (options.shooterStrategy()) {
-            case 1:
-            case 2:
-                return (int) screener.getInnerRect().getWidth();
-            default:
-                return (int) screener.getOuterRect().getWidth();
-        }
-    }
-
-    @Override
-    protected int imageHeight() {
-        switch (options.shooterStrategy()) {
-            case 1:
-            case 3:
-                return (int) screener.getInnerRect().getHeight();
-            default:
-                return (int) screener.getOuterRect().getHeight();
-        }
-    }
-
-    @Override
-    protected boolean imageFull(BufferedImage part) {
-        switch (options.shooterStrategy()) {
-            case 1:
-            case 2:
-                return imageHeight() == part.getHeight(null);
-            case 3:
-                return imageWidth() == part.getWidth(null);
-            default:
-                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
-        }
-    }
-
-    //-------------------------------------------------------------------------------//
-
     protected void scrollSY(int multiplierY) {
         int pointX = screener.getDocumentScrollX();
         int pointY = (int) screener.getInnerRect().getHeight() * multiplierY;
