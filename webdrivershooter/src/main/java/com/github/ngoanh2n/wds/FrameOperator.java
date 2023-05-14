@@ -40,9 +40,9 @@ public class FrameOperator extends PageOperator {
             case 2:
                 return imageHeight() == part.getHeight(null);
             case 3:
-                return imageWidth() == part.getWidth(null);
+                return getImageWidth() == part.getWidth(null);
             default:
-                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+                return getImageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
         }
     }
 
