@@ -84,7 +84,9 @@ public interface ShooterOptions {
         }
 
         public Builder setMaskedColor(Color color) {
-            this.maskedColor = color;
+            if (color != null) {
+                this.maskedColor = color;
+            }
             return this;
         }
 
