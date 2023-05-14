@@ -26,7 +26,7 @@ public class FrameShooter extends PageShooter {
         BufferedImage part = screenshot(driver);
         ((FrameOperator) operator).mergePart00(part);
 
-        if (operator.imageFull(part)) {
+        if (operator.isImageFull(part)) {
             operator.getScreenshot().dispose();
         }
         return operator.getScreenshot();

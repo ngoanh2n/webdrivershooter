@@ -26,7 +26,7 @@ public class ElementOperator extends ShooterOperator {
     }
 
     @Override
-    protected boolean imageFull(BufferedImage part) {
+    protected boolean isImageFull(BufferedImage part) {
         switch (options.shooterStrategy()) {
             case 1:
                 return true;

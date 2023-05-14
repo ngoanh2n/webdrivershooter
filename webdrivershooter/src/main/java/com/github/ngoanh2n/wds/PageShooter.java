@@ -28,7 +28,7 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
             BufferedImage part = screenshot(driver);
             operator.mergePart0Y(part, partY);
 
-            if (operator.imageFull(part)) {
+            if (operator.isImageFull(part)) {
                 operator.getScreenshot().dispose();
                 break;
             }
@@ -47,7 +47,7 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
             BufferedImage part = screenshot(driver);
             operator.mergePartX0(part, partX);
 
-            if (operator.imageFull(part)) {
+            if (operator.isImageFull(part)) {
                 operator.getScreenshot().dispose();
                 break;
             }
@@ -70,7 +70,7 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
                 BufferedImage part = screenshot(driver);
                 operator.mergePartSS(part);
 
-                if (operator.imageFull(part)) {
+                if (operator.isImageFull(part)) {
                     operator.getScreenshot().dispose();
                     break;
                 }

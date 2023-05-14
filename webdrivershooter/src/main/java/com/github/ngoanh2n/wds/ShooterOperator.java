@@ -96,7 +96,7 @@ public abstract class ShooterOperator {
         }
     }
 
-    protected boolean imageFull(BufferedImage part) {
+    protected boolean isImageFull(BufferedImage part) {
         switch (options.shooterStrategy()) {
             case 1:
             case 2:
