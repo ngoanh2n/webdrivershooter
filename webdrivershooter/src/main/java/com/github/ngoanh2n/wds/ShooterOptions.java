@@ -77,7 +77,9 @@ public interface ShooterOptions {
         }
 
         public Builder setScrollDelay(int value) {
-            this.scrollDelay = value;
+            if (value >= 0) {
+                this.scrollDelay = value;
+            }
             return this;
         }
 
@@ -88,13 +90,13 @@ public interface ShooterOptions {
 
         public Builder ignoreElements(WebElement... elements) {
             this.isExcepted = false;
-            validateElements(elements);
+            this.validateElements(elements);
             return this;
         }
 
         public Builder ignoreExceptingElements(WebElement... elements) {
             this.isExcepted = true;
-            validateElements(elements);
+            this.validateElements(elements);
             return this;
         }
 
