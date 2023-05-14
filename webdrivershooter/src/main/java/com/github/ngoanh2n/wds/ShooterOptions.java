@@ -3,6 +3,10 @@ package com.github.ngoanh2n.wds;
 import org.openqa.selenium.WebElement;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public interface ShooterOptions {
     static Builder builder() {
@@ -83,18 +87,23 @@ public interface ShooterOptions {
 
         public Builder ignoreElements(WebElement... elements) {
             this.isExcepted = false;
-            this.elements = elements;
+            this.elements = validateElements(elements);
             return this;
         }
 
         public Builder ignoreExceptingElements(WebElement... elements) {
             this.isExcepted = true;
-            this.elements = elements;
+            this.elements = validateElements(elements);
             return this;
         }
 
         public ShooterOptions build() {
             return new Defaults(this);
+        }
+
+        private static WebElement[] validateElements(WebElement... elements) {
+            List<WebElement> results = Arrays.stream(elements).filter(Objects::nonNull).collect(Collectors.toList());
+            return results.toArray(new WebElement[]{});
         }
     }
 
