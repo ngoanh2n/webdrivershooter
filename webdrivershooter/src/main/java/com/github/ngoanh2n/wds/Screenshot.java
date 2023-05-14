@@ -50,8 +50,8 @@ public class Screenshot {
     //-------------------------------------------------------------------------------//
 
     public File saveImage() {
-        Path output = createDefaultOutput();
-        return saveImage(output.toFile());
+        File output = createDefaultOutput();
+        return saveImage(output);
     }
 
     public File saveImage(File output) {
@@ -59,8 +59,8 @@ public class Screenshot {
     }
 
     public File saveMaskedImage() {
-        Path output = createDefaultOutput();
-        return saveMaskedImage(output.toFile());
+        File output = createDefaultOutput();
+        return saveMaskedImage(output);
     }
 
     public File saveMaskedImage(File output) {
@@ -96,7 +96,6 @@ public class Screenshot {
     }
 
     public ImageComparisonResult compare(BufferedImage image) {
-        BufferedImage act = getMaskedImage();
         return compare(image, ImageComparisonOptions.defaults());
     }
 
@@ -173,10 +172,10 @@ public class Screenshot {
         maskedGraphics.drawImage(elementImage, (int) rectangle.getX(), (int) rectangle.getY(), null);
     }
 
-    private Path createDefaultOutput() {
+    private File createDefaultOutput() {
         String fileName = Commons.timestamp() + ".png";
         Path location = Paths.get("build/ngoanh2n/wds");
-        return Commons.createDir(location).resolve(fileName);
+        return Commons.createDir(location).resolve(fileName).toFile();
     }
 
     private File saveImageToOutput(BufferedImage image, File output) {
