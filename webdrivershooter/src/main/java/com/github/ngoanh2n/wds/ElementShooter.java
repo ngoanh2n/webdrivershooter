@@ -27,7 +27,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
         BufferedImage image = screenshot.getImage();
         operator.mergePart00(image);
 
-        if (operator.imageFull(image)) {
+        if (operator.isImageFull(image)) {
             operator.getScreenshot().dispose();
         }
         return operator.getScreenshot();
@@ -45,7 +45,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
             BufferedImage image = screenshot.getImage();
             operator.mergePart0S(image);
 
-            if (operator.imageFull(image)) {
+            if (operator.isImageFull(image)) {
                 operator.screenshot.dispose();
                 break;
             }
@@ -65,7 +65,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
             BufferedImage part = screenshot.getImage();
             operator.mergePartS0(part);
 
-            if (operator.imageFull(part)) {
+            if (operator.isImageFull(part)) {
                 operator.getScreenshot().dispose();
                 break;
             }
@@ -89,7 +89,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
                 BufferedImage part = screenshot.getImage();
                 operator.mergePartSS(part);
 
-                if (operator.imageFull(part)) {
+                if (operator.isImageFull(part)) {
                     operator.getScreenshot().dispose();
                     break;
                 }
