@@ -31,11 +31,11 @@ public class ElementOperator extends ShooterOperator {
             case 1:
                 return true;
             case 2:
-                return imageHeight() == part.getHeight(null);
+                return getImageHeight() == part.getHeight(null);
             case 3:
                 return getImageWidth() == part.getWidth(null);
             default:
-                return getImageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+                return getImageWidth() == part.getWidth(null) && getImageHeight() == part.getHeight(null);
         }
     }
 

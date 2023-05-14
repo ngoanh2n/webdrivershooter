@@ -34,7 +34,7 @@ public abstract class ShooterOperator {
 
     protected Screenshot createScreenshot() {
         int width = getImageWidth();
-        int height = imageHeight();
+        int height = getImageHeight();
         List<WebElement> elements = getIgnoredElements();
         List<Rectangle> rectangles = getRectangles(elements);
         Color maskedColor = options.maskedColor();
@@ -86,7 +86,7 @@ public abstract class ShooterOperator {
         }
     }
 
-    protected int imageHeight() {
+    protected int getImageHeight() {
         switch (options.shooterStrategy()) {
             case 1:
             case 3:
@@ -100,11 +100,11 @@ public abstract class ShooterOperator {
         switch (options.shooterStrategy()) {
             case 1:
             case 2:
-                return imageHeight() == part.getHeight(null);
+                return getImageHeight() == part.getHeight(null);
             case 3:
                 return getImageWidth() == part.getWidth(null);
             default:
-                return getImageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+                return getImageWidth() == part.getWidth(null) && getImageHeight() == part.getHeight(null);
         }
     }
 
