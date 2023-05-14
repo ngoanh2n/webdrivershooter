@@ -68,7 +68,7 @@ public abstract class ShooterOperator {
         return new Screenshot(imageWidth(), imageHeight(), rectangles, maskedColor, isExcepted);
     }
 
-    protected Rectangle[] getRectangles(WebElement... elements) {
+    protected Rectangle[] getRectangles(List<WebElement> elements) {
         List<Rectangle> rectangles = new ArrayList<>();
         for (WebElement element : elements) {
             int x = (int) (element.getLocation().getX() * screener.getDPR());

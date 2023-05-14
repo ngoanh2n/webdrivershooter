@@ -3,6 +3,7 @@ package com.github.ngoanh2n.wds;
 import org.openqa.selenium.WebElement;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public interface ShooterOptions {
 
     Color maskedColor();
 
-    WebElement[] elements();
+    List<WebElement> elements();
 
     boolean isExcepted();
 
@@ -38,7 +39,7 @@ public interface ShooterOptions {
         protected int scrollDelay;
         protected int shooterStrategy;
         protected Color maskedColor;
-        protected WebElement[] elements;
+        protected List<WebElement> elements;
         protected boolean isExcepted;
 
         protected Builder() {
@@ -46,7 +47,7 @@ public interface ShooterOptions {
             this.scrollDelay = 200;
             this.shooterStrategy = 4;
             this.maskedColor = Color.GRAY;
-            this.elements = new WebElement[]{};
+            this.elements = new ArrayList<>();
             this.isExcepted = false;
         }
 
@@ -87,13 +88,13 @@ public interface ShooterOptions {
 
         public Builder ignoreElements(WebElement... elements) {
             this.isExcepted = false;
-            this.elements = validateElements(elements);
+            validateElements(elements);
             return this;
         }
 
         public Builder ignoreExceptingElements(WebElement... elements) {
             this.isExcepted = true;
-            this.elements = validateElements(elements);
+            validateElements(elements);
             return this;
         }
 
@@ -101,9 +102,8 @@ public interface ShooterOptions {
             return new Defaults(this);
         }
 
-        private static WebElement[] validateElements(WebElement... elements) {
-            List<WebElement> results = Arrays.stream(elements).filter(Objects::nonNull).collect(Collectors.toList());
-            return results.toArray(new WebElement[]{});
+        private void validateElements(WebElement... elements) {
+            this.elements = Arrays.stream(elements).filter(Objects::nonNull).collect(Collectors.toList());
         }
     }
 
@@ -137,7 +137,7 @@ public interface ShooterOptions {
         }
 
         @Override
-        public WebElement[] elements() {
+        public List<WebElement> elements() {
             return builder.elements;
         }
 
