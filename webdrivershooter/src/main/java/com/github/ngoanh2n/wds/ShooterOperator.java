@@ -15,17 +15,14 @@ public abstract class ShooterOperator {
     protected WebDriver driver;
     protected boolean checkDPR;
     protected Screener screener;
-    protected BufferedImage image;
-    protected Graphics2D graphics;
     protected Screenshot screenshot;
 
     protected ShooterOperator(ShooterOptions options, WebDriver driver, WebElement... elements) {
         this.options = options;
         this.driver = driver;
         this.checkDPR = options.checkDPR();
-        this.screener = this.screener(elements);
-        this.initializeImage();
-        this.initializeScreenshot();
+        this.screener = screener(elements);
+        this.screenshot = createScreenshot();
     }
 
     //-------------------------------------------------------------------------------//
@@ -60,27 +57,15 @@ public abstract class ShooterOperator {
         return (int) Math.ceil(((double) outerW) / innerW);
     }
 
-    protected Graphics2D getGraphics() {
-        return graphics;
-    }
-
     protected Screenshot getScreenshot() {
         return screenshot;
     }
 
-    protected void initializeImage() {
-        int w = imageWidth();
-        int h = imageHeight();
-        int t = BufferedImage.TYPE_INT_ARGB;
-        image = new BufferedImage(w, h, t);
-        graphics = image.createGraphics();
-    }
-
-    protected void initializeScreenshot() {
+    protected Screenshot createScreenshot() {
+        Rectangle[] rectangles = getRectangles(options.elements());
         Color maskedColor = options.maskedColor();
         boolean isExcepted = options.isExcepted();
-        Rectangle[] rectangles = getRectangles(options.elements());
-        screenshot = new Screenshot(image, rectangles, maskedColor, isExcepted);
+        return new Screenshot(imageWidth(), imageHeight(), rectangles, maskedColor, isExcepted);
     }
 
     protected Rectangle[] getRectangles(WebElement... elements) {

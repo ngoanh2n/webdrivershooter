@@ -29,7 +29,7 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
             operator.mergePart0Y(part, partY);
 
             if (operator.imageFull(part)) {
-                operator.getGraphics().dispose();
+                operator.getScreenshot().dispose();
                 break;
             }
         }
@@ -48,7 +48,7 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
             operator.mergePartX0(part, partX);
 
             if (operator.imageFull(part)) {
-                operator.getGraphics().dispose();
+                operator.getScreenshot().dispose();
                 break;
             }
         }
@@ -71,7 +71,7 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
                 operator.mergePartSS(part);
 
                 if (operator.imageFull(part)) {
-                    operator.getGraphics().dispose();
+                    operator.getScreenshot().dispose();
                     break;
                 }
             }

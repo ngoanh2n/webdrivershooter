@@ -27,7 +27,7 @@ public class FrameShooter extends PageShooter {
         ((FrameOperator) operator).mergePart00(part);
 
         if (operator.imageFull(part)) {
-            operator.getGraphics().dispose();
+            operator.getScreenshot().dispose();
         }
         return operator.getScreenshot();
     }
