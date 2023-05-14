@@ -1,5 +1,6 @@
 package com.github.ngoanh2n.wds;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -27,13 +28,85 @@ public abstract class ShooterOperator {
 
     //-------------------------------------------------------------------------------//
 
-    protected abstract Screener screener(WebElement... elements);
+    protected Screener screener(WebElement... elements) {
+        return Screener.page(checkDPR, driver);
+    }
 
-    protected abstract int imageWidth();
+    protected Screenshot createScreenshot() {
+        int width = imageWidth();
+        int height = imageHeight();
+        List<WebElement> elements = getIgnoredElements();
+        List<Rectangle> rectangles = getRectangles(elements);
+        Color maskedColor = options.maskedColor();
+        boolean isExcepted = options.isExcepted();
+        return new Screenshot(width, height, rectangles, maskedColor, isExcepted);
+    }
 
-    protected abstract int imageHeight();
+    //-------------------------------------------------------------------------------//
 
-    protected abstract boolean imageFull(BufferedImage part);
+
+    protected List<WebElement> getIgnoredElements() {
+        if (options.elements().size() > 0) {
+            return options.elements();
+        }
+        return getIgnoredElements(options.locators());
+    }
+
+    protected List<WebElement> getIgnoredElements(List<By> locators) {
+        List<WebElement> elements = new ArrayList<>();
+        for (By locator : locators) {
+            WebElement element = driver.findElement(locator);
+            elements.add(element);
+        }
+        return elements;
+    }
+
+    protected List<Rectangle> getRectangles(List<WebElement> elements) {
+        List<Rectangle> rectangles = new ArrayList<>();
+        for (WebElement element : elements) {
+            int x = (int) (element.getLocation().getX() * screener.getDPR());
+            int y = (int) (element.getLocation().getY() * screener.getDPR());
+            int w = (int) (element.getSize().getWidth() * screener.getDPR());
+            int h = (int) (element.getSize().getHeight() * screener.getDPR());
+
+            Point location = new Point(x, y);
+            Dimension size = new Dimension(w, h);
+            rectangles.add(new Rectangle(location, size));
+        }
+        return rectangles;
+    }
+
+    protected int imageWidth() {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 2:
+                return (int) screener.getInnerRect().getWidth();
+            default:
+                return (int) screener.getOuterRect().getWidth();
+        }
+    }
+
+    protected int imageHeight() {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 3:
+                return (int) screener.getInnerRect().getHeight();
+            default:
+                return (int) screener.getOuterRect().getHeight();
+        }
+    }
+
+    protected boolean imageFull(BufferedImage part) {
+        switch (options.shooterStrategy()) {
+            case 1:
+            case 2:
+                return imageHeight() == part.getHeight(null);
+            case 3:
+                return imageWidth() == part.getWidth(null);
+            default:
+                return imageWidth() == part.getWidth(null) && imageHeight() == part.getHeight(null);
+        }
+    }
 
     //-------------------------------------------------------------------------------//
 
@@ -59,27 +132,5 @@ public abstract class ShooterOperator {
 
     protected Screenshot getScreenshot() {
         return screenshot;
-    }
-
-    protected Screenshot createScreenshot() {
-        Rectangle[] rectangles = getRectangles(options.elements());
-        Color maskedColor = options.maskedColor();
-        boolean isExcepted = options.isExcepted();
-        return new Screenshot(imageWidth(), imageHeight(), rectangles, maskedColor, isExcepted);
-    }
-
-    protected Rectangle[] getRectangles(List<WebElement> elements) {
-        List<Rectangle> rectangles = new ArrayList<>();
-        for (WebElement element : elements) {
-            int x = (int) (element.getLocation().getX() * screener.getDPR());
-            int y = (int) (element.getLocation().getY() * screener.getDPR());
-            int w = (int) (element.getSize().getWidth() * screener.getDPR());
-            int h = (int) (element.getSize().getHeight() * screener.getDPR());
-
-            Point location = new Point(x, y);
-            Dimension size = new Dimension(w, h);
-            rectangles.add(new Rectangle(location, size));
-        }
-        return rectangles.toArray(new Rectangle[]{});
     }
 }

@@ -26,28 +26,6 @@ public class ElementOperator extends ShooterOperator {
     }
 
     @Override
-    protected int imageWidth() {
-        switch (options.shooterStrategy()) {
-            case 1:
-            case 2:
-                return (int) screener.getInnerRect().getWidth();
-            default:
-                return (int) screener.getOuterRect().getWidth();
-        }
-    }
-
-    @Override
-    protected int imageHeight() {
-        switch (options.shooterStrategy()) {
-            case 1:
-            case 3:
-                return (int) screener.getInnerRect().getHeight();
-            default:
-                return (int) screener.getOuterRect().getHeight();
-        }
-    }
-
-    @Override
     protected boolean imageFull(BufferedImage part) {
         switch (options.shooterStrategy()) {
             case 1:

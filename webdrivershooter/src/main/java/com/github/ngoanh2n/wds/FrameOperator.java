@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 @ParametersAreNonnullByDefault
 public class FrameOperator extends PageOperator {
@@ -24,6 +25,11 @@ public class FrameOperator extends PageOperator {
         framer = Screener.element(checkDPR, driver, frame);
         driver.switchTo().frame(frame);
         return Screener.page(checkDPR, driver);
+    }
+
+    @Override
+    protected List<WebElement> getIgnoredElements() {
+        return getIgnoredElements(options.locators());
     }
 
     @Override
