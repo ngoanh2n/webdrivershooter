@@ -39,17 +39,17 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
         return WebDriverShooter.frame(options, frame, driver);
     }
 
-    public static Screenshot frame(WebElement frame, WebElement[] ignoredElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredElements).build();
-        return WebDriverShooter.frame(options, frame, driver);
-    }
-
     public static Screenshot frame(ShooterOptions options, WebElement frame, WebDriver... driver) {
         return WebDriverShooter.shoot(new FrameShooter(frame), options, driver);
     }
 
     public static Screenshot element(WebElement element, WebDriver... driver) {
         ShooterOptions options = ShooterOptions.builder().build();
+        return WebDriverShooter.element(options, element, driver);
+    }
+
+    public static Screenshot element(WebElement element, By[] ignoredLocators, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredLocators).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
