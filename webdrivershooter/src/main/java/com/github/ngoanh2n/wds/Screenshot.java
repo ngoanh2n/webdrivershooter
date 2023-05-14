@@ -14,12 +14,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @ParametersAreNonnullByDefault
 public class Screenshot {
     private final BufferedImage image;
     private final Graphics graphics;
-    private final Rectangle[] rectangles;
+    private final List<Rectangle> rectangles;
     private final Color maskedColor;
     private final boolean isExcepted;
     private boolean isMasked;
@@ -27,7 +28,7 @@ public class Screenshot {
     private BufferedImage maskedImage;
     private Graphics maskedGraphics;
 
-    public Screenshot(BufferedImage image, Rectangle[] rectangles, Color maskedColor, boolean isExcepted) {
+    public Screenshot(BufferedImage image, List<Rectangle> rectangles, Color maskedColor, boolean isExcepted) {
         this.image = image;
         this.graphics = null;
         this.rectangles = rectangles;
@@ -37,7 +38,7 @@ public class Screenshot {
         this.isUpdatedRectangles = false;
     }
 
-    protected Screenshot(int width, int height, Rectangle[] rectangles, Color maskedColor, boolean isExcepted) {
+    protected Screenshot(int width, int height, List<Rectangle> rectangles, Color maskedColor, boolean isExcepted) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         this.graphics = image.createGraphics();
         this.rectangles = rectangles;
@@ -81,7 +82,7 @@ public class Screenshot {
                     drawElementOverMaskedImage(elementImage, rectangle);
                 }
             } else {
-                if (rectangles.length > 0) {
+                if (rectangles.size() > 0) {
                     maskImage(maskedImage);
                     for (Rectangle rectangle : rectangles) {
                         BufferedImage elementImage = cutImage(image, rectangle);
