@@ -38,8 +38,8 @@ public abstract class ShooterOperator {
         List<WebElement> elements = getIgnoredElements();
         List<Rectangle> rectangles = getRectangles(elements);
         Color maskedColor = options.maskedColor();
-        boolean isExcepted = options.isExcepted();
-        return new Screenshot(width, height, rectangles, maskedColor, isExcepted);
+        boolean isMasked = options.isMasked();
+        return new Screenshot(width, height, rectangles, maskedColor, isMasked);
     }
 
     //-------------------------------------------------------------------------------//
