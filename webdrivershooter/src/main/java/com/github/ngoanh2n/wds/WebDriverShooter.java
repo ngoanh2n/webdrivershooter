@@ -15,13 +15,13 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
         return WebDriverShooter.page(options, driver);
     }
 
-    public static Screenshot page(By[] ignoredLocators, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredLocators).build();
+    public static Screenshot page(By[] maskedElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
         return WebDriverShooter.page(options, driver);
     }
 
-    public static Screenshot page(WebElement[] ignoredElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredElements).build();
+    public static Screenshot page(WebElement[] maskedElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
         return WebDriverShooter.page(options, driver);
     }
 
@@ -34,8 +34,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
         return WebDriverShooter.frame(options, frame, driver);
     }
 
-    public static Screenshot frame(WebElement frame, By[] ignoredLocators, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredLocators).build();
+    public static Screenshot frame(WebElement frame, By[] maskedElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
         return WebDriverShooter.frame(options, frame, driver);
     }
 
@@ -48,13 +48,13 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
         return WebDriverShooter.element(options, element, driver);
     }
 
-    public static Screenshot element(WebElement element, By[] ignoredLocators, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredLocators).build();
+    public static Screenshot element(WebElement element, By[] maskedElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
-    public static Screenshot element(WebElement element, WebElement[] ignoredElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredElements).build();
+    public static Screenshot element(WebElement element, WebElement[] maskedElements, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
