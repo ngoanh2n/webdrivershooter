@@ -35,7 +35,7 @@ public abstract class ShooterOperator {
     protected Screenshot createScreenshot() {
         int width = getImageWidth();
         int height = getImageHeight();
-        List<WebElement> elements = getIgnoredElements();
+        List<WebElement> elements = getElements();
         List<Rectangle> rectangles = getRectangles(elements);
         Color maskedColor = options.maskedColor();
         boolean isMasked = options.isMasked();
@@ -45,14 +45,14 @@ public abstract class ShooterOperator {
     //-------------------------------------------------------------------------------//
 
 
-    protected List<WebElement> getIgnoredElements() {
+    protected List<WebElement> getElements() {
         if (options.elements().size() > 0) {
             return options.elements();
         }
-        return getIgnoredElements(options.locators());
+        return getElements(options.locators());
     }
 
-    protected List<WebElement> getIgnoredElements(List<By> locators) {
+    protected List<WebElement> getElements(List<By> locators) {
         List<WebElement> elements = new ArrayList<>();
         for (By locator : locators) {
             WebElement element = driver.findElement(locator);
