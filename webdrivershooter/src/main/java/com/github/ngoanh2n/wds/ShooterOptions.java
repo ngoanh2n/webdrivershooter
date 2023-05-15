@@ -21,7 +21,7 @@ public interface ShooterOptions {
 
     //-------------------------------------------------------------------------------//
 
-    int shooterStrategy();
+    int shooter();
 
     int scrollDelay();
 
@@ -142,7 +142,7 @@ public interface ShooterOptions {
         }
 
         @Override
-        public int shooterStrategy() {
+        public int shooter() {
             return builder.shooter;
         }
 

@@ -34,7 +34,7 @@ public class FrameOperator extends PageOperator {
 
     @Override
     protected boolean isImageFull(BufferedImage part) {
-        switch (options.shooterStrategy()) {
+        switch (options.shooter()) {
             case 1:
                 return true;
             case 2:

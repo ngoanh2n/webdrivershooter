@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public interface ShooterStrategy<Operator extends ShooterOperator> {
     default Screenshot shoot(ShooterOptions options, WebDriver driver, Operator operator) {
-        switch (options.shooterStrategy()) {
+        switch (options.shooter()) {
             case 1:
                 return shootViewport(options, driver, operator);
             case 2:
