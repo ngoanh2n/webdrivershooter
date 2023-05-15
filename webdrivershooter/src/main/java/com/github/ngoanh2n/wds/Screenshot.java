@@ -22,9 +22,9 @@ public class Screenshot {
     private final Graphics graphics;
     private final List<Rectangle> rectangles;
     private final Color maskedColor;
-    private final boolean isExcepted;
-    private boolean isMasked;
-    private boolean isUpdatedRectangles;
+    private final boolean isMasked;
+    private boolean masked;
+    private boolean updatedRectangles;
     private BufferedImage maskedImage;
     private Graphics maskedGraphics;
 
@@ -32,24 +32,24 @@ public class Screenshot {
         this(image, rectangles, Color.GRAY, false);
     }
 
-    public Screenshot(BufferedImage image, List<Rectangle> rectangles, Color maskedColor, boolean isExcepted) {
+    public Screenshot(BufferedImage image, List<Rectangle> rectangles, Color maskedColor, boolean isMasked) {
         this.image = image;
         this.graphics = null;
         this.rectangles = rectangles;
         this.maskedColor = maskedColor;
-        this.isExcepted = isExcepted;
-        this.isMasked = false;
-        this.isUpdatedRectangles = false;
+        this.isMasked = isMasked;
+        this.masked = false;
+        this.updatedRectangles = false;
     }
 
-    protected Screenshot(int width, int height, List<Rectangle> rectangles, Color maskedColor, boolean isExcepted) {
+    protected Screenshot(int width, int height, List<Rectangle> rectangles, Color maskedColor, boolean isMasked) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         this.graphics = image.createGraphics();
         this.rectangles = rectangles;
         this.maskedColor = maskedColor;
-        this.isExcepted = isExcepted;
-        this.isMasked = false;
-        this.isUpdatedRectangles = false;
+        this.isMasked = isMasked;
+        this.masked = false;
+        this.updatedRectangles = false;
     }
 
     //-------------------------------------------------------------------------------//
@@ -77,9 +77,9 @@ public class Screenshot {
     }
 
     public BufferedImage getMaskedImage() {
-        if (!isMasked) {
+        if (!masked) {
             initializeMaskedImage();
-            if (!isExcepted) {
+            if (!isMasked) {
                 for (Rectangle rectangle : rectangles) {
                     BufferedImage elementImage = cutImage(image, rectangle);
                     maskImage(elementImage);
@@ -94,7 +94,7 @@ public class Screenshot {
                     }
                 }
             }
-            isMasked = true;
+            masked = true;
             maskedGraphics.dispose();
         }
         return maskedImage;
@@ -130,13 +130,13 @@ public class Screenshot {
     }
 
     protected void updatedRectangles(int xToMinus, int yToMinus) {
-        if (!isUpdatedRectangles) {
+        if (!updatedRectangles) {
             for (Rectangle rectangle : rectangles) {
                 int newX = rectangle.x - xToMinus;
                 int newY = rectangle.y - yToMinus;
                 rectangle.setLocation(newX, newY);
             }
-            isUpdatedRectangles = true;
+            updatedRectangles = true;
         }
     }
 

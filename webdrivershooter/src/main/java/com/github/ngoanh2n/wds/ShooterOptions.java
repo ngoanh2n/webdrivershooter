@@ -27,7 +27,7 @@ public interface ShooterOptions {
 
     boolean checkDPR();
 
-    boolean isExcepted();
+    boolean isMasked();
 
     Color maskedColor();
 
@@ -157,7 +157,7 @@ public interface ShooterOptions {
         }
 
         @Override
-        public boolean isExcepted() {
+        public boolean isMasked() {
             return builder.isMasked;
         }
 
