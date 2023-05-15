@@ -21,11 +21,13 @@ public interface ShooterOptions {
 
     //-------------------------------------------------------------------------------//
 
-    boolean checkDPR();
+    int shooterStrategy();
 
     int scrollDelay();
 
-    int shooterStrategy();
+    boolean checkDPR();
+
+    boolean isExcepted();
 
     Color maskedColor();
 
@@ -33,51 +35,44 @@ public interface ShooterOptions {
 
     List<WebElement> elements();
 
-    boolean isExcepted();
-
     //===============================================================================//
 
     class Builder {
-        protected boolean checkDPR;
+        protected int shooter;
         protected int scrollDelay;
-        protected int shooterStrategy;
+        protected boolean checkDPR;
+        protected boolean isMasked;
         protected Color maskedColor;
-        protected List<WebElement> elements;
         protected List<By> locators;
-        protected boolean isExcepted;
+        protected List<WebElement> elements;
 
         protected Builder() {
-            this.checkDPR = true;
+            this.shooter = 4;
             this.scrollDelay = 200;
-            this.shooterStrategy = 4;
+            this.checkDPR = true;
+            this.isMasked = true;
             this.maskedColor = Color.GRAY;
             this.locators = new ArrayList<>();
             this.elements = new ArrayList<>();
-            this.isExcepted = false;
         }
 
         public Builder shootViewport() {
-            this.shooterStrategy = 1;
+            this.shooter = 1;
             return this;
         }
 
         public Builder shootVerticalScroll() {
-            this.shooterStrategy = 2;
+            this.shooter = 2;
             return this;
         }
 
         public Builder shootHorizontalScroll() {
-            this.shooterStrategy = 3;
+            this.shooter = 3;
             return this;
         }
 
         public Builder shootBothDirectionScroll() {
-            this.shooterStrategy = 4;
-            return this;
-        }
-
-        public Builder checkDevicePixelRatio(boolean enabled) {
-            this.checkDPR = enabled;
+            this.shooter = 4;
             return this;
         }
 
@@ -88,6 +83,11 @@ public interface ShooterOptions {
             return this;
         }
 
+        public Builder checkDevicePixelRatio(boolean enabled) {
+            this.checkDPR = enabled;
+            return this;
+        }
+
         public Builder setMaskedColor(Color color) {
             if (color != null) {
                 this.maskedColor = color;
@@ -95,26 +95,26 @@ public interface ShooterOptions {
             return this;
         }
 
-        public Builder ignoreElements(By... locators) {
-            this.isExcepted = false;
-            this.validateLocators(locators);
+        public Builder maskElements(By... locators) {
+            this.isMasked = true;
+            this.validateElements(locators);
             return this;
         }
 
-        public Builder ignoreElements(WebElement... elements) {
-            this.isExcepted = false;
+        public Builder maskElements(WebElement... elements) {
+            this.isMasked = true;
             this.validateElements(elements);
             return this;
         }
 
-        public Builder ignoreExceptingElements(By... locators) {
-            this.isExcepted = true;
-            this.validateLocators(locators);
+        public Builder maskExceptingElements(By... locators) {
+            this.isMasked = false;
+            this.validateElements(locators);
             return this;
         }
 
         public Builder ignoreExceptingElements(WebElement... elements) {
-            this.isExcepted = true;
+            this.isMasked = false;
             this.validateElements(elements);
             return this;
         }
@@ -123,7 +123,7 @@ public interface ShooterOptions {
             return new Defaults(this);
         }
 
-        private void validateLocators(By... locators) {
+        private void validateElements(By... locators) {
             this.locators = Arrays.stream(locators).filter(Objects::nonNull).collect(Collectors.toList());
         }
 
@@ -142,8 +142,8 @@ public interface ShooterOptions {
         }
 
         @Override
-        public boolean checkDPR() {
-            return builder.checkDPR;
+        public int shooterStrategy() {
+            return builder.shooter;
         }
 
         @Override
@@ -152,8 +152,13 @@ public interface ShooterOptions {
         }
 
         @Override
-        public int shooterStrategy() {
-            return builder.shooterStrategy;
+        public boolean checkDPR() {
+            return builder.checkDPR;
+        }
+
+        @Override
+        public boolean isExcepted() {
+            return builder.isMasked;
         }
 
         @Override
@@ -169,11 +174,6 @@ public interface ShooterOptions {
         @Override
         public List<WebElement> elements() {
             return builder.elements;
-        }
-
-        @Override
-        public boolean isExcepted() {
-            return builder.isExcepted;
         }
     }
 }
