@@ -16,12 +16,12 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
     }
 
     public static Screenshot page(By[] ignoredLocators, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredLocators).build();
+        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredLocators).build();
         return WebDriverShooter.page(options, driver);
     }
 
     public static Screenshot page(WebElement[] ignoredElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredElements).build();
+        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredElements).build();
         return WebDriverShooter.page(options, driver);
     }
 
@@ -35,7 +35,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
     }
 
     public static Screenshot frame(WebElement frame, By[] ignoredLocators, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredLocators).build();
+        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredLocators).build();
         return WebDriverShooter.frame(options, frame, driver);
     }
 
@@ -49,12 +49,12 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
     }
 
     public static Screenshot element(WebElement element, By[] ignoredLocators, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredLocators).build();
+        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredLocators).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
     public static Screenshot element(WebElement element, WebElement[] ignoredElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().ignoreElements(ignoredElements).build();
+        ShooterOptions options = ShooterOptions.builder().maskElements(ignoredElements).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
