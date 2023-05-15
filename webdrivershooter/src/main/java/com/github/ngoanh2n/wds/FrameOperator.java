@@ -28,8 +28,8 @@ public class FrameOperator extends PageOperator {
     }
 
     @Override
-    protected List<WebElement> getIgnoredElements() {
-        return getIgnoredElements(options.locators());
+    protected List<WebElement> getElements() {
+        return getElements(options.locators());
     }
 
     @Override
