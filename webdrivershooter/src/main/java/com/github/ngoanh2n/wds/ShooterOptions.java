@@ -113,7 +113,7 @@ public interface ShooterOptions {
             return this;
         }
 
-        public Builder ignoreExceptingElements(WebElement... elements) {
+        public Builder maskExceptingElements(WebElement... elements) {
             this.isMasked = false;
             this.validateElements(elements);
             return this;
