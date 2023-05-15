@@ -77,7 +77,7 @@ public abstract class ShooterOperator {
     }
 
     protected int getImageWidth() {
-        switch (options.shooterStrategy()) {
+        switch (options.shooter()) {
             case 1:
             case 2:
                 return (int) screener.getInnerRect().getWidth();
@@ -87,7 +87,7 @@ public abstract class ShooterOperator {
     }
 
     protected int getImageHeight() {
-        switch (options.shooterStrategy()) {
+        switch (options.shooter()) {
             case 1:
             case 3:
                 return (int) screener.getInnerRect().getHeight();
@@ -97,7 +97,7 @@ public abstract class ShooterOperator {
     }
 
     protected boolean isImageFull(BufferedImage part) {
-        switch (options.shooterStrategy()) {
+        switch (options.shooter()) {
             case 1:
             case 2:
                 return getImageHeight() == part.getHeight(null);
