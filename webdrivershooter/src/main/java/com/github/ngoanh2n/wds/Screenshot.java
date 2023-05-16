@@ -20,36 +20,36 @@ import java.util.List;
 public class Screenshot {
     private final BufferedImage image;
     private final Graphics graphics;
-    private final List<Rectangle> rectangles;
+    private final List<Rectangle> rects;
     private final Color maskedColor;
-    private final boolean isMasked;
+    private final boolean maskForRects;
     private boolean masked;
-    private boolean updatedRectangles;
+    private boolean updatedRects;
     private BufferedImage maskedImage;
     private Graphics maskedGraphics;
 
-    public Screenshot(BufferedImage image, List<Rectangle> rectangles) {
-        this(image, rectangles, Color.GRAY, false);
+    public Screenshot(BufferedImage image, List<Rectangle> rects) {
+        this(image, rects, false, Color.GRAY);
     }
 
-    public Screenshot(BufferedImage image, List<Rectangle> rectangles, Color maskedColor, boolean isMasked) {
+    public Screenshot(BufferedImage image, List<Rectangle> rects, boolean maskForRects, Color maskedColor) {
         this.image = image;
         this.graphics = null;
-        this.rectangles = rectangles;
+        this.rects = rects;
         this.maskedColor = maskedColor;
-        this.isMasked = isMasked;
+        this.maskForRects = maskForRects;
         this.masked = false;
-        this.updatedRectangles = false;
+        this.updatedRects = false;
     }
 
-    protected Screenshot(int width, int height, List<Rectangle> rectangles, Color maskedColor, boolean isMasked) {
+    protected Screenshot(int width, int height, List<Rectangle> rects, boolean maskForRects, Color maskedColor) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         this.graphics = image.createGraphics();
-        this.rectangles = rectangles;
+        this.rects = rects;
         this.maskedColor = maskedColor;
-        this.isMasked = isMasked;
+        this.maskForRects = maskForRects;
         this.masked = false;
-        this.updatedRectangles = false;
+        this.updatedRects = false;
     }
 
     //-------------------------------------------------------------------------------//
@@ -79,18 +79,18 @@ public class Screenshot {
     public BufferedImage getMaskedImage() {
         if (!masked) {
             initializeMaskedImage();
-            if (!isMasked) {
-                for (Rectangle rectangle : rectangles) {
-                    BufferedImage elementImage = cutImage(image, rectangle);
-                    maskImage(elementImage);
-                    drawElementOverMaskedImage(elementImage, rectangle);
+            if (maskForRects) {
+                for (Rectangle rect : rects) {
+                    BufferedImage maskedArea = cutImage(image, rect);
+                    maskImage(maskedArea);
+                    drawAreaOverMaskedImage(maskedArea, rect);
                 }
             } else {
-                if (rectangles.size() > 0) {
+                if (rects.size() > 0) {
                     maskImage(maskedImage);
-                    for (Rectangle rectangle : rectangles) {
-                        BufferedImage elementImage = cutImage(image, rectangle);
-                        drawElementOverMaskedImage(elementImage, rectangle);
+                    for (Rectangle rect : rects) {
+                        BufferedImage area = cutImage(image, rect);
+                        drawAreaOverMaskedImage(area, rect);
                     }
                 }
             }
@@ -130,13 +130,13 @@ public class Screenshot {
     }
 
     protected void updatedRectangles(int xToMinus, int yToMinus) {
-        if (!updatedRectangles) {
-            for (Rectangle rectangle : rectangles) {
+        if (!updatedRects) {
+            for (Rectangle rectangle : rects) {
                 int newX = rectangle.x - xToMinus;
                 int newY = rectangle.y - yToMinus;
                 rectangle.setLocation(newX, newY);
             }
-            updatedRectangles = true;
+            updatedRects = true;
         }
     }
 
@@ -158,23 +158,23 @@ public class Screenshot {
         graphics.dispose();
     }
 
-    private BufferedImage cutImage(BufferedImage image, Rectangle rectangle) {
-        int x = (int) rectangle.getX();
-        int y = (int) rectangle.getY();
-        int w = (int) rectangle.getWidth();
-        int h = (int) rectangle.getHeight();
+    private BufferedImage cutImage(BufferedImage srcImage, Rectangle rectToCut) {
+        int x = (int) rectToCut.getX();
+        int y = (int) rectToCut.getY();
+        int w = (int) rectToCut.getWidth();
+        int h = (int) rectToCut.getHeight();
         int t = BufferedImage.TYPE_INT_ARGB;
 
-        BufferedImage eImage = new BufferedImage(w, h, t);
-        Graphics graphics = eImage.getGraphics();
-        graphics.drawImage(image, 0, 0, w, h, x, y, w + x, h + y, null);
+        BufferedImage area = new BufferedImage(w, h, t);
+        Graphics graphics = area.getGraphics();
+        graphics.drawImage(srcImage, 0, 0, w, h, x, y, w + x, h + y, null);
         graphics.dispose();
-        return eImage;
+        return area;
     }
 
-    private void drawElementOverMaskedImage(BufferedImage elementImage, Rectangle rectangle) {
+    private void drawAreaOverMaskedImage(BufferedImage area, Rectangle rectToDraw) {
         maskedGraphics.drawImage(maskedImage, 0, 0, null);
-        maskedGraphics.drawImage(elementImage, (int) rectangle.getX(), (int) rectangle.getY(), null);
+        maskedGraphics.drawImage(area, (int) rectToDraw.getX(), (int) rectToDraw.getY(), null);
     }
 
     private File createDefaultOutput() {
