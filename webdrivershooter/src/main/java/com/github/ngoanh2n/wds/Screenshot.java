@@ -29,7 +29,7 @@ public class Screenshot {
     private Graphics maskedGraphics;
 
     public Screenshot(BufferedImage image, List<Rectangle> rects) {
-        this(image, rects, false, Color.GRAY);
+        this(image, rects, true, Color.GRAY);
     }
 
     public Screenshot(BufferedImage image, List<Rectangle> rects, boolean maskForRects, Color maskedColor) {
