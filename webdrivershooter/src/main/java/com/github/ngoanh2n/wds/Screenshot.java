@@ -129,7 +129,7 @@ public class Screenshot {
         graphics.drawImage(part, x, y, null);
     }
 
-    protected void updatedRectangles(int xToMinus, int yToMinus) {
+    protected void updatedRects(int xToMinus, int yToMinus) {
         if (!updatedRects) {
             for (Rectangle rectangle : rects) {
                 int newX = rectangle.x - xToMinus;

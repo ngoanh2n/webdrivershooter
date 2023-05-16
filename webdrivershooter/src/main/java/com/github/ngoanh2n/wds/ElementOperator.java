@@ -92,7 +92,7 @@ public class ElementOperator extends ShooterOperator {
         int y = (int) screener.getOuterRect().getY();
         int w = (int) screener.getInnerRect().getWidth();
         int h = (int) screener.getInnerRect().getHeight();
-        screenshot.updatedRectangles(x, y);
+        screenshot.updatedRects(x, y);
         return part.getSubimage(x, y, w, h);
     }
 }
