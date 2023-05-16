@@ -27,13 +27,13 @@ public interface ShooterOptions {
 
     boolean checkDPR();
 
-    boolean isMasked();
-
-    Color maskedColor();
-
     List<By> locators();
 
     List<WebElement> elements();
+
+    boolean maskForElements();
+
+    Color maskedColor();
 
     //===============================================================================//
 
@@ -41,19 +41,19 @@ public interface ShooterOptions {
         protected int shooter;
         protected int scrollDelay;
         protected boolean checkDPR;
-        protected boolean isMasked;
-        protected Color maskedColor;
         protected List<By> locators;
         protected List<WebElement> elements;
+        protected boolean maskForElements;
+        protected Color maskedColor;
 
         protected Builder() {
             this.shooter = 4;
             this.scrollDelay = 200;
             this.checkDPR = true;
-            this.isMasked = true;
-            this.maskedColor = Color.GRAY;
             this.locators = new ArrayList<>();
             this.elements = new ArrayList<>();
+            this.maskForElements = true;
+            this.maskedColor = Color.GRAY;
         }
 
         public Builder shootViewport() {
@@ -88,34 +88,34 @@ public interface ShooterOptions {
             return this;
         }
 
-        public Builder setMaskedColor(Color color) {
-            if (color != null) {
-                this.maskedColor = color;
-            }
-            return this;
-        }
-
         public Builder maskElements(By... locators) {
-            this.isMasked = true;
+            this.maskForElements = true;
             this.validateElements(locators);
             return this;
         }
 
         public Builder maskElements(WebElement... elements) {
-            this.isMasked = true;
+            this.maskForElements = true;
             this.validateElements(elements);
             return this;
         }
 
         public Builder maskExceptingElements(By... locators) {
-            this.isMasked = false;
+            this.maskForElements = false;
             this.validateElements(locators);
             return this;
         }
 
         public Builder maskExceptingElements(WebElement... elements) {
-            this.isMasked = false;
+            this.maskForElements = false;
             this.validateElements(elements);
+            return this;
+        }
+
+        public Builder setMaskedColor(Color color) {
+            if (color != null) {
+                this.maskedColor = color;
+            }
             return this;
         }
 
@@ -157,16 +157,6 @@ public interface ShooterOptions {
         }
 
         @Override
-        public boolean isMasked() {
-            return builder.isMasked;
-        }
-
-        @Override
-        public Color maskedColor() {
-            return builder.maskedColor;
-        }
-
-        @Override
         public List<By> locators() {
             return builder.locators;
         }
@@ -174,6 +164,16 @@ public interface ShooterOptions {
         @Override
         public List<WebElement> elements() {
             return builder.elements;
+        }
+
+        @Override
+        public boolean maskForElements() {
+            return builder.maskForElements;
+        }
+
+        @Override
+        public Color maskedColor() {
+            return builder.maskedColor;
         }
     }
 }

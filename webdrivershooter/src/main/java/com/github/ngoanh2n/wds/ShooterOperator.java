@@ -36,10 +36,10 @@ public abstract class ShooterOperator {
         int width = getImageWidth();
         int height = getImageHeight();
         List<WebElement> elements = getElements();
-        List<Rectangle> areas = getRectangles(elements);
-        boolean isMasked = options.isMasked();
+        List<Rectangle> rects = getRectangles(elements);
+        boolean maskForRects = options.maskForElements();
         Color maskedColor = options.maskedColor();
-        return new Screenshot(width, height, areas, isMasked, maskedColor);
+        return new Screenshot(width, height, rects, maskForRects, maskedColor);
     }
 
     //-------------------------------------------------------------------------------//
