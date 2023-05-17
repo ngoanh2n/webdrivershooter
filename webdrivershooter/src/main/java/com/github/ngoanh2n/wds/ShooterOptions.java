@@ -154,7 +154,7 @@ public interface ShooterOptions {
          *
          * @return {@link ShooterOptions.Builder}.
          */
-        public Builder shootBothDirectionScroll() {
+        public Builder shootFullScroll() {
             this.shooter = 4;
             return this;
         }

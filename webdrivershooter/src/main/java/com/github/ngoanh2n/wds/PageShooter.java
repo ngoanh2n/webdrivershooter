@@ -56,7 +56,7 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
     }
 
     @Override
-    public Screenshot shootBothDirectionScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
+    public Screenshot shootFullScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
         int partsY = operator.getPartsY();
         int partsX = operator.getPartsX();
 

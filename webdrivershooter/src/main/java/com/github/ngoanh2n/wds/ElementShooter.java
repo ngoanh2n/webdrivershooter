@@ -74,7 +74,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
     }
 
     @Override
-    public Screenshot shootBothDirectionScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
+    public Screenshot shootFullScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
         int partsY = operator.getPartsY();
         int partsX = operator.getPartsX();
 
