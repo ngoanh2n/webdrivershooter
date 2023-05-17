@@ -12,7 +12,7 @@ public interface ShooterStrategy<Operator extends ShooterOperator> {
             case 3:
                 return shootHorizontalScroll(options, driver, operator);
             default:
-                return shootBothDirectionScroll(options, driver, operator);
+                return shootFullScroll(options, driver, operator);
         }
     }
 
@@ -22,5 +22,5 @@ public interface ShooterStrategy<Operator extends ShooterOperator> {
 
     Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, Operator operator);
 
-    Screenshot shootBothDirectionScroll(ShooterOptions options, WebDriver driver, Operator operator);
+    Screenshot shootFullScroll(ShooterOptions options, WebDriver driver, Operator operator);
 }

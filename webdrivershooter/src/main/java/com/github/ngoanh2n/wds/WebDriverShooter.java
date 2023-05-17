@@ -21,7 +21,7 @@ import java.util.ServiceLoader;
  *     <li>Viewport: {@link ShooterOptions.Builder#shootViewport()}</li>
  *     <li>Vertical scroll: {@link ShooterOptions.Builder#shootVerticalScroll()}</li>
  *     <li>Horizontal scroll: {@link ShooterOptions.Builder#shootHorizontalScroll()}</li>
- *     <li>Full scroll: {@link ShooterOptions.Builder#shootBothDirectionScroll()}</li>
+ *     <li>Full scroll: {@link ShooterOptions.Builder#shootFullScroll()}</li>
  * </ul>
  * <p>
  * Take full screenshot:
