@@ -29,7 +29,7 @@ public abstract class ShooterOperator {
     //-------------------------------------------------------------------------------//
 
     protected Screener createScreener(WebElement... elements) {
-        return Screener.page(checkDPR, driver);
+        return new Screener(checkDPR, driver);
     }
 
     protected Screenshot createScreenshot() {

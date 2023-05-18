@@ -24,7 +24,7 @@ public class FrameOperator extends PageOperator {
 
         framer = Screener.element(checkDPR, driver, frame);
         driver.switchTo().frame(frame);
-        return Screener.page(checkDPR, driver);
+        return new Screener(checkDPR, driver);
     }
 
     @Override
