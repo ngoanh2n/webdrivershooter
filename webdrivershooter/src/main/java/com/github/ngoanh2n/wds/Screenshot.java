@@ -5,6 +5,7 @@ import com.github.ngoanh2n.img.ImageComparator;
 import com.github.ngoanh2n.img.ImageComparisonOptions;
 import com.github.ngoanh2n.img.ImageComparisonResult;
 import org.apache.commons.io.FilenameUtils;
+import org.openqa.selenium.WebDriver;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.imageio.ImageIO;
@@ -16,6 +17,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Screenshot result after {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator)}.<br>
+ * This contains 2 images:
+ * <ul>
+ *     <li>Screenshot image: {@link Screenshot#getImage()}</li>
+ *     <li>Screenshot image was masked: {@link Screenshot#getMaskedImage()}</li>
+ * </ul>
+ *
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
 @ParametersAreNonnullByDefault
 public class Screenshot {
     private final BufferedImage image;
@@ -28,10 +39,24 @@ public class Screenshot {
     private BufferedImage maskedImage;
     private Graphics maskedGraphics;
 
+    /**
+     * Construct a {@link Screenshot} object.
+     *
+     * @param image The image of the {@link Screenshot}.
+     * @param rects The areas will be masked or ignored to be not masked.
+     */
     public Screenshot(BufferedImage image, List<Rectangle> rects) {
         this(image, rects, true, Color.GRAY);
     }
 
+    /**
+     * Construct a {@link Screenshot} object.
+     *
+     * @param image        The image of the {@link Screenshot}.
+     * @param rects        The areas will be masked or ignored to be not masked.
+     * @param maskForRects Indicate to mask {@code rects} or ignored to be not masked {@code rects}.
+     * @param maskedColor  The color to mask areas.
+     */
     public Screenshot(BufferedImage image, List<Rectangle> rects, boolean maskForRects, Color maskedColor) {
         this.image = image;
         this.graphics = null;
@@ -42,6 +67,15 @@ public class Screenshot {
         this.updatedRects = false;
     }
 
+    /**
+     * Construct a {@link Screenshot} object.
+     *
+     * @param width        The image width of the {@link Screenshot}.
+     * @param height       The image height of the {@link Screenshot}.
+     * @param rects        The areas will be masked or ignored to be not masked.
+     * @param maskForRects Indicate to mask {@code rects} or ignored to be not masked {@code rects}.
+     * @param maskedColor  The color to mask areas.
+     */
     protected Screenshot(int width, int height, List<Rectangle> rects, boolean maskForRects, Color maskedColor) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         this.graphics = image.createGraphics();
@@ -54,28 +88,70 @@ public class Screenshot {
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * Save the image of the current {@link Screenshot} to the default target file.<br>
+     * <ul>
+     *     <li>File location: build/ngoanh2n/wds/</li>
+     *     <li>File name: yyyyMMdd.HHmmss.SSS</li>
+     * </ul>
+     *
+     * @return The target {@link File}.
+     */
     public File saveImage() {
         File output = createDefaultOutput();
         return saveImage(output);
     }
 
+    /**
+     * Save the image of the current {@link Screenshot} to the specific target file.
+     *
+     * @param output The file to be written image to.
+     * @return The target {@link File}.
+     */
     public File saveImage(File output) {
-        return saveImageToOutput(getImage(), output);
+        BufferedImage image = getImage();
+        return saveImageToOutput(image, output);
     }
 
+    /**
+     * Save the masked image of the current {@link Screenshot} to the default target file.<br>
+     * <ul>
+     *     <li>File location: build/ngoanh2n/wds/</li>
+     *     <li>File name: yyyyMMdd.HHmmss.SSS</li>
+     * </ul>
+     *
+     * @return The target {@link File}.
+     */
     public File saveMaskedImage() {
         File output = createDefaultOutput();
         return saveMaskedImage(output);
     }
 
+    /**
+     * Save the masked image of the current {@link Screenshot} to the specific target file.
+     *
+     * @param output The file to be written image to.
+     * @return The target {@link File}.
+     */
     public File saveMaskedImage(File output) {
-        return saveImageToOutput(getMaskedImage(), output);
+        BufferedImage image = getMaskedImage();
+        return saveImageToOutput(image, output);
     }
 
+    /**
+     * Get the image of the current {@link Screenshot}.
+     *
+     * @return A {@link BufferedImage}.
+     */
     public BufferedImage getImage() {
         return image;
     }
 
+    /**
+     * Get the masked image of the current {@link Screenshot}.
+     *
+     * @return A {@link BufferedImage}.
+     */
     public BufferedImage getMaskedImage() {
         if (!masked) {
             initializeMaskedImage();
@@ -100,19 +176,45 @@ public class Screenshot {
         return maskedImage;
     }
 
+    /**
+     * Compare the image of the current Screenshot with other image.
+     *
+     * @param image The expected image.
+     * @return A {@link ImageComparisonResult}.
+     */
     public ImageComparisonResult compare(BufferedImage image) {
         return compare(image, ImageComparisonOptions.defaults());
     }
 
+    /**
+     * Compare the current {@link Screenshot} with other {@link Screenshot}.
+     *
+     * @param screenshot The expected {@link Screenshot}.
+     * @return A {@link ImageComparisonResult}.
+     */
     public ImageComparisonResult compare(Screenshot screenshot) {
         return compare(screenshot, ImageComparisonOptions.defaults());
     }
 
+    /**
+     * Compare the image of the current Screenshot with other image.
+     *
+     * @param image   The expected image.
+     * @param options {@link ImageComparisonOptions} to adjust behaviors of {@link ImageComparator}.
+     * @return A {@link ImageComparisonResult}.
+     */
     public ImageComparisonResult compare(BufferedImage image, ImageComparisonOptions options) {
         BufferedImage act = getMaskedImage();
         return ImageComparator.compare(image, act, options);
     }
 
+    /**
+     * Compare the current {@link Screenshot} with other {@link Screenshot}.
+     *
+     * @param screenshot The expected {@link Screenshot}.
+     * @param options    {@link ImageComparisonOptions} to adjust behaviors of {@link ImageComparator}.
+     * @return A {@link ImageComparisonResult}.
+     */
     public ImageComparisonResult compare(Screenshot screenshot, ImageComparisonOptions options) {
         BufferedImage exp = screenshot.getMaskedImage();
         BufferedImage act = getMaskedImage();
@@ -121,14 +223,31 @@ public class Screenshot {
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * Disposes graphics of the current image and releases any system resources that it is using.
+     */
     protected void dispose() {
         graphics.dispose();
     }
 
+    /**
+     * Draw the specified part over the current image with its top-left corner at (x,y).
+     *
+     * @param part The sub image to be drawn over the current image.
+     * @param x    The x coordinate.
+     * @param y    The Y coordinate
+     */
     protected void mergePart(BufferedImage part, int x, int y) {
         graphics.drawImage(part, x, y, null);
     }
 
+    /**
+     * Moves all rectangles to the specified location.<br>
+     * The new position is determined by moving back to the left position with distance x, moving to the top position with distance y.
+     *
+     * @param xToMinus The distance to move back to the left.
+     * @param yToMinus The distance to move back to the top.
+     */
     protected void updatedRects(int xToMinus, int yToMinus) {
         if (!updatedRects) {
             for (Rectangle rectangle : rects) {
