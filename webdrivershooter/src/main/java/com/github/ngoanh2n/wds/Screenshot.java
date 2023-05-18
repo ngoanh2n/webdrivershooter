@@ -141,7 +141,7 @@ public class Screenshot {
     /**
      * Get the image of the current {@link Screenshot}.
      *
-     * @return A {@link BufferedImage}.
+     * @return The {@link BufferedImage}.
      */
     public BufferedImage getImage() {
         return image;
@@ -150,7 +150,7 @@ public class Screenshot {
     /**
      * Get the masked image of the current {@link Screenshot}.
      *
-     * @return A {@link BufferedImage}.
+     * @return The {@link BufferedImage}.
      */
     public BufferedImage getMaskedImage() {
         if (!masked) {
@@ -180,7 +180,7 @@ public class Screenshot {
      * Compare the image of the current Screenshot with other image.
      *
      * @param image The expected image.
-     * @return A {@link ImageComparisonResult}.
+     * @return The {@link ImageComparisonResult}.
      */
     public ImageComparisonResult compare(BufferedImage image) {
         return compare(image, ImageComparisonOptions.defaults());
@@ -190,7 +190,7 @@ public class Screenshot {
      * Compare the current {@link Screenshot} with other {@link Screenshot}.
      *
      * @param screenshot The expected {@link Screenshot}.
-     * @return A {@link ImageComparisonResult}.
+     * @return The {@link ImageComparisonResult}.
      */
     public ImageComparisonResult compare(Screenshot screenshot) {
         return compare(screenshot, ImageComparisonOptions.defaults());
@@ -201,7 +201,7 @@ public class Screenshot {
      *
      * @param image   The expected image.
      * @param options {@link ImageComparisonOptions} to adjust behaviors of {@link ImageComparator}.
-     * @return A {@link ImageComparisonResult}.
+     * @return The {@link ImageComparisonResult}.
      */
     public ImageComparisonResult compare(BufferedImage image, ImageComparisonOptions options) {
         BufferedImage act = getMaskedImage();
@@ -213,7 +213,7 @@ public class Screenshot {
      *
      * @param screenshot The expected {@link Screenshot}.
      * @param options    {@link ImageComparisonOptions} to adjust behaviors of {@link ImageComparator}.
-     * @return A {@link ImageComparisonResult}.
+     * @return The {@link ImageComparisonResult}.
      */
     public ImageComparisonResult compare(Screenshot screenshot, ImageComparisonOptions options) {
         BufferedImage exp = screenshot.getMaskedImage();
