@@ -22,7 +22,7 @@ public class FrameOperator extends PageOperator {
         WebElement frame = elements[0];
         super.createScreener().scrollElementIntoView(frame);
 
-        framer = Screener.element(checkDPR, driver, frame);
+        framer = new Screener(checkDPR, driver, frame);
         driver.switchTo().frame(frame);
         return new Screener(checkDPR, driver);
     }
