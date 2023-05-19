@@ -5,20 +5,36 @@ import org.openqa.selenium.WebElement;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Take element screenshot.
+ *
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
 public class ElementShooter extends WebDriverShooter<ElementOperator> {
     private final WebElement element;
 
+    /**
+     * Construct a {@link ElementShooter}.
+     *
+     * @param element The element to be captured.
+     */
     public ElementShooter(WebElement element) {
         this.element = element;
     }
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected ElementOperator operator(ShooterOptions options, WebDriver driver) {
         return new ElementOperator(options, driver, element);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, ElementOperator operator) {
         operator.sleep();
@@ -33,6 +49,9 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
         return operator.getScreenshot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootVerticalScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
         int partsY = operator.getPartsY();
@@ -53,6 +72,9 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
         return operator.getScreenshot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
         int partsX = operator.getPartsX();
@@ -73,6 +95,9 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
         return operator.getScreenshot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootFullScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
         int partsY = operator.getPartsY();
