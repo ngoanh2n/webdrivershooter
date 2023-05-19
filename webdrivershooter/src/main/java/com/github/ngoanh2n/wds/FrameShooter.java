@@ -5,20 +5,36 @@ import org.openqa.selenium.WebElement;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Take iframe screenshot.
+ *
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
 public class FrameShooter extends PageShooter {
     private final WebElement frame;
 
+    /**
+     * Construct a {@link FrameShooter}.
+     *
+     * @param frame The iframe to be captured.
+     */
     public FrameShooter(WebElement frame) {
         this.frame = frame;
     }
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PageOperator operator(ShooterOptions options, WebDriver driver) {
         return new FrameOperator(options, driver, frame);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, PageOperator operator) {
         operator.sleep();
