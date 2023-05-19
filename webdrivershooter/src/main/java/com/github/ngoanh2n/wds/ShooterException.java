@@ -9,21 +9,33 @@ import com.github.ngoanh2n.RuntimeError;
  */
 public class ShooterException extends RuntimeError {
     /**
-     * {@inheritDoc}
+     * Construct a new runtime exception with the specified detail message.
+     *
+     * @param message The detail message, is saved for later retrieval by the {@link #getMessage()} method.
      */
     public ShooterException(String message) {
         super(message);
     }
 
     /**
-     * {@inheritDoc}
+     * Construct a new runtime exception with the specified cause and a detail message.
+     *
+     * @param cause The cause (which is saved for later retrieval by the
+     *              {@link #getCause()} method).  (A {@code null} value is
+     *              permitted, and indicates that the cause is nonexistent or unknown).
      */
     public ShooterException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * {@inheritDoc}
+     * Construct a new runtime exception with the specified detail message and cause.
+     *
+     * @param message The detail message (which is saved for later retrieval
+     *                by the {@link #getMessage()} method).
+     * @param cause   the cause (which is saved for later retrieval by the
+     *                {@link #getCause()} method).  (A {@code null} value is
+     *                permitted, and indicates that the cause is nonexistent or unknown.)
      */
     public ShooterException(String message, Throwable cause) {
         super(message, cause);
