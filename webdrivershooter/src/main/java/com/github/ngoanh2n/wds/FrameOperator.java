@@ -7,16 +7,31 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+/**
+ * Operate coordinates and rectangles on screen for iframe.
+ *
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
 @ParametersAreNonnullByDefault
 public class FrameOperator extends PageOperator {
     protected Screener framer;
 
+    /**
+     * Construct a {@link FrameOperator} object.
+     *
+     * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param driver  The current {@link WebDriver}.
+     * @param frame   The iframe element to support {@link #createScreener(WebElement...)}.<br>
+     */
     protected FrameOperator(ShooterOptions options, WebDriver driver, WebElement frame) {
         super(options, driver, frame);
     }
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Screener createScreener(WebElement... elements) {
         WebElement frame = elements[0];
@@ -27,11 +42,17 @@ public class FrameOperator extends PageOperator {
         return new Screener(checkDPR, driver);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<WebElement> getElements() {
         return getElements(options.locators());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected boolean isImageFull(BufferedImage part) {
         switch (options.shooter()) {
@@ -48,34 +69,54 @@ public class FrameOperator extends PageOperator {
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * Draw the specified part over the current image of {@link Screenshot} with its top-left corner at (0,0).
+     *
+     * @param part The specified part to be drawn over the current {@link Screenshot}.
+     */
     protected void mergePart00(BufferedImage part) {
-        part = getFramePart(part);
+        part = getFrameImage(part);
         screenshot.mergePart(part, 0, 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void mergePart0Y(BufferedImage part, int multiplierY) {
-        part = getFramePart(part);
+        part = getFrameImage(part);
         super.mergePart0Y(part, multiplierY);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void mergePartX0(BufferedImage part, int multiplierX) {
-        part = getFramePart(part);
+        part = getFrameImage(part);
         super.mergePartX0(part, multiplierX);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void mergePartSS(BufferedImage part) {
-        part = getFramePart(part);
+        part = getFrameImage(part);
         super.mergePartSS(part);
     }
 
-    protected BufferedImage getFramePart(BufferedImage part) {
+    /**
+     * Cut image defined by a specified rectangular iframe.
+     *
+     * @param outerImage The larger image contains iframe.
+     * @return The iframe image.
+     */
+    protected BufferedImage getFrameImage(BufferedImage outerImage) {
         int x = (int) framer.getInnerRect().getX();
         int y = (int) framer.getInnerRect().getY();
         int w = (int) framer.getInnerRect().getWidth();
         int h = (int) framer.getInnerRect().getHeight();
-        return part.getSubimage(x, y, w, h);
+        return outerImage.getSubimage(x, y, w, h);
     }
 }
