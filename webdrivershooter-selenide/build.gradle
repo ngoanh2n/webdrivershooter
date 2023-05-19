@@ -3,4 +3,5 @@
  */
 dependencies {
     api(project(":webdrivershooter"))
+    implementation("com.codeborne:selenide:$versionSelenide")
 }
