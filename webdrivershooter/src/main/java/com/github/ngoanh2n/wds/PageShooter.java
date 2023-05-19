@@ -4,12 +4,23 @@ import org.openqa.selenium.WebDriver;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Take page screenshot.
+ *
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
 public class PageShooter extends WebDriverShooter<PageOperator> {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PageOperator operator(ShooterOptions options, WebDriver driver) {
         return new PageOperator(options, driver);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, PageOperator operator) {
         BufferedImage part = screenshot(driver);
@@ -17,6 +28,9 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
         return operator.getScreenshot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootVerticalScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
         int partsY = operator.getPartsY();
@@ -36,6 +50,9 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
         return operator.getScreenshot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
         int partsX = operator.getPartsX();
@@ -55,6 +72,9 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
         return operator.getScreenshot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Screenshot shootFullScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
         int partsY = operator.getPartsY();
