@@ -37,8 +37,6 @@ public class FrameShooter extends PageShooter {
      */
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, PageOperator operator) {
-        operator.sleep();
-
         BufferedImage part = screenshot(driver);
         ((FrameOperator) operator).mergePart00(part);
 

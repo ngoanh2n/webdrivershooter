@@ -37,8 +37,6 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
      */
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, ElementOperator operator) {
-        operator.sleep();
-
         Screenshot screenshot = page(driver);
         BufferedImage image = screenshot.getImage();
         operator.mergePart00(image);
