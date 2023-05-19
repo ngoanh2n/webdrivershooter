@@ -202,7 +202,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take screenshot by a specific shooting strategy.
      *
      * @param shooter    A {@link WebDriverShooter} implementation.
-     * @param options    Options to adjust {@link WebDriverShooter} by your expectation.
+     * @param options    {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param args       The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
      * @param <Operator> A {@link ShooterOperator} implementation.
      * @return The {@link Screenshot}.
