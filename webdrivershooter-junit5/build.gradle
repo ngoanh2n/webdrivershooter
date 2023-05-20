@@ -3,4 +3,5 @@
  */
 dependencies {
     api(project(":webdrivershooter"))
+    implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
 }
