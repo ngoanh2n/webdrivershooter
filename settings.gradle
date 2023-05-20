@@ -2,4 +2,4 @@ rootProject.setName("wds")
 
 include("webdrivershooter")
 include("webdrivershooter-selenide")
-
+include("webdrivershooter-junit5")
