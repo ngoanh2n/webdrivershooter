@@ -5,3 +5,7 @@ dependencies {
     api(project(":webdrivershooter"))
     implementation("org.testng:testng:$versionTestNG")
 }
+
+test {
+    useTestNG()
+}
