@@ -5,5 +5,6 @@ dependencies {
     api(project(":webdrivershooter"))
     implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
     implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
+    testImplementation("org.seleniumhq.selenium:selenium-java:$versionSelenium")
     testImplementation("io.github.bonigarcia:webdrivermanager:$versionWebDriverManager")
 }
