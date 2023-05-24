@@ -8,5 +8,6 @@ ext {
     versionSelenide                 =   "6.14.1"
     versionJunitJupiter             =   "5.9.3"
     versionTestNG                   =   "7.8.0"
+    versionAppium                   =   "8.5.0"
     versionSlf4j                    =   "2.0.7"
 }
