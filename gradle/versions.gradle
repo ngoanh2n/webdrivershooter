@@ -5,7 +5,7 @@ ext {
     versionCommons                  =   "1.0.0"
     versionImageComparator          =   "1.0.0"
     versionSelenium                 =   "4.9.1"
-    versionSelenide                 =   "6.13.0"
+    versionSelenide                 =   "6.14.1"
     versionJunitJupiter             =   "5.9.2"
     versionTestNG                   =   "7.7.1"
     versionSlf4j                    =   "2.0.7"
