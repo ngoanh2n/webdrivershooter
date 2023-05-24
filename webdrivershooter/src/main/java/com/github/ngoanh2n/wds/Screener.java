@@ -1,6 +1,6 @@
 package com.github.ngoanh2n.wds;
 
-import com.github.ngoanh2n.Resource;
+import com.github.ngoanh2n.Resources;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -111,7 +111,7 @@ public class Screener {
      * @return One of Boolean, Long, Double, String, List, Map or WebElement. Or null.
      */
     public static Object executeScript(WebDriver driver, String resource, Object... args) {
-        String script = Resource.getContent(resource);
+        String script = Resources.getContent(resource);
         return ((JavascriptExecutor) driver).executeScript(script, args);
     }
 
