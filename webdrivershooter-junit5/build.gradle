@@ -7,4 +7,5 @@ dependencies {
     implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
     testImplementation("org.seleniumhq.selenium:selenium-java:$versionSelenium")
     testImplementation("io.github.bonigarcia:webdrivermanager:$versionWebDriverManager")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$versionJunitJupiter")
 }
