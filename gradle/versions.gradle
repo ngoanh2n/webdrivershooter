@@ -3,7 +3,7 @@
  */
 ext {
     versionImageComparator          =   "1.0.0"
-    versionCommons                  =   "1.1.0"
+    versionCommons                  =   "1.1.1"
     versionSelenium                 =   "4.9.1"
     versionSelenide                 =   "6.14.1"
     versionJunitJupiter             =   "5.9.3"
