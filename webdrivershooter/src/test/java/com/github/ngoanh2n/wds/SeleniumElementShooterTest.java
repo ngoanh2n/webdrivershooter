@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @EnabledIfProperty(name = "wds.browser", value = {"chrome", "safari", "firefox", "edge"})
-public class ElementShooterTest extends AbstractSeleniumTest {
+public class SeleniumElementShooterTest extends AbstractSeleniumTest {
     protected WebElement element;
     protected WebElement ignore1;
     protected WebElement ignore2;
@@ -20,6 +20,7 @@ public class ElementShooterTest extends AbstractSeleniumTest {
     protected void openDriver(TestInfo testInfo) {
         super.openDriver(testInfo);
         driver.get("https://mvnrepository.com");
+
         element = driver.findElement(By.cssSelector("div[class='content']"));
         ignore1 = driver.findElement(By.xpath("//div[@class='posts']/div[1]//h2"));
         ignore2 = driver.findElement(By.xpath("//div[@class='posts']/div[2]//h2"));
@@ -35,7 +36,7 @@ public class ElementShooterTest extends AbstractSeleniumTest {
     @Test
     @Order(2)
     void verticalScroll() {
-        ShooterOptions options = ShooterOptions.builder().shootVerticalScroll().build();
+        ShooterOptions options = ShooterOptions.builder().shootVerticalScroll().maskElements(ignore1, ignore2).build();
         screenshot = WebDriverShooter.element(options, element, driver);
     }
 

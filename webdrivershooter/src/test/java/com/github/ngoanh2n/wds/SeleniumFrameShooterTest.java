@@ -3,7 +3,6 @@ package com.github.ngoanh2n.wds;
 import com.github.ngoanh2n.EnabledIfProperty;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -11,7 +10,7 @@ import org.openqa.selenium.WebElement;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @EnabledIfProperty(name = "wds.browser", value = {"chrome", "safari", "firefox", "edge"})
-public class FrameShooterTest extends AbstractSeleniumTest {
+public class SeleniumFrameShooterTest extends AbstractSeleniumTest {
     protected WebElement frame;
     protected By ignore1;
     protected By ignore2;
@@ -21,6 +20,7 @@ public class FrameShooterTest extends AbstractSeleniumTest {
     protected void openDriver(TestInfo testInfo) {
         super.openDriver(testInfo);
         driver.get("https://frontendresource.com/iframe-generator");
+
         scrollTo(By.cssSelector("#f-url")).clear();
         scrollTo(By.cssSelector("#f-url")).sendKeys("https://mvnrepository.com");
         scrollTo(By.cssSelector("label[class='radio']")).click();
@@ -47,7 +47,7 @@ public class FrameShooterTest extends AbstractSeleniumTest {
     @Test
     @Order(2)
     void verticalScroll() {
-        ShooterOptions options = ShooterOptions.builder().shootVerticalScroll().build();
+        ShooterOptions options = ShooterOptions.builder().shootVerticalScroll().maskElements(ignore1, ignore2).build();
         screenshot = WebDriverShooter.frame(options, frame, driver);
     }
 
@@ -63,11 +63,5 @@ public class FrameShooterTest extends AbstractSeleniumTest {
     void fullScroll() {
         ShooterOptions options = ShooterOptions.builder().shootFullScroll().maskElements(ignore1, ignore2).build();
         screenshot = WebDriverShooter.frame(options, frame, driver);
-    }
-
-    protected WebElement scrollTo(By locator) {
-        WebElement element = driver.findElement(locator);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        return element;
     }
 }
