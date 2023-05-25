@@ -43,7 +43,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
     /**
      * Take full page screenshot.
      *
-     * @param driver The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver The {@link WebDriver} for the first argument, and can be empty.<br>
+     *               {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot page(WebDriver... driver) {
@@ -55,7 +56,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take full page screenshot.
      *
      * @param maskedElements Element list to be masked.
-     * @param driver         The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot page(By[] maskedElements, WebDriver... driver) {
@@ -67,7 +69,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take full page screenshot.
      *
      * @param maskedElements Element list to be masked.
-     * @param driver         The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot page(WebElement[] maskedElements, WebDriver... driver) {
@@ -79,7 +82,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take page screenshot.
      *
      * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
-     * @param driver  The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver  The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot page(ShooterOptions options, WebDriver... driver) {
@@ -90,7 +94,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take full iframe screenshot.
      *
      * @param frame  The IFrame to be captured.
-     * @param driver The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver The {@link WebDriver} for the first argument, and can be empty.<br>
+     *               {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot frame(WebElement frame, WebDriver... driver) {
@@ -103,7 +108,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      *
      * @param frame          The IFrame to be captured.
      * @param maskedElements Element list to be masked.
-     * @param driver         The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     *                       * @param driver The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                       *             {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot frame(WebElement frame, By[] maskedElements, WebDriver... driver) {
@@ -116,7 +122,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      *
      * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param frame   The IFrame to be captured.
-     * @param driver  The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver  The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot frame(ShooterOptions options, WebElement frame, WebDriver... driver) {
@@ -127,7 +134,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take full element screenshot.
      *
      * @param element The element to be captured.
-     * @param driver  The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver  The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot element(WebElement element, WebDriver... driver) {
@@ -140,7 +148,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      *
      * @param element        The element to be captured.
      * @param maskedElements Element list to be masked.
-     * @param driver         The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot element(WebElement element, By[] maskedElements, WebDriver... driver) {
@@ -153,7 +162,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      *
      * @param element        The element to be captured.
      * @param maskedElements Element list to be masked.
-     * @param driver         The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot element(WebElement element, WebElement[] maskedElements, WebDriver... driver) {
@@ -166,7 +176,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      *
      * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param element The element to be captured.
-     * @param driver  The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param driver  The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot element(ShooterOptions options, WebElement element, WebDriver... driver) {
@@ -178,7 +189,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
     /**
      * Get the current {@link WebDriver}.
      *
-     * @param args The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param args The {@link WebDriver} for the first argument, and can be empty.<br>
+     *             {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The current {@link WebDriver}.
      */
     protected static WebDriver getDriver(WebDriver... args) {
@@ -203,7 +215,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      *
      * @param shooter    A {@link WebDriverShooter} implementation.
      * @param options    {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
-     * @param args       The current {@link WebDriver}. Only the first {@link WebDriver} of driver array is used.
+     * @param args       The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                   {@link ShooterOperator} doesn't care from the second argument onwards.
      * @param <Operator> A {@link ShooterOperator} implementation.
      * @return The {@link Screenshot}.
      */

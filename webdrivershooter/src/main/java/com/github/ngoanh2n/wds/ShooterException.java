@@ -3,7 +3,7 @@ package com.github.ngoanh2n.wds;
 import com.github.ngoanh2n.RuntimeError;
 
 /**
- * Runtime exception for WebDriverShooter.
+ * Runtime exception for {@link WebDriverShooter}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */

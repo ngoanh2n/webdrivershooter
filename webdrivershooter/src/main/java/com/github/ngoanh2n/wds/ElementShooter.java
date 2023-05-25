@@ -14,7 +14,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
     private final WebElement element;
 
     /**
-     * Construct a {@link ElementShooter}.
+     * Construct a new {@link ElementShooter}.
      *
      * @param element The element to be captured.
      */
