@@ -5,7 +5,10 @@ import com.github.ngoanh2n.wds.driver.SeleniumDriverProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +43,15 @@ public abstract class AbstractSeleniumTest {
             BufferedImage image = screenshot.getImage();
             log.info(clazzName + "." + methodName + ": " + image.getWidth() + "x" + image.getHeight());
 
-            screenshot.saveImage(new File(String.format("build/ngoanh2n/wds/%s-%s-image.png", clazzName, methodName)));
-            screenshot.saveMaskedImage(new File(String.format("build/ngoanh2n/wds/%s-%s-maskedImage.png", clazzName, methodName)));
+            screenshot.saveImage(new File(String.format("build/ngoanh2n/wds/%s.%s-image1.png", clazzName, methodName)));
+            screenshot.saveMaskedImage(new File(String.format("build/ngoanh2n/wds/%s.%s-image2.png", clazzName, methodName)));
             screenshot = null;
         }
+    }
+
+    protected WebElement scrollTo(By locator) {
+        WebElement element = driver.findElement(locator);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return element;
     }
 }
