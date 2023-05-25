@@ -14,7 +14,7 @@ public class FrameShooter extends PageShooter {
     private final WebElement frame;
 
     /**
-     * Construct a {@link FrameShooter}.
+     * Construct a new {@link FrameShooter}.
      *
      * @param frame The iframe to be captured.
      */

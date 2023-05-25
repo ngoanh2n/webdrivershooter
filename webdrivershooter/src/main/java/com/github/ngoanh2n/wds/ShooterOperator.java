@@ -24,7 +24,7 @@ public abstract class ShooterOperator {
     protected Screenshot screenshot;
 
     /**
-     * Construct a {@link ShooterOperator} object.
+     * Construct a new {@link ShooterOperator}.
      *
      * @param options  {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param driver   The current {@link WebDriver}.
@@ -42,7 +42,7 @@ public abstract class ShooterOperator {
     //-------------------------------------------------------------------------------//
 
     /**
-     * Create a {@link Screener} object.
+     * Create a {@link Screener}.
      *
      * @param elements The element to support {@link Screener} when interacting a element.
      * @return The {@link Screener}.
@@ -52,7 +52,7 @@ public abstract class ShooterOperator {
     }
 
     /**
-     * Create a {@link Screenshot} object.
+     * Create a {@link Screenshot}.
      *
      * @return The {@link Screenshot}.
      */

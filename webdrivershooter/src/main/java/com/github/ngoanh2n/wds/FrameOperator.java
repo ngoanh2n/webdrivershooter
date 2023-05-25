@@ -17,7 +17,7 @@ public class FrameOperator extends PageOperator {
     protected Screener framer;
 
     /**
-     * Construct a {@link FrameOperator} object.
+     * Construct a new {@link FrameOperator}.
      *
      * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param driver  The current {@link WebDriver}.

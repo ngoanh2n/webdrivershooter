@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 @ParametersAreNonnullByDefault
 public class PageOperator extends ShooterOperator {
     /**
-     * Construct a {@link PageOperator} object.
+     * Construct a new {@link PageOperator}.
      *
      * @param options  {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param driver   The current {@link WebDriver}.

@@ -21,7 +21,7 @@ public class Screener {
     private final Rectangle outerRect;
 
     /**
-     * Construct a {@link Screener} object.
+     * Construct a new {@link Screener}.
      *
      * @param checkDPR Indicate to check device pixel ratio.
      * @param driver   The current {@link WebDriver}.
@@ -49,7 +49,7 @@ public class Screener {
     }
 
     /**
-     * Construct a {@link Screener} object.
+     * Construct a new {@link Screener}.
      *
      * @param checkDPR Indicate to check device pixel ratio.
      * @param driver   The current {@link WebDriver}.
@@ -105,7 +105,7 @@ public class Screener {
      * Execute JavaScript in the context of the currently selected frame or window.
      *
      * @param driver   The current {@link WebDriver}.
-     * @param resource The name of JavaScript as a resource file. <br>
+     * @param resource The name of JavaScript as a resource file.<br>
      *                 e.g. com/foo/File.js
      * @param args     The arguments to the script. May be empty.
      * @return One of Boolean, Long, Double, String, List, Map or WebElement. Or null.

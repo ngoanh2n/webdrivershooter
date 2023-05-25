@@ -17,7 +17,7 @@ public class ElementOperator extends ShooterOperator {
     protected WebElement element;
 
     /**
-     * Construct a {@link ElementOperator} object.
+     * Construct a new {@link ElementOperator}.
      *
      * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param driver  The current {@link WebDriver}.

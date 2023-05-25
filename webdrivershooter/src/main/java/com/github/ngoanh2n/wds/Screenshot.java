@@ -40,7 +40,7 @@ public class Screenshot {
     private Graphics maskedGraphics;
 
     /**
-     * Construct a {@link Screenshot} object.
+     * Construct a new {@link Screenshot}.
      *
      * @param image The image of the {@link Screenshot}.
      * @param rects The areas will be masked or ignored to be not masked.
@@ -50,7 +50,7 @@ public class Screenshot {
     }
 
     /**
-     * Construct a {@link Screenshot} object.
+     * Construct a new {@link Screenshot}.
      *
      * @param image        The image of the {@link Screenshot}.
      * @param rects        The areas will be masked or ignored to be not masked.
@@ -68,7 +68,7 @@ public class Screenshot {
     }
 
     /**
-     * Construct a {@link Screenshot} object.
+     * Construct a new {@link Screenshot}.
      *
      * @param width        The image width of the {@link Screenshot}.
      * @param height       The image height of the {@link Screenshot}.
