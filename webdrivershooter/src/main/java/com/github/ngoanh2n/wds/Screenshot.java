@@ -304,6 +304,7 @@ public class Screenshot {
 
     private File saveImageToOutput(BufferedImage image, File output) {
         try {
+            Commons.createDir(output);
             String extension = FilenameUtils.getExtension(output.getName());
             ImageIO.write(image, extension, output);
         } catch (IOException e) {
