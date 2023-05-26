@@ -148,10 +148,17 @@ public class ElementOperator extends ShooterOperator {
      * @return The element image.
      */
     protected BufferedImage getElementImage(BufferedImage outerImage) {
-        int x = (int) screener.getOuterRect().getX();
-        int y = (int) screener.getOuterRect().getY();
-        int w = (int) screener.getInnerRect().getWidth();
-        int h = (int) screener.getInnerRect().getHeight();
+        int x = screener.getOuterRect().x;
+        int y = screener.getOuterRect().y;
+        int w = screener.getInnerRect().width;
+        int h = screener.getInnerRect().height;
+
+        if (options.shooter() == 1) {
+            if (outerImage.getHeight() < screener.getInnerRect().getHeight()) {
+                h = outerImage.getHeight() - screener.getInnerRect().y;
+                screenshot.updateImage(w, h);
+            }
+        }
         screenshot.updatedRects(x, y);
         return outerImage.getSubimage(x, y, w, h);
     }
