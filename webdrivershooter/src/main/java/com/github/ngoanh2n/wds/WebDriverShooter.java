@@ -198,15 +198,19 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
             if (args[0] != null) {
                 return args[0];
             }
-            throw new ShooterException("You have passed a nullable WebDriver");
+            throw new ShooterException("Passed null WebDriver");
         } else {
             ServiceLoader<WebDriverProvider> serviceLoader = ServiceLoader.load(WebDriverProvider.class);
             Iterator<WebDriverProvider> serviceLoaders = serviceLoader.iterator();
 
             if (serviceLoaders.hasNext()) {
-                return serviceLoaders.next().provide();
+                WebDriver driver = serviceLoaders.next().provide();
+                if (driver != null) {
+                    return driver;
+                }
+                throw new ShooterException("Provided null WebDriver");
             }
-            throw new ShooterException("You have not implemented WebDriverProvider");
+            throw new ShooterException("None WebDriverProvider implemented");
         }
     }
 
