@@ -29,12 +29,13 @@ import java.util.List;
  */
 @ParametersAreNonnullByDefault
 public class Screenshot {
-    private final BufferedImage image;
-    private final Graphics graphics;
     private final List<Rectangle> rects;
     private final Color maskedColor;
     private final boolean maskForRects;
+    private BufferedImage image;
+    private Graphics graphics;
     private boolean masked;
+    private boolean updatedImage;
     private boolean updatedRects;
     private BufferedImage maskedImage;
     private Graphics maskedGraphics;
@@ -64,6 +65,7 @@ public class Screenshot {
         this.maskedColor = maskedColor;
         this.maskForRects = maskForRects;
         this.masked = false;
+        this.updatedImage = false;
         this.updatedRects = false;
     }
 
@@ -83,6 +85,7 @@ public class Screenshot {
         this.maskedColor = maskedColor;
         this.maskForRects = maskForRects;
         this.masked = false;
+        this.updatedImage = false;
         this.updatedRects = false;
     }
 
@@ -242,7 +245,21 @@ public class Screenshot {
     }
 
     /**
-     * Moves all rectangles to the specified location.<br>
+     * Update dimension of {@link BufferedImage} and its {@link Graphics}.
+     *
+     * @param newWidth  The new width of dimension.
+     * @param newHeight The new height of dimension.
+     */
+    protected void updateImage(int newWidth, int newHeight) {
+        if (!updatedImage) {
+            image = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+            graphics = image.createGraphics();
+            updatedImage = true;
+        }
+    }
+
+    /**
+     * Move all rectangles to the specified location.<br>
      * The new position is determined by moving back to the left position with distance x, moving to the top position with distance y.
      *
      * @param xToMinus The distance to move back to the left.
