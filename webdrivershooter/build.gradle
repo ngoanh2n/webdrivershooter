@@ -2,9 +2,9 @@
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 dependencies {
+    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
     implementation("com.github.ngoanh2n:image-comparator:$versionImageComparator")
     implementation("com.github.ngoanh2n:webdriverchecker:$versionWebDriverChecker")
-    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
     testImplementation("com.github.ngoanh2n:commons-junit5:$versionCommons")
     testImplementation("org.seleniumhq.selenium:selenium-java:$versionSelenium")
     testImplementation("io.appium:java-client:$versionAppium")
