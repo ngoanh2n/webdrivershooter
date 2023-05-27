@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 public class BeforeMethodTest extends WDSTestNGTest {
     @BeforeClass
     protected void beforeClass() {
+        Assert.assertThrows(ShooterException.NullDriverProvided.class, WebDriverShooter::getDriver);
     }
 
     @BeforeMethod

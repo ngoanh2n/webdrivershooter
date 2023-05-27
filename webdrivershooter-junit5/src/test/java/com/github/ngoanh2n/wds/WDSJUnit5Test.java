@@ -13,19 +13,21 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public abstract class WDSJUnit5Test {
     protected static WebDriver driver;
 
-    @AfterEach
-    protected void afterEach() {
-        Assertions.assertNotNull(WebDriverShooter.getDriver());
-    }
-
     @AfterAll
     protected static void afterAll() {
         Assertions.assertNotNull(WebDriverShooter.getDriver());
         driver.quit();
+        Assertions.assertThrows(ShooterException.ClosedDriverProvided.class, WebDriverShooter::getDriver);
+        driver = null;
     }
 
     protected static void createWebDriver() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+    }
+
+    @AfterEach
+    protected void afterEach() {
+        Assertions.assertNotNull(WebDriverShooter.getDriver());
     }
 }

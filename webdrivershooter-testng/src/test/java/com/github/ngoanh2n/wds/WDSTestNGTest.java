@@ -27,5 +27,7 @@ public abstract class WDSTestNGTest {
     protected void afterClass() {
         Assert.assertNotNull(WebDriverShooter.getDriver());
         driver.quit();
+        Assert.assertThrows(ShooterException.ClosedDriverProvided.class, WebDriverShooter::getDriver);
+        driver = null;
     }
 }

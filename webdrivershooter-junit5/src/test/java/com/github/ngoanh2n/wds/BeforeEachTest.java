@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 public class BeforeEachTest extends WDSJUnit5Test {
     @BeforeAll
     static void beforeAll() {
+        Assertions.assertThrows(ShooterException.NullDriverProvided.class, WebDriverShooter::getDriver);
     }
 
     @BeforeEach
