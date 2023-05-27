@@ -1,5 +1,6 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.wdc.WebDriverChecker;
 import org.openqa.selenium.*;
 
 import javax.imageio.ImageIO;
@@ -209,6 +210,9 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
 
                 if (driver == null) {
                     throw new ShooterException.NullDriverProvided();
+                }
+                if (!WebDriverChecker.isAlive(driver)) {
+                    throw new ShooterException.ClosedDriverProvided();
                 }
                 return driver;
             }
