@@ -4,11 +4,6 @@ import com.github.ngoanh2n.Property;
 import com.github.ngoanh2n.RuntimeError;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
@@ -19,28 +14,17 @@ public abstract class SeleniumDriverProvider {
 
         switch (browser) {
             case "chrome":
-            case "opera":
-                if (browser.equals("chrome")) {
-                    WebDriverManager.chromedriver().setup();
-                } else {
-                    WebDriverManager wdm = WebDriverManager.operadriver();
-                    wdm.setup();
-                    String binPath = wdm.getDownloadedDriverPath();
-                    System.setProperty("webdriver.opera.driver", binPath);
-                }
-                return new ChromeDriver();
-            case "firefox":
-                WebDriverManager.firefoxdriver().setup();
-                return new FirefoxDriver();
-            case "edge":
-                WebDriverManager.edgedriver().setup();
-                return new EdgeDriver();
+                return WebDriverManager.chromedriver().create();
             case "safari":
-                WebDriverManager.safaridriver().setup();
-                return new SafariDriver();
+                return WebDriverManager.safaridriver().create();
+            case "firefox":
+                return WebDriverManager.firefoxdriver().create();
+            case "edge":
+                return WebDriverManager.edgedriver().create();
+            case "opera":
+                return WebDriverManager.operadriver().create();
             case "ie":
-                WebDriverManager.iedriver().setup();
-                return new InternetExplorerDriver();
+                return WebDriverManager.iedriver().create();
             default:
                 throw new RuntimeError("Unknown browser: " + browser);
         }
