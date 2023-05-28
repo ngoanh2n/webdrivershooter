@@ -22,7 +22,7 @@ import java.util.ServiceLoader;
  *     <li>Viewport: {@link ShooterOptions.Builder#shootViewport()}</li>
  *     <li>Vertical Scroll: {@link ShooterOptions.Builder#shootVerticalScroll()}</li>
  *     <li>Horizontal Scroll: {@link ShooterOptions.Builder#shootHorizontalScroll()}</li>
- *     <li>Full Scroll (Vertical & Horizontal): {@link ShooterOptions.Builder#shootFullScroll()}</li>
+ *     <li>Full Scroll (Vertical and Horizontal): {@link ShooterOptions.Builder#shootFullScroll()}</li>
  * </ul>
  * <p>
  * Take full screenshot:
@@ -41,6 +41,10 @@ import java.util.ServiceLoader;
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 public abstract class WebDriverShooter<Operator extends ShooterOperator> implements ShooterStrategy<Operator> {
+    /**
+     * Default constructor.
+     */
+    protected WebDriverShooter() { /* No implementation necessary */ }
     /**
      * Take full page screenshot.
      *
@@ -109,8 +113,8 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      *
      * @param frame          The IFrame to be captured.
      * @param locatorsToMask Element list to be masked.
-     *                       * @param driver The {@link WebDriver} for the first argument, and can be empty.<br>
-     *                       *             {@link WebDriverShooter} doesn't care from the second argument onwards.
+     * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
     public static Screenshot frame(WebElement frame, By[] locatorsToMask, WebDriver... driver) {

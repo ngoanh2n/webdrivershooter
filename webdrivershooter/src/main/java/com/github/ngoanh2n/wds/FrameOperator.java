@@ -14,6 +14,9 @@ import java.util.List;
  */
 @ParametersAreNonnullByDefault
 public class FrameOperator extends PageOperator {
+    /**
+     * The {@link Screener} for iframe.
+     */
     protected Screener framer;
 
     /**

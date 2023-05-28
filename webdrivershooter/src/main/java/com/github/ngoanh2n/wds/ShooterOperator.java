@@ -17,10 +17,25 @@ import java.util.List;
  */
 @ParametersAreNonnullByDefault
 public abstract class ShooterOperator {
+    /**
+     * {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}
+     */
     protected ShooterOptions options;
+    /**
+     * The current {@link WebDriver}.
+     */
     protected WebDriver driver;
+    /**
+     * Indicate to check device pixel ratio.
+     */
     protected boolean checkDPR;
+    /**
+     * Operate coordinates on screen.
+     */
     protected Screener screener;
+    /**
+     * The result after {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator)}
+     */
     protected Screenshot screenshot;
 
     /**
