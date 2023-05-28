@@ -54,16 +54,16 @@
 # Extensions
 It automatically provides the current WebDriver instance to `com.github.ngoanh2n.wdc.WebDriverShooter`.
 
-You don't need to pass the WebDriver instance to the argument of checker methods.
+You don't need to pass the WebDriver instance to the argument of shooter methods.
 
 ### [Selenide](webdrivershooter-selenide#readme)
-When your automation project is using `Selenide` directly.
+When project is using `Selenide` directly.
 
 ### [JUnit5](webdrivershooter-junit5#readme)
-When your automation project is using `JUnit Jupiter` as a testing framework.
+When project is using `JUnit Jupiter` as a testing framework.
 
 ### [TestNG](webdrivershooter-testng#readme)
-When your automation project is using `TestNG` as a testing framework.
+When project is using `TestNG` as a testing framework.
 
 # Declarations
 ## Gradle
