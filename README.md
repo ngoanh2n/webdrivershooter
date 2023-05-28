@@ -54,7 +54,7 @@
 # Extensions
 It automatically provides the current WebDriver instance to `com.github.ngoanh2n.wdc.WebDriverShooter`.
 
-You don't need to pass the WebDriver instance to the argument of shooter methods.
+You don't need to pass the WebDriver instance to the argument of shooting methods.
 
 ### [Selenide](webdrivershooter-selenide#readme)
 When project is using `Selenide` directly.

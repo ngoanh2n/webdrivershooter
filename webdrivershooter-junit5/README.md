@@ -8,7 +8,7 @@ Project is using JUnit Jupiter as a testing framework, `webdrivershooter-junit5`
 
 It automatically gets WebDriver instance from the current running test by using `org.junit.jupiter.api.extension.InvocationInterceptor` extension.
 
-You don't need to pass the WebDriver instance to the argument of shooter methods.
+You don't need to pass the WebDriver instance to the argument of shooting methods.
 
 | webdrivershooter   	        | webdrivershooter-junit5 |
 |---	                        |---	                  |
