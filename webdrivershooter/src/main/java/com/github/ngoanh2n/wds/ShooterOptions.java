@@ -42,7 +42,7 @@ public interface ShooterOptions {
      *     <li>{@code 1}: Viewport.</li>
      *     <li>{@code 2}: Vertical scroll.</li>
      *     <li>{@code 3}: Horizontal scroll.</li>
-     *     <li>{@code 4}: Full scroll.</li>
+     *     <li>{@code 4}: Full scroll (vertical & horizontal).</li>
      * </ul>
      *
      * @return The number is representing for a shooting strategy.

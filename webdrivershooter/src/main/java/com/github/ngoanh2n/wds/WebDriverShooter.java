@@ -20,9 +20,9 @@ import java.util.ServiceLoader;
  * by strategies:
  * <ul>
  *     <li>Viewport: {@link ShooterOptions.Builder#shootViewport()}</li>
- *     <li>Vertical scroll: {@link ShooterOptions.Builder#shootVerticalScroll()}</li>
- *     <li>Horizontal scroll: {@link ShooterOptions.Builder#shootHorizontalScroll()}</li>
- *     <li>Full scroll: {@link ShooterOptions.Builder#shootFullScroll()}</li>
+ *     <li>Vertical Scroll: {@link ShooterOptions.Builder#shootVerticalScroll()}</li>
+ *     <li>Horizontal Scroll: {@link ShooterOptions.Builder#shootHorizontalScroll()}</li>
+ *     <li>Full Scroll (Vertical & Horizontal): {@link ShooterOptions.Builder#shootFullScroll()}</li>
  * </ul>
  * <p>
  * Take full screenshot:
@@ -56,26 +56,26 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
     /**
      * Take full page screenshot.
      *
-     * @param maskedElements Element list to be masked.
+     * @param locatorsToMask Element list to be masked.
      * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
      *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
-    public static Screenshot page(By[] maskedElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
+    public static Screenshot page(By[] locatorsToMask, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(locatorsToMask).build();
         return WebDriverShooter.page(options, driver);
     }
 
     /**
      * Take full page screenshot.
      *
-     * @param maskedElements Element list to be masked.
+     * @param elementsToMask Element list to be masked.
      * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
      *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
-    public static Screenshot page(WebElement[] maskedElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
+    public static Screenshot page(WebElement[] elementsToMask, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(elementsToMask).build();
         return WebDriverShooter.page(options, driver);
     }
 
@@ -108,13 +108,13 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take full iframe screenshot.
      *
      * @param frame          The IFrame to be captured.
-     * @param maskedElements Element list to be masked.
+     * @param locatorsToMask Element list to be masked.
      *                       * @param driver The {@link WebDriver} for the first argument, and can be empty.<br>
      *                       *             {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
-    public static Screenshot frame(WebElement frame, By[] maskedElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
+    public static Screenshot frame(WebElement frame, By[] locatorsToMask, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(locatorsToMask).build();
         return WebDriverShooter.frame(options, frame, driver);
     }
 
@@ -148,13 +148,13 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take full element screenshot.
      *
      * @param element        The element to be captured.
-     * @param maskedElements Element list to be masked.
+     * @param locatorsToMask Element list to be masked.
      * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
      *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
-    public static Screenshot element(WebElement element, By[] maskedElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
+    public static Screenshot element(WebElement element, By[] locatorsToMask, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(locatorsToMask).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
@@ -162,13 +162,13 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * Take full element screenshot.
      *
      * @param element        The element to be captured.
-     * @param maskedElements Element list to be masked.
+     * @param elementsToMask Element list to be masked.
      * @param driver         The {@link WebDriver} for the first argument, and can be empty.<br>
      *                       {@link WebDriverShooter} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
-    public static Screenshot element(WebElement element, WebElement[] maskedElements, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(maskedElements).build();
+    public static Screenshot element(WebElement element, WebElement[] elementsToMask, WebDriver... driver) {
+        ShooterOptions options = ShooterOptions.builder().maskElements(elementsToMask).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
