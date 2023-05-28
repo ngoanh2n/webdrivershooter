@@ -4,8 +4,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 # WebDriverShooter for JUnit5
-Project is using JUnit Jupiter as a testing framework, `webdrivershooter-junit5` should be used.<br>
-It automatically gets WebDriver instance from the current running test by using `org.junit.jupiter.api.extension.InvocationInterceptor` extension.<br>
+Project is using JUnit Jupiter as a testing framework, `webdrivershooter-junit5` should be used.
+
+It automatically gets WebDriver instance from the current running test by using `org.junit.jupiter.api.extension.InvocationInterceptor` extension.
+
 You don't need to pass the WebDriver instance to the argument of shooter methods.
 
 | webdrivershooter   	        | webdrivershooter-junit5 |
