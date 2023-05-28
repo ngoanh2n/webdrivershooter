@@ -4,8 +4,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 # WebDriverShooter for Selenide
-Project is using Selenide directly, `webdrivershooter-selenide` should be used.<br>
-It automatically gets WebDriver instance from `com.codeborne.selenide.impl.WebDriverContainer` via `com.codeborne.selenide.WebDriverRunner.getWebDriver()` method.<br>
+Project is using Selenide directly, `webdrivershooter-selenide` should be used.
+
+It automatically gets WebDriver instance from `com.codeborne.selenide.impl.WebDriverContainer` via `com.codeborne.selenide.WebDriverRunner.getWebDriver()` method.
+
 You don't need to pass the WebDriver instance to the argument of shooter methods.
 
 | webdrivershooter   	        | webdrivershooter-selenide |

@@ -4,8 +4,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 # WebDriverShooter for TestNG
-Project is using TestNG as a testing framework, `webdrivershooter-testng` should be used.<br>
-It automatically gets WebDriver instance from the current running test by using `org.testng.ITestNGListener` listener.<br>
+Project is using TestNG as a testing framework, `webdrivershooter-testng` should be used.
+
+It automatically gets WebDriver instance from the current running test by using `org.testng.ITestNGListener` listener.
+
 You don't need to pass the WebDriver instance to the argument of shooter methods.
 
 | webdrivershooter   	        | webdrivershooter-testng |
