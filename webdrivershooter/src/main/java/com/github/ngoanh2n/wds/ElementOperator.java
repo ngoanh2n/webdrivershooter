@@ -14,6 +14,9 @@ import java.awt.image.BufferedImage;
  */
 @ParametersAreNonnullByDefault
 public class ElementOperator extends ShooterOperator {
+    /**
+     * The element to be captured.
+     */
     protected WebElement element;
 
     /**

@@ -11,6 +11,11 @@ import java.awt.image.BufferedImage;
  */
 public class PageShooter extends WebDriverShooter<PageOperator> {
     /**
+     * Default constructor.
+     */
+    protected PageShooter() { /* No implementation necessary */ }
+
+    /**
      * {@inheritDoc}
      */
     @Override

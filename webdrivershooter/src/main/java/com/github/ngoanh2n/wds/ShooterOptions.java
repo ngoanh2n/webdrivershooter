@@ -42,7 +42,7 @@ public interface ShooterOptions {
      *     <li>{@code 1}: Viewport.</li>
      *     <li>{@code 2}: Vertical scroll.</li>
      *     <li>{@code 3}: Horizontal scroll.</li>
-     *     <li>{@code 4}: Full scroll (vertical & horizontal).</li>
+     *     <li>{@code 4}: Full scroll (vertical and horizontal).</li>
      * </ul>
      *
      * @return The number is representing for a shooting strategy.
@@ -101,14 +101,38 @@ public interface ShooterOptions {
      * Build a {@link ShooterOptions}.
      */
     class Builder {
+        /**
+         * Shooting strategy is represented by a number
+         */
         protected int shooter;
+        /**
+         * Delay duration between scrolling times
+         */
         protected int scrollDelay;
+        /**
+         * Indicate to check device pixel ratio.
+         */
         protected boolean checkDPR;
+        /**
+         * The locators are masked or ignored to be not masked.
+         */
         protected List<By> locators;
+        /**
+         * The elements are masked or ignored to be not masked.
+         */
         protected List<WebElement> elements;
+        /**
+         * Indicate to mask elements.
+         */
         protected boolean maskForElements;
+        /**
+         * The color to mask areas.
+         */
         protected Color maskedColor;
 
+        /**
+         * Default constructor.
+         */
         protected Builder() {
             this.shooter = 4;
             this.scrollDelay = 200;
@@ -268,8 +292,16 @@ public interface ShooterOptions {
      * The default {@link ShooterOptions} implementation.
      */
     class Defaults implements ShooterOptions {
+        /**
+         * The {@link Builder} to build {@link ShooterOptions}.
+         */
         protected Builder builder;
 
+        /**
+         * Default constructor.
+         *
+         * @param builder The {@link Builder} to build {@link ShooterOptions}.
+         */
         protected Defaults(Builder builder) {
             this.builder = builder;
         }
