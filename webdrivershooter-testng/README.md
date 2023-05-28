@@ -8,7 +8,7 @@ Project is using TestNG as a testing framework, `webdrivershooter-testng` should
 
 It automatically gets WebDriver instance from the current running test by using `org.testng.ITestNGListener` listener.
 
-You don't need to pass the WebDriver instance to the argument of shooter methods.
+You don't need to pass the WebDriver instance to the argument of shooting methods.
 
 | webdrivershooter   	        | webdrivershooter-testng |
 |---	                        |---	                  |

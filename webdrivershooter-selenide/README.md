@@ -8,7 +8,7 @@ Project is using Selenide directly, `webdrivershooter-selenide` should be used.
 
 It automatically gets WebDriver instance from `com.codeborne.selenide.impl.WebDriverContainer` via `com.codeborne.selenide.WebDriverRunner.getWebDriver()` method.
 
-You don't need to pass the WebDriver instance to the argument of shooter methods.
+You don't need to pass the WebDriver instance to the argument of shooting methods.
 
 | webdrivershooter   	        | webdrivershooter-selenide |
 |---	                        |---	                    |
