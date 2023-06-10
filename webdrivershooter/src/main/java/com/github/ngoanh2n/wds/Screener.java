@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * Operate coordinates on screen.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @ParametersAreNonnullByDefault
 public class Screener {

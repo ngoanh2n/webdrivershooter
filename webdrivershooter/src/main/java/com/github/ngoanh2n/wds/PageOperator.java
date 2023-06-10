@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 /**
  * Operate coordinates and rectangles on screen for page.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @ParametersAreNonnullByDefault
 public class PageOperator extends ShooterOperator {

@@ -34,7 +34,7 @@ import org.openqa.selenium.WebDriver;
  *      </ul>
  * </ul>
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public interface WebDriverProvider {
     /**

@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @EnabledIfProperty(name = "wds.browser", value = {"chrome", "safari", "firefox", "edge"})

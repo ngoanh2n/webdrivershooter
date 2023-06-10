@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 /**
  * Operate coordinates and rectangles on screen for element.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @ParametersAreNonnullByDefault
 public class ElementOperator extends ShooterOperator {
