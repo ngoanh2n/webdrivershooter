@@ -1,14 +1,14 @@
 /**
- * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * Author: ngoanh2n
  */
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
     api(project(":webdrivershooter"))
-    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
-    implementation("org.testng:testng:$versionTestNG")
     implementation("com.github.ngoanh2n:commons-testng:$versionCommons")
+    implementation("org.testng:testng:$versionTestNG")
+    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
     testImplementation("org.seleniumhq.selenium:selenium-java:$versionSelenium")
     testImplementation("io.github.bonigarcia:webdrivermanager:$versionWebDriverManager")
 }
