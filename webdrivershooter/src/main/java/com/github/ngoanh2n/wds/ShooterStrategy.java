@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 /**
  * Strategies to take screenshot.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public interface ShooterStrategy<Operator extends ShooterOperator> {
     /**

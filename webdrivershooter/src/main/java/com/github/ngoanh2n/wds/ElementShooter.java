@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 /**
  * Take element screenshot.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class ElementShooter extends WebDriverShooter<ElementOperator> {
     private final WebElement element;

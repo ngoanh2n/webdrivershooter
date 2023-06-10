@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 /**
  * Provide {@link WebDriver} from the current JUnit5 test to {@link WebDriverShooter}.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class WDSJUnit5 extends WebDriverJUnit5 implements WebDriverProvider {
     /**

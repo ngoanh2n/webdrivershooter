@@ -17,7 +17,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 
 /**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public abstract class AbstractSeleniumTest {
     private static final Logger log = LoggerFactory.getLogger(AbstractSeleniumTest.class);

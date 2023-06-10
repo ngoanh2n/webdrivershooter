@@ -25,7 +25,7 @@ import java.util.List;
  *     <li>Screenshot image was masked: {@link Screenshot#getMaskedImage()}</li>
  * </ul>
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @ParametersAreNonnullByDefault
 public class Screenshot {

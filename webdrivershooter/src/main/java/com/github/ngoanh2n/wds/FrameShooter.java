@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 /**
  * Take iframe screenshot.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class FrameShooter extends PageShooter {
     private final WebElement frame;

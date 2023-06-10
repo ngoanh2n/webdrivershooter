@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 /**
  * Take page screenshot.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class PageShooter extends WebDriverShooter<PageOperator> {
     /**

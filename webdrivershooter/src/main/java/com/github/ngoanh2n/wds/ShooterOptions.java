@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Adjust behaviors of {@link WebDriverShooter}.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public interface ShooterOptions {
     /**

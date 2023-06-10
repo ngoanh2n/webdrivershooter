@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Operate coordinates and rectangles on screen.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @ParametersAreNonnullByDefault
 public abstract class ShooterOperator {

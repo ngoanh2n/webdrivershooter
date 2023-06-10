@@ -38,7 +38,7 @@ import java.util.ServiceLoader;
  *     <li>{@link Screenshot} = {@link WebDriverShooter#element(WebElement, WebElement[], WebDriver...)}</li>
  * </ul>
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public abstract class WebDriverShooter<Operator extends ShooterOperator> implements ShooterStrategy<Operator> {
     /**
