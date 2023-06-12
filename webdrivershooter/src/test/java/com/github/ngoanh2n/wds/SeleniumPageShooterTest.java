@@ -1,15 +1,15 @@
 package com.github.ngoanh2n.wds;
 
-import com.github.ngoanh2n.EnabledIfProperty;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
  * @author ngoanh2n
  */
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@EnabledIfProperty(name = "wds.browser", value = {"chrome", "safari", "firefox", "edge"})
 public class SeleniumPageShooterTest extends AbstractSeleniumTest {
     protected WebElement ignore1;
     protected WebElement ignore2;
