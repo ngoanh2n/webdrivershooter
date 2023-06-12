@@ -4,7 +4,7 @@
 ext {
     versionImageComparator          =   "1.0.1"
     versionWebDriverChecker         =   "2.6.0"
-    versionCommons                  =   "1.1.1"
+    versionCommons                  =   "1.1.3"
     versionSelenium                 =   "4.9.1"
     versionSelenide                 =   "6.14.1"
     versionJunitJupiter             =   "5.9.3"
