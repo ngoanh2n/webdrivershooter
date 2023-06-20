@@ -4,25 +4,31 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 # WebDriverShooter for Selenide
-Project is using Selenide directly, `webdrivershooter-selenide` should be used.
+**Table of Contents**
+<!-- TOC -->
+* [Declaration](#declaration)
+  * [Gradle](#gradle)
+  * [Maven](#maven)
+* [Test Structure](#test-structure)
+<!-- TOC -->
 
-It automatically gets WebDriver instance from `com.codeborne.selenide.impl.WebDriverContainer` via `com.codeborne.selenide.WebDriverRunner.getWebDriver()` method.
+When using Selenide directly, `webdrivershooter-selenide` should be used.
+- `WebDriverShooter` automatically get `WebDriver` instance from `com.codeborne.selenide.impl.WebDriverContainer` via `com.codeborne.selenide.WebDriverRunner.getWebDriver()` method.
+- You don't need to pass the `WebDriver` instance to the argument of shooting methods.
 
-You don't need to pass the WebDriver instance to the argument of shooting methods.
+| webdrivershooter                 | webdrivershooter-selenide   |
+|:---------------------------------|:----------------------------|
+| `WebDriverShooter.page(driver)`  | `WebDriverShooter.page()`   |
 
-| webdrivershooter   	        | webdrivershooter-selenide |
-|---	                        |---	                    |
-| WebDriverShooter.page(driver) | WebDriverShooter.page()   |
-
-# Declarations
+# Declaration
 ## Gradle
-Add to `build.gradle`
+Add to `build.gradle`.
 ```gradle
 implementation("com.github.ngoanh2n:webdrivershooter-selenide:1.0.0")
 ```
 
 ## Maven
-Add to `pom.xml`
+Add to `pom.xml`.
 ```xml
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
@@ -32,13 +38,11 @@ Add to `pom.xml`
 ```
 
 # Test Structure
-WebDriverShooter automatically gets WebDriver instance after `Selenide.open(..)`
-
 ```java
 public class MyTest {
     public void test() {
-        Selenide.open("https://mvnrepository.com")
-        // WebDriverShooter can find WebDriver instance from here.
+        Selenide.open("https://github.com/ngoanh2n");
+        // WebDriverShooter could find WebDriver instance from here.
         // WebDriverShooter.page(driver) <=> WebDriverShooter.page()
     }
 }

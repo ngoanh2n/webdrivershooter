@@ -4,25 +4,31 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 # WebDriverShooter for JUnit5
-Project is using JUnit Jupiter as a testing framework, `webdrivershooter-junit5` should be used.
+**Table of Contents**
+<!-- TOC -->
+* [Declaration](#declaration)
+  * [Gradle](#gradle)
+  * [Maven](#maven)
+* [Test Structure](#test-structure)
+<!-- TOC -->
 
-It automatically gets WebDriver instance from the current running test by using `org.junit.jupiter.api.extension.InvocationInterceptor` extension.
+When using JUnit Jupiter as a testing framework, `webdrivershooter-junit5` should be used.
+- `WebDriverShooter` automatically get `WebDriver` instance from the current running test by using `org.junit.jupiter.api.extension.InvocationInterceptor` extension.
+- You don't need to pass the `WebDriver` instance to the argument of shooting methods.
 
-You don't need to pass the WebDriver instance to the argument of shooting methods.
+| webdrivershooter                 | webdrivershooter-junit5     |
+|:---------------------------------|:----------------------------|
+| `WebDriverShooter.page(driver)`  | `WebDriverShooter.page()`   |
 
-| webdrivershooter   	        | webdrivershooter-junit5 |
-|---	                        |---	                  |
-| WebDriverShooter.page(driver) | WebDriverShooter.page() |
-
-# Declarations
+# Declaration
 ## Gradle
-Add to `build.gradle`
+Add to `build.gradle`.
 ```gradle
 implementation("com.github.ngoanh2n:webdrivershooter-junit5:1.0.0")
 ```
 
 ## Maven
-Add to `pom.xml`
+Add to `pom.xml`.
 ```xml
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
@@ -32,8 +38,8 @@ Add to `pom.xml`
 ```
 
 # Test Structure
-1. Must declare a field of WebDriver type with any modifiers at current class or parent/abstract class.
-2. WebDriverShooter can detect WebDriver instance after the field is assigned a value.
+1. Must declare a field of `WebDriver` type with any modifiers at current class or parent/abstract class.
+2. `WebDriverShooter` can detect `WebDriver` instance after the field is assigned a value.
 
 ```java
 public class MyTest {
@@ -42,7 +48,7 @@ public class MyTest {
     @BeforeAll
     public static void beforeAll() {
         driver = new ChromeDriver();
-        // WebDriverShooter can find WebDriver instance from here.
+        // WebDriverShooter could find WebDriver instance from here.
         // WebDriverShooter.page(driver) <=> WebDriverShooter.page()
     }
 }
