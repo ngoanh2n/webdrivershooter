@@ -11,40 +11,111 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 
 /**
- * Starting point to capture targets:
+ * Starting point to take screenshot.<br><br>
+ *
+ * <b>Target:</b>
  * <ul>
- *     <li>Page: {@link WebDriverShooter#page(WebDriver...)}</li>
- *     <li>IFrame: {@link WebDriverShooter#frame(WebElement, WebDriver...)}</li>
- *     <li>Element: {@link WebDriverShooter#element(WebElement, WebDriver...)}</li>
+ *     <li>{@link WebDriverShooter#page(WebDriver...) WebDriverShooter.page(..)}</li>
+ *     <li>{@link WebDriverShooter#frame(WebElement, WebDriver...) WebDriverShooter.frame(..)}</li>
+ *     <li>{@link WebDriverShooter#element(WebElement, WebDriver...) WebDriverShooter.element(..)}</li>
  * </ul>
- * by strategies:
+ *
+ * <b>Strategy:</b>
  * <ul>
- *     <li>Viewport: {@link ShooterOptions.Builder#shootViewport()}</li>
- *     <li>Vertical Scroll: {@link ShooterOptions.Builder#shootVerticalScroll()}</li>
- *     <li>Horizontal Scroll: {@link ShooterOptions.Builder#shootHorizontalScroll()}</li>
- *     <li>Full Scroll (Vertical and Horizontal): {@link ShooterOptions.Builder#shootFullScroll()}</li>
+ *     <li>{@link ShooterOptions.Builder#shootViewport() ShooterOptions.builder().shootViewport()}</li>
+ *     <li>{@link ShooterOptions.Builder#shootVerticalScroll() ShooterOptions.builder().shootVerticalScroll()}</li>
+ *     <li>{@link ShooterOptions.Builder#shootHorizontalScroll() ShooterOptions.builder().shootHorizontalScroll()}</li>
+ *     <li>{@link ShooterOptions.Builder#shootFullScroll() ShooterOptions.builder().shootFullScroll()}</li>
  * </ul>
- * <p>
- * Take full screenshot:
+ *
+ * <b>Screenshot</b><br>
+ * Below API methods are using default {@link ShooterOptions} with full screenshot.
  * <ul>
- *     <li>{@link Screenshot} = {@link WebDriverShooter#page(WebDriver...)}</li>
- *     <li>{@link Screenshot} = {@link WebDriverShooter#frame(WebElement, WebDriver...)}</li>
- *     <li>{@link Screenshot} = {@link WebDriverShooter#element(WebElement, WebDriver...)}</li>
+ *      <li>{@code Screenshot screenshot = WebDriverShooter.page(driver)}</li>
+ *      <li>{@code Screenshot screenshot = WebDriverShooter.frame(frame, driver)}</li>
+ *      <li>{@code Screenshot screenshot = WebDriverShooter.element(element, driver)}</li>
  * </ul>
- * Take full screenshot with masked elements:
+ *
+ * <b>Masking</b><br>
+ * When taking the {@code iframe}, you have to pass locators instead.
  * <ul>
- *     <li>{@link Screenshot} = {@link WebDriverShooter#page(WebElement[], WebDriver...)}</li>
- *     <li>{@link Screenshot} = {@link WebDriverShooter#frame(WebElement, By[], WebDriver...)}</li>
- *     <li>{@link Screenshot} = {@link WebDriverShooter#element(WebElement, WebElement[], WebDriver...)}</li>
+ *      <li>{@code Screenshot screenshot = WebDriverShooter.page(elementsToMask, driver)}</li>
+ *      <li>{@code Screenshot screenshot = WebDriverShooter.frame(frame, locatorsToMask, driver)}</li>
+ *      <li>{@code Screenshot screenshot = WebDriverShooter.element(element, elementsToMask, driver)}</li>
+ * </ul>
+ *
+ * <b>Screenshot and mask with customized {@link ShooterOptions}</b><br>
+ * <ul>
+ *     <li>Mask elements
+ *         <pre>{@code
+ *              ShooterOptions options = ShooterOptions
+ *                      .builder()
+ *                      .maskElements(elements)
+ *                      .build();
+ *              Screenshot screenshot = WebDriverShooter.page(options, driver);
+ *         }</pre>
+ *     </li>
+ *     <li>Mask all excepting elements
+ *         <pre>{@code
+ *              ShooterOptions options = ShooterOptions
+ *                      .builder()
+ *                      .maskExceptingElements(elements)
+ *                      .build();
+ *              Screenshot screenshot = WebDriverShooter.page(options, driver);
+ *         }</pre>
+ *     </li>
+ * </ul>
+ *
+ * <b>Comparison</b>
+ * <ul>
+ *     <li>With the image
+ *          <pre>{@code
+ *               Screenshot screenshot = WebDriverShooter.page(driver);
+ *               ImageComparisonResult result = screenshot.compare(image);
+ *          }</pre>
+ *     </li>
+ *     <li>With the screenshot
+ *          <pre>{@code
+ *               driver.get(URL1);
+ *               Screenshot screenshot1 = WebDriverShooter.page(driver);
+ *
+ *               driver.get(URL2);
+ *               Screenshot screenshot2 = WebDriverShooter.page(driver);
+ *
+ *               ImageComparisonResult result = screenshot1.compare(screenshot2);
+ *               Assertions.assertTrue(result.isDifferent());
+ *          }</pre>
+ *     </li>
+ * </ul>
+ *
+ * <b>Extension</b><br>
+ * <ul>
+ *     <li><em>Selenide: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter-selenide">com.github.ngoanh2n:webdrivershooter-selenide</a></em></li>
+ *     <li><em>JUnit5: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter-junit5">com.github.ngoanh2n:webdrivershooter-junit5</a></em></li>
+ *     <li><em>TestNG: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter-testng">com.github.ngoanh2n:webdrivershooter-testng</a></em></li>
+ * </ul>
+ * It automatically provides the current {@link WebDriver} instance to {@link WebDriverShooter}.<br>
+ * You don't need to pass the {@link WebDriver} instance to the argument of shooting methods.<br>
+ * <ul>
+ *     <li>With extension <pre>{@code WebDriverShooter.page()}</pre></li>
+ *     <li>Without extension <pre>{@code WebDriverShooter.page(driver)}</pre></li>
+ * </ul>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/webdrivershooter">ngoanh2n/webdrivershooter</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter">com.github.ngoanh2n:webdrivershooter</a></em></li>
  * </ul>
  *
  * @author ngoanh2n
+ * @since 2021
  */
 public abstract class WebDriverShooter<Operator extends ShooterOperator> implements ShooterStrategy<Operator> {
     /**
      * Default constructor.
      */
-    protected WebDriverShooter() { /* No implementation necessary */ }
+    protected WebDriverShooter() { /**/ }
+
     /**
      * Take full page screenshot.
      *

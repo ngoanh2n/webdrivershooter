@@ -11,15 +11,22 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Adjust behaviors of {@link WebDriverShooter}.
+ * Adjust behaviors of {@link WebDriverShooter}.<br><br>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/webdrivershooter">ngoanh2n/webdrivershooter</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter">com.github.ngoanh2n:webdrivershooter</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2021
  */
 public interface ShooterOptions {
     /**
      * Get {@link Builder} class where allows to build {@link ShooterOptions}.
      *
-     * @return {@link ShooterOptions.Builder}.
+     * @return A {@link Builder}.
      */
     static Builder builder() {
         return new Builder();
@@ -28,7 +35,7 @@ public interface ShooterOptions {
     /**
      * Get {@link ShooterOptions} with default options.
      *
-     * @return {@link ShooterOptions}.
+     * @return A {@link ShooterOptions}.
      */
     static ShooterOptions defaults() {
         return builder().build();
@@ -39,10 +46,10 @@ public interface ShooterOptions {
     /**
      * Shooting strategy is represented by a number.
      * <ul>
-     *     <li>{@code 1}: Viewport.</li>
-     *     <li>{@code 2}: Vertical scroll.</li>
-     *     <li>{@code 3}: Horizontal scroll.</li>
-     *     <li>{@code 4}: Full scroll (vertical and horizontal).</li>
+     *     <li>{@code 1} is Viewport</li>
+     *     <li>{@code 2} is Vertical scroll</li>
+     *     <li>{@code 3} is Horizontal scroll</li>
+     *     <li>{@code 4} is Full scroll (vertical and horizontal)</li>
      * </ul>
      *
      * @return The number is representing for a shooting strategy.
@@ -146,7 +153,7 @@ public interface ShooterOptions {
         /**
          * Mark as taking by viewport strategy.
          *
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder shootViewport() {
             this.shooter = 1;
@@ -156,7 +163,7 @@ public interface ShooterOptions {
         /**
          * Mark as taking by vertical scroll strategy.
          *
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder shootVerticalScroll() {
             this.shooter = 2;
@@ -166,7 +173,7 @@ public interface ShooterOptions {
         /**
          * Mark as taking by horizontal scroll strategy.
          *
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder shootHorizontalScroll() {
             this.shooter = 3;
@@ -176,7 +183,7 @@ public interface ShooterOptions {
         /**
          * Mark as taking by full scroll strategy.
          *
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder shootFullScroll() {
             this.shooter = 4;
@@ -187,7 +194,7 @@ public interface ShooterOptions {
          * Set delay duration between scrolling times.
          *
          * @param value Delay duration.
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder setScrollDelay(int value) {
             if (value >= 0) {
@@ -200,7 +207,7 @@ public interface ShooterOptions {
          * Indicate to check device pixel ratio or not.
          *
          * @param enabled Flag whether that checks or not.
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder checkDevicePixelRatio(boolean enabled) {
             this.checkDPR = enabled;
@@ -211,7 +218,7 @@ public interface ShooterOptions {
          * Set locators to mask over screenshot.
          *
          * @param locators Locators will be masked.
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder maskElements(By... locators) {
             this.maskForElements = true;
@@ -223,7 +230,7 @@ public interface ShooterOptions {
          * Set elements to mask over screenshot.
          *
          * @param elements Elements will be masked.
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder maskElements(WebElement... elements) {
             this.maskForElements = true;
@@ -235,7 +242,7 @@ public interface ShooterOptions {
          * Set locators are not being masked over screenshot.
          *
          * @param locators Locators are ignored to be not masked.
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder maskExceptingElements(By... locators) {
             this.maskForElements = false;
@@ -247,7 +254,7 @@ public interface ShooterOptions {
          * Set elements are not being masked over screenshot.
          *
          * @param elements Elements are ignored to be not masked.
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder maskExceptingElements(WebElement... elements) {
             this.maskForElements = false;
@@ -259,7 +266,7 @@ public interface ShooterOptions {
          * Set color to mask areas.
          *
          * @param color The color to mask areas.
-         * @return {@link ShooterOptions.Builder}.
+         * @return The current {@link Builder}.
          */
         public Builder setMaskedColor(Color color) {
             if (color != null) {
@@ -269,9 +276,9 @@ public interface ShooterOptions {
         }
 
         /**
-         * Build {@link ShooterOptions} based on {@link ShooterOptions.Builder}.
+         * Build {@link ShooterOptions} based on {@link Builder}.
          *
-         * @return {@link ShooterOptions}.
+         * @return The current {@link ShooterOptions}.
          */
         public ShooterOptions build() {
             return new Defaults(this);

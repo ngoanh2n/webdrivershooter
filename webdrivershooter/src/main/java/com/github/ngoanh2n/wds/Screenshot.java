@@ -18,14 +18,21 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Screenshot result after {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator)}.<br>
+ * The result of {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator) WebDriverShooter.shoot(..)}.<br>
  * This contains 2 images:
  * <ul>
- *     <li>Screenshot image: {@link Screenshot#getImage()}</li>
- *     <li>Screenshot image was masked: {@link Screenshot#getMaskedImage()}</li>
+ *     <li>Screenshot image: {@link #getImage() Screenshot.getImage()}</li>
+ *     <li>Screenshot image was masked: {@link #getMaskedImage() Screenshot.getMaskedImage()}</li>
+ * </ul>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/webdrivershooter">ngoanh2n/webdrivershooter</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter">com.github.ngoanh2n:webdrivershooter</a></em></li>
  * </ul>
  *
  * @author ngoanh2n
+ * @since 2021
  */
 @ParametersAreNonnullByDefault
 public class Screenshot {
