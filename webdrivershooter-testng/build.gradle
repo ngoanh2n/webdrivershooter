@@ -15,4 +15,11 @@ dependencies {
 
 test {
     useTestNG()
+    testLogging {
+        showStandardStreams = true
+        events "passed", "skipped", "failed"
+    }
+
+    systemProperty("file.encoding", "UTF-8")
+    systemProperties = System.getProperties() as Map<String, ?>
 }
