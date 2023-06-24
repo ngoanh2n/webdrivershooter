@@ -6,7 +6,7 @@ ext {
     versionWebDriverChecker         =   "2.6.0"
     versionCommons                  =   "1.2.0"
     versionSelenium                 =   "4.10.0"
-    versionSelenide                 =   "6.14.1"
+    versionSelenide                 =   "6.15.0"
     versionJunitJupiter             =   "5.9.3"
     versionTestNG                   =   "7.8.0"
     versionAppium                   =   "8.5.0"
