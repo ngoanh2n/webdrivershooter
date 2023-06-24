@@ -2,7 +2,7 @@
  * Author: ngoanh2n
  */
 ext {
-    versionImageComparator          =   "1.0.1"
+    versionImageComparator          =   "1.1.0"
     versionWebDriverChecker         =   "2.6.0"
     versionCommons                  =   "1.2.0"
     versionSelenium                 =   "4.9.1"
