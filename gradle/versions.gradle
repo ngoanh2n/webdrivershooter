@@ -11,5 +11,5 @@ ext {
     versionTestNG                   =   "7.8.0"
     versionAppium                   =   "8.5.1"
     versionSlf4j                    =   "2.0.7"
-    versionWebDriverManager         =   "5.3.3"
+    versionWebDriverManager         =   "5.4.0"
 }
