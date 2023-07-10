@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author ngoanh2n
  */
-public class SeleniumPageShooterTest extends AbstractSeleniumTest {
+public class BrowserPageShooterTest extends AbstractBrowserTest {
     protected WebElement ignore1;
     protected WebElement ignore2;
 

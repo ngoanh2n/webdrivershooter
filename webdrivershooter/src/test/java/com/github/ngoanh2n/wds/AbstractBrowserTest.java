@@ -2,6 +2,7 @@ package com.github.ngoanh2n.wds;
 
 import com.github.ngoanh2n.Commons;
 import com.github.ngoanh2n.EnabledIfProperty;
+import com.github.ngoanh2n.Property;
 import com.github.ngoanh2n.wds.driver.SeleniumDriverProvider;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -19,16 +20,17 @@ import java.lang.reflect.Method;
  * @author ngoanh2n
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@EnabledIfProperty(name = "wds.group", value = "selenium")
-public abstract class AbstractSeleniumTest {
-    private static final Logger log = LoggerFactory.getLogger(AbstractSeleniumTest.class);
+@EnabledIfProperty(name = "wds.group", value = {"selenium-local", "appium-local"})
+public abstract class AbstractBrowserTest {
+    private static final Logger log = LoggerFactory.getLogger(AbstractBrowserTest.class);
     protected WebDriver driver;
     protected Screenshot screenshot;
     protected TestInfo testInfo;
 
     @BeforeEach
     protected void openDriver(TestInfo testInfo) {
-        driver = SeleniumDriverProvider.createDriver();
+        String browser = Property.ofString("wds.browser").getValue();
+        driver = SeleniumDriverProvider.startDriver(browser);
         this.testInfo = testInfo;
     }
 

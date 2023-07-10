@@ -1,6 +1,5 @@
 package com.github.ngoanh2n.wds.driver;
 
-import com.github.ngoanh2n.Property;
 import com.github.ngoanh2n.RuntimeError;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -9,9 +8,7 @@ import org.openqa.selenium.WebDriver;
  * @author ngoanh2n
  */
 public abstract class SeleniumDriverProvider {
-    public static WebDriver createDriver() {
-        String browser = Property.ofString("wds.browser").getValue();
-
+    public static WebDriver startDriver(String browser) {
         switch (browser) {
             case "chrome":
                 return WebDriverManager.chromedriver().create();
