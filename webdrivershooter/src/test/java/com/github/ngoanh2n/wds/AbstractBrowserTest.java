@@ -3,6 +3,7 @@ package com.github.ngoanh2n.wds;
 import com.github.ngoanh2n.Commons;
 import com.github.ngoanh2n.EnabledIfProperty;
 import com.github.ngoanh2n.Property;
+import com.github.ngoanh2n.wds.driver.AppiumDriverProvider;
 import com.github.ngoanh2n.wds.driver.SeleniumDriverProvider;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -30,7 +31,11 @@ public abstract class AbstractBrowserTest {
     @BeforeEach
     protected void openDriver(TestInfo testInfo) {
         String browser = Property.ofString("wds.browser").getValue();
-        driver = SeleniumDriverProvider.startDriver(browser);
+        if (browser.equals("appium")) {
+            driver = AppiumDriverProvider.startDriver(null);
+        } else {
+            driver = SeleniumDriverProvider.startDriver(browser);
+        }
         this.testInfo = testInfo;
     }
 
