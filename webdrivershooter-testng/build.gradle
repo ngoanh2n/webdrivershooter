@@ -6,11 +6,12 @@ targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
     api(project(":webdrivershooter"))
-    implementation("com.github.ngoanh2n:commons-testng:$versionCommons")
-    implementation("org.testng:testng:$versionTestNG")
-    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
-    testImplementation("org.seleniumhq.selenium:selenium-java:$versionSelenium")
-    testImplementation("io.github.bonigarcia:webdrivermanager:$versionWebDriverManager")
+    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versions.selenium")
+    implementation("org.testng:testng:$versions.testng")
+    implementation("com.github.ngoanh2n:commons-testng:$versions.cms")
+
+    testImplementation("org.seleniumhq.selenium:selenium-java:$versions.selenium")
+    testImplementation("io.github.bonigarcia:webdrivermanager:$versions.wdm")
 }
 
 test {

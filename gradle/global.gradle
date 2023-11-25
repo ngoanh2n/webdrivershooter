@@ -2,14 +2,18 @@
  * Author: ngoanh2n
  */
 ext {
-    versionImageComparator          =   "1.2.0"
-    versionWebDriverChecker         =   "2.7.0"
-    versionCommons                  =   "1.2.3"
-    versionSelenium                 =   "4.10.0"
-    versionSelenide                 =   "6.16.0"
-    versionJunitJupiter             =   "5.9.3"
-    versionTestNG                   =   "7.8.0"
-    versionAppium                   =   "8.5.1"
-    versionSlf4j                    =   "2.0.7"
-    versionWebDriverManager         =   "5.4.0"
+    versions = [
+            selenium: { -> return "4.10.0" },
+            selenide: { -> return "6.16.0" },
+            jupiter : { -> return "5.9.3" },
+            testng  : { -> return "7.8.0" },
+
+            imgc    : { -> "1.2.0" },
+            wdc     : { -> "2.7.0" },
+            cms     : { -> return "1.2.3" },
+
+            slf4j   : { -> return "2.0.7" },
+            appium  : { -> return "8.5.1" },
+            wdm     : { -> return "5.4.0" },
+    ]
 }
