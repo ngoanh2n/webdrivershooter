@@ -14,4 +14,4 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-apply from: rootProject.file("gradle/test.gradle")
+apply { from(config.test) }

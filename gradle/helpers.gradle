@@ -7,4 +7,10 @@ ext {
             dir   : { -> return rootDir.toPath() },
             gradle: { -> return wds.dir().resolve("gradle") },
     ]
+    gradle = [
+            config: { -> return wds.gradle().resolve("config") },
+    ]
+    config = [
+            test: { -> return gradle.config().resolve("test.gradle") },
+    ]
 }
