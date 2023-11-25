@@ -23,7 +23,7 @@ subprojects {
     apply from: rootProject.file("gradle/publication.gradle")
     apply from: rootProject.file("gradle/dependencies.gradle")
 
-    clean.doFirst {
+    tasks.clean.doFirst {
         delete project.file("out")
         delete rootProject.files("build")
     }
@@ -32,9 +32,5 @@ subprojects {
         dependsOn.removeIf { task -> (task == "check") }
         assemble.dependsOn("clean")
         dependsOn("publishToMavenLocal")
-    }
-
-    tasks.withType(Test).configureEach {
-        System.setProperty("user.dir", projectDir.toString())
     }
 }
