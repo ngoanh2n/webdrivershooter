@@ -4,7 +4,7 @@
  */
 ext {
     wds = [
-            dir   : { -> return rootDir.toPath() },
+            dir   : { -> return getRootDir().toPath() },
             gradle: { -> return wds.dir().resolve("gradle") },
     ]
     gradle = [

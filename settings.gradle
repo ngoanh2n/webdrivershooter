@@ -1,4 +1,4 @@
-rootProject.setName("wds")
+getRootProject().setName("wds")
 
 include("webdrivershooter")
 include("webdrivershooter-selenide")

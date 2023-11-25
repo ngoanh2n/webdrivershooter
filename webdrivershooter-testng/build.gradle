@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 /**
  * Author: ngoanh2n
  */
@@ -15,11 +17,23 @@ dependencies {
 
 test {
     useTestNG()
+    setIgnoreFailures(true)
+    getOutputs().upToDateWhen { false }
+
+    reports {
+        getJunitXml().configure {
+            mergeReruns = false
+            outputPerTestCase = false
+        }
+    }
+
     testLogging {
-        showStandardStreams = true
-        events "passed", "skipped", "failed"
+        setShowStandardStreams(false)
+        events(TestLogEvent.PASSED, TestLogEvent.FAILED)
     }
 
     systemProperty("file.encoding", "UTF-8")
-    systemProperties = System.getProperties() as Map<String, ?>
+
+    getSystemProperties().putAll(System.getProperties() as Map<?, ?>)
+    getSystemProperties().put("user.dir", getProjectDir().getAbsolutePath())
 }
