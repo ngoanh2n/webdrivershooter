@@ -9,7 +9,7 @@ ext {
             testng  : { -> return "7.8.0" },
 
             imgc    : { -> return "1.2.0" },
-            wdc     : { -> return "2.7.0" },
+            wdc     : { -> return "2.8.0" },
             cms     : { -> return "1.3.0" },
 
             slf4j   : { -> return "2.0.9" },
