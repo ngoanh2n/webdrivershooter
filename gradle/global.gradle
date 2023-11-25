@@ -5,7 +5,7 @@ ext {
     versions = [
             selenium: { -> return "4.10.0" },
             selenide: { -> return "6.16.0" },
-            jupiter : { -> return "5.9.3" },
+            jupiter : { -> return "5.10.0" },
             testng  : { -> return "7.8.0" },
 
             imgc    : { -> return "1.2.0" },
