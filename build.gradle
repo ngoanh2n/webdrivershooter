@@ -26,9 +26,10 @@ subprojects {
         plugin("signing")
         plugin("java-library")
         plugin("maven-publish")
+
+        from(config.compilation)
     }
 
-    apply from: rootProject.file("gradle/compilation.gradle")
     apply from: rootProject.file("gradle/publication.gradle")
     apply from: rootProject.file("gradle/dependencies.gradle")
 
