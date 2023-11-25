@@ -28,9 +28,9 @@ subprojects {
         plugin("maven-publish")
 
         from(config.compilation)
+        from(config.publication)
     }
 
-    apply from: rootProject.file("gradle/publication.gradle")
     apply from: rootProject.file("gradle/dependencies.gradle")
 
     tasks.clean.doFirst {
