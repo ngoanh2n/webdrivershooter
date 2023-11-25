@@ -41,7 +41,7 @@
 - TestNG: 7.8.0
 
 # Extension
-It automatically provides the current `WebDriver` instance to `com.github.ngoanh2n.wdc.WebDriverShooter`.<br>
+It automatically provides the current `WebDriver` instance to `com.github.ngoanh2n.wds.WebDriverShooter`.<br>
 You don't need to pass the `WebDriver` instance to the argument of shooting methods.
 
 | With extension             | Without extension                |
