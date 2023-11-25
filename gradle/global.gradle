@@ -8,9 +8,9 @@ ext {
             jupiter : { -> return "5.9.3" },
             testng  : { -> return "7.8.0" },
 
-            imgc    : { -> "1.2.0" },
-            wdc     : { -> "2.7.0" },
-            cms     : { -> return "1.2.3" },
+            imgc    : { -> return "1.2.0" },
+            wdc     : { -> return "2.7.0" },
+            cms     : { -> return "1.3.0" },
 
             slf4j   : { -> return "2.0.7" },
             appium  : { -> return "8.5.1" },
