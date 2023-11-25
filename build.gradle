@@ -1,6 +1,9 @@
 /**
  * Author: ngoanh2n
  */
+buildscript {
+}
+
 allprojects {
     group("com.github.ngoanh2n")
     version("1.0.1")
