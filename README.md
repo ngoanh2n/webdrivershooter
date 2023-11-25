@@ -35,9 +35,9 @@
 - Strategy: Viewport, Vertical Scroll, Horizontal Scroll, Full Scroll (Vertical & Horizontal)
 
 ## Version
-- Selenium: 4.9.1
-- Selenide: 6.14.1
-- JUnit5: 5.9.3
+- Selenium: 4.15.0
+- Selenide: 7.0.2
+- JUnit5: 5.10.0
 - TestNG: 7.8.0
 
 # Extension
@@ -103,7 +103,7 @@ When taking the `iframe`, you have to pass locators instead.
   ```java
   ShooterOptions options = ShooterOptions
           .builder()
-          .maskExceptingElements(elements)
+          .maskElements(elements)
           .build();
   Screenshot screenshot = WebDriverShooter.page(options, driver);
   ```
