@@ -172,7 +172,7 @@ public class Screenshot {
                     drawAreaOverMaskedImage(maskedArea, rect);
                 }
             } else {
-                if (rects.size() > 0) {
+                if (!rects.isEmpty()) {
                     maskImage(maskedImage);
                     for (Rectangle rect : rects) {
                         BufferedImage area = cutImage(image, rect);

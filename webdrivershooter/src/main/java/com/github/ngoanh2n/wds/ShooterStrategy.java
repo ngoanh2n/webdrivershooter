@@ -24,16 +24,12 @@ public interface ShooterStrategy<Operator extends ShooterOperator> {
      * @return The {@link Screenshot}.
      */
     default Screenshot shoot(ShooterOptions options, WebDriver driver, Operator operator) {
-        switch (options.shooter()) {
-            case 1:
-                return shootViewport(options, driver, operator);
-            case 2:
-                return shootVerticalScroll(options, driver, operator);
-            case 3:
-                return shootHorizontalScroll(options, driver, operator);
-            default:
-                return shootFullScroll(options, driver, operator);
-        }
+        return switch (options.shooter()) {
+            case 1 -> shootViewport(options, driver, operator);
+            case 2 -> shootVerticalScroll(options, driver, operator);
+            case 3 -> shootHorizontalScroll(options, driver, operator);
+            default -> shootFullScroll(options, driver, operator);
+        };
     }
 
     /**

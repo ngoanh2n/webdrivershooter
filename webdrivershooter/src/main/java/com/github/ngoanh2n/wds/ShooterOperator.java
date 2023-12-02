@@ -96,7 +96,7 @@ public abstract class ShooterOperator {
      * @return The {@link WebElement} list.
      */
     protected List<WebElement> getElements() {
-        if (options.elements().size() > 0) {
+        if (!options.elements().isEmpty()) {
             return options.elements();
         }
         return getElements(options.locators());
@@ -144,13 +144,10 @@ public abstract class ShooterOperator {
      * @return The width of image.
      */
     protected int getImageWidth() {
-        switch (options.shooter()) {
-            case 1:
-            case 2:
-                return (int) screener.getInnerRect().getWidth();
-            default:
-                return (int) screener.getOuterRect().getWidth();
-        }
+        return switch (options.shooter()) {
+            case 1, 2 -> (int) screener.getInnerRect().getWidth();
+            default -> (int) screener.getOuterRect().getWidth();
+        };
     }
 
     /**
@@ -159,13 +156,10 @@ public abstract class ShooterOperator {
      * @return The height of image.
      */
     protected int getImageHeight() {
-        switch (options.shooter()) {
-            case 1:
-            case 3:
-                return (int) screener.getInnerRect().getHeight();
-            default:
-                return (int) screener.getOuterRect().getHeight();
-        }
+        return switch (options.shooter()) {
+            case 1, 3 -> (int) screener.getInnerRect().getHeight();
+            default -> (int) screener.getOuterRect().getHeight();
+        };
     }
 
     /**
@@ -175,15 +169,11 @@ public abstract class ShooterOperator {
      * @return Indicate the image is merged fully.
      */
     protected boolean isImageFull(BufferedImage part) {
-        switch (options.shooter()) {
-            case 1:
-            case 2:
-                return getImageHeight() == part.getHeight(null);
-            case 3:
-                return getImageWidth() == part.getWidth(null);
-            default:
-                return getImageWidth() == part.getWidth(null) && getImageHeight() == part.getHeight(null);
-        }
+        return switch (options.shooter()) {
+            case 1, 2 -> getImageHeight() == part.getHeight(null);
+            case 3 -> getImageWidth() == part.getWidth(null);
+            default -> getImageWidth() == part.getWidth(null) && getImageHeight() == part.getHeight(null);
+        };
     }
 
     //-------------------------------------------------------------------------------//

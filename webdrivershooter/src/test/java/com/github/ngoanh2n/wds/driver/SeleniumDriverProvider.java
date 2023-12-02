@@ -9,21 +9,14 @@ import org.openqa.selenium.WebDriver;
  */
 public abstract class SeleniumDriverProvider {
     public static WebDriver startDriver(String browser) {
-        switch (browser) {
-            case "chrome":
-                return WebDriverManager.chromedriver().create();
-            case "safari":
-                return WebDriverManager.safaridriver().create();
-            case "firefox":
-                return WebDriverManager.firefoxdriver().create();
-            case "edge":
-                return WebDriverManager.edgedriver().create();
-            case "opera":
-                return WebDriverManager.operadriver().create();
-            case "ie":
-                return WebDriverManager.iedriver().create();
-            default:
-                throw new RuntimeError("Unknown browser: " + browser);
-        }
+        return switch (browser) {
+            case "chrome" -> WebDriverManager.chromedriver().create();
+            case "safari" -> WebDriverManager.safaridriver().create();
+            case "firefox" -> WebDriverManager.firefoxdriver().create();
+            case "edge" -> WebDriverManager.edgedriver().create();
+            case "opera" -> WebDriverManager.operadriver().create();
+            case "ie" -> WebDriverManager.iedriver().create();
+            default -> throw new RuntimeError("Unknown browser: " + browser);
+        };
     }
 }
