@@ -42,6 +42,17 @@ public class ImageUtils {
         return image;
     }
 
+    public BufferedImage fill(BufferedImage image, Color color) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        Graphics2D graphics = image.createGraphics();
+        graphics.setPaint(color);
+        graphics.fillRect(0, 0, w, h);
+        graphics.dispose();
+        return image;
+    }
+
     public static File save(BufferedImage image, File output) {
         try {
             Commons.createDir(output);
