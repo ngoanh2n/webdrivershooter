@@ -165,12 +165,12 @@ public class Screenshot {
             if (maskForRects) {
                 for (Rectangle rect : rects) {
                     BufferedImage maskedArea = ImageUtils.cut(image, rect);
-                    maskImage(maskedArea);
+                    ImageUtils.fill(maskedArea, maskedColor);
                     ImageUtils.drawArea(maskedImage, maskedArea, rect.getLocation());
                 }
             } else {
                 if (!rects.isEmpty()) {
-                    maskImage(maskedImage);
+                    ImageUtils.fill(maskedImage, maskedColor);
                     for (Rectangle rect : rects) {
                         BufferedImage area = ImageUtils.cut(image, rect);
                         ImageUtils.drawArea(maskedImage, area, rect.getLocation());
@@ -289,13 +289,6 @@ public class Screenshot {
         maskedImage = new BufferedImage(w, h, t);
         maskedGraphics = maskedImage.createGraphics();
         maskedGraphics.drawImage(image, 0, 0, null);
-    }
-
-    private void maskImage(BufferedImage image) {
-        Graphics2D graphics = image.createGraphics();
-        graphics.setPaint(maskedColor);
-        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-        graphics.dispose();
     }
 
     private File createDefaultOutput() {
