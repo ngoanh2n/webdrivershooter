@@ -30,7 +30,7 @@ public class ImageUtils {
         return new BufferedImage(w, h, t);
     }
 
-    public BufferedImage fill(BufferedImage image, Color color) {
+    public static BufferedImage fill(BufferedImage image, Color color) {
         int w = image.getWidth();
         int h = image.getHeight();
 
