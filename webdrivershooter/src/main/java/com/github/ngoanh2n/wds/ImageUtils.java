@@ -1,5 +1,6 @@
 package com.github.ngoanh2n.wds;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -20,5 +21,18 @@ public class ImageUtils {
         int h = size.getHeight();
         int t = BufferedImage.TYPE_INT_ARGB;
         return new BufferedImage(w, h, t);
+    }
+
+    public static BufferedImage cut(BufferedImage srcImage, Rectangle rectToCut) {
+        int x = rectToCut.getX();
+        int y = rectToCut.getY();
+        int w = rectToCut.getWidth();
+        int h = rectToCut.getHeight();
+
+        BufferedImage image = create(new Dimension(w, h));
+        Graphics graphics = image.getGraphics();
+        graphics.drawImage(srcImage, 0, 0, w, h, x, y, w + x, h + y, null);
+        graphics.dispose();
+        return image;
     }
 }
