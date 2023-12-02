@@ -61,7 +61,7 @@ When using `TestNG` as a testing framework.
 ## Gradle
 Add to `build.gradle`.
 ```gradle
-implementation("com.github.ngoanh2n:webdrivershooter:1.0.0")
+implementation("com.github.ngoanh2n:webdrivershooter:1.1.0")
 ```
 
 ## Maven
@@ -70,7 +70,7 @@ Add to `pom.xml`.
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>webdrivershooter</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 

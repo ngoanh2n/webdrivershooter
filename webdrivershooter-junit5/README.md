@@ -24,7 +24,7 @@ When using JUnit Jupiter as a testing framework, `webdrivershooter-junit5` shoul
 ## Gradle
 Add to `build.gradle`.
 ```gradle
-implementation("com.github.ngoanh2n:webdrivershooter-junit5:1.0.0")
+implementation("com.github.ngoanh2n:webdrivershooter-junit5:1.1.0")
 ```
 
 ## Maven
@@ -33,7 +33,7 @@ Add to `pom.xml`.
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>webdrivershooter-junit5</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
