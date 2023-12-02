@@ -1,5 +1,7 @@
 package com.github.ngoanh2n.wds;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Utils for image process.<br><br>
  *
@@ -13,5 +15,10 @@ package com.github.ngoanh2n.wds;
  * @since 2021
  */
 public class ImageUtils {
-
+    public static BufferedImage create(Dimension size) {
+        int w = size.getWidth();
+        int h = size.getHeight();
+        int t = BufferedImage.TYPE_INT_ARGB;
+        return new BufferedImage(w, h, t);
+    }
 }
