@@ -17,14 +17,12 @@ public class Rectangle {
     private Dimension d;
 
     /**
-     * Construct a new {@link Rectangle} by {@code x:y} of the coordinate and {@code w}, {@code h}.
+     * Construct a new {@link Rectangle} by {@code 0:0} of the coordinate and {@code d}.
      *
-     * @param x The X coordinate of the newly constructed {@code Position}.
-     * @param y The Y coordinate of the newly constructed {@code Position}.
+     * @param d The dimension of the newly constructed {@code Rectangle}.
      */
-    public Rectangle(int x, int y, int w, int h) {
-        this.p = new Position(x, y);
-        this.d = new Dimension(w, h);
+    public Rectangle(Dimension d) {
+        this(0, 0, d.getWidth(), d.getHeight());
     }
 
     /**
@@ -34,8 +32,18 @@ public class Rectangle {
      * @param d The dimension of the newly constructed {@code Rectangle}.
      */
     public Rectangle(Position p, Dimension d) {
-        this.p = new Position(p.getX(), p.getY());
-        this.d = new Dimension(d.getWidth(), d.getHeight());
+        this(p.getX(), p.getY(), d.getWidth(), d.getHeight());
+    }
+
+    /**
+     * Construct a new {@link Rectangle} by {@code x:y} of the coordinate and {@code w}, {@code h}.
+     *
+     * @param x The X coordinate of the newly constructed {@code Position}.
+     * @param y The Y coordinate of the newly constructed {@code Position}.
+     */
+    public Rectangle(int x, int y, int w, int h) {
+        this.p = new Position(x, y);
+        this.d = new Dimension(w, h);
     }
 
     /**
