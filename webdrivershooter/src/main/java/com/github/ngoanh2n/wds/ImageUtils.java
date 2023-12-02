@@ -1,7 +1,13 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.Commons;
+import org.apache.commons.io.FilenameUtils;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Utils for image process.<br><br>
@@ -34,5 +40,16 @@ public class ImageUtils {
         graphics.drawImage(srcImage, 0, 0, w, h, x, y, w + x, h + y, null);
         graphics.dispose();
         return image;
+    }
+
+    public static File save(BufferedImage image, File output) {
+        try {
+            Commons.createDir(output);
+            String extension = FilenameUtils.getExtension(output.getName());
+            ImageIO.write(image, extension, output);
+        } catch (IOException e) {
+            throw new ShooterException("Error during creating ImageOutputStream");
+        }
+        return output;
     }
 }
