@@ -1,6 +1,7 @@
 package com.github.ngoanh2n.wds;
 
 import com.github.ngoanh2n.Commons;
+import com.github.ngoanh2n.RuntimeError;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
@@ -67,7 +68,7 @@ public class ImageUtils {
             String extension = FilenameUtils.getExtension(output.getName());
             ImageIO.write(image, extension, output);
         } catch (IOException e) {
-            throw new ShooterException("Error during creating ImageOutputStream");
+            throw new RuntimeError("Error during creating ImageOutputStream");
         }
         return output;
     }
