@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.*;
 
 /**
  * Operate coordinates on screen.<br><br>
@@ -239,13 +238,13 @@ public class Screener {
     }
 
     /**
-     * Scroll to the specified point.
+     * Scroll to the specified position.
      *
-     * @param point The target point.
+     * @param point The target position.
      */
     public void scrollToPoint(Point point) {
-        double x = point.x / dpr;
-        double y = point.y / dpr;
+        double x = point.getX() / dpr;
+        double y = point.getY() / dpr;
         String resource = "com/github/ngoanh2n/wds/ScrollToPoint.js";
         executeScript(driver, resource, x, y);
     }
@@ -383,14 +382,14 @@ public class Screener {
     }
 
     /**
-     * Scroll element to the specified point.
+     * Scroll element to the specified position.
      *
-     * @param element The current {@link WebElement}.
-     * @param point   The target point.
+     * @param element  The current {@link WebElement}.
+     * @param point The target position.
      */
     public void scrollElementToPoint(WebElement element, Point point) {
-        double x = point.x / dpr;
-        double y = point.y / dpr;
+        double x = point.getX() / dpr;
+        double y = point.getY() / dpr;
         String resource = "com/github/ngoanh2n/wds/ScrollElementToPoint.js";
         executeScript(driver, resource, element, x, y);
     }

@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -41,9 +40,9 @@ public class PageOperator extends ShooterOperator {
      * @param part The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
     protected void scrollSY(int part) {
-        int pointX = screener.getDocumentScrollX();
-        int pointY = (int) screener.getInnerRect().getHeight() * part;
-        screener.scrollToPoint(new Point(pointX, pointY));
+        int x = screener.getDocumentScrollX();
+        int y = screener.getInnerRect().getHeight() * part;
+        screener.scrollToPoint(new Point(x, y));
     }
 
     /**
@@ -52,9 +51,9 @@ public class PageOperator extends ShooterOperator {
      * @param part The multiplier to calculate the X coordinate of the next point be to scrolled to.
      */
     protected void scrollXS(int part) {
-        int pointX = (int) screener.getInnerRect().getWidth() * part;
-        int pointY = screener.getDocumentScrollY();
-        screener.scrollToPoint(new Point(pointX, pointY));
+        int x = screener.getInnerRect().getWidth() * part;
+        int y = screener.getDocumentScrollY();
+        screener.scrollToPoint(new Point(x, y));
     }
 
     /**
@@ -64,9 +63,9 @@ public class PageOperator extends ShooterOperator {
      * @param partY The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
     protected void scrollXY(int partX, int partY) {
-        int pointX = (int) screener.getInnerRect().getWidth() * partX;
-        int pointY = (int) screener.getInnerRect().getHeight() * partY;
-        screener.scrollToPoint(new Point(pointX, pointY));
+        int x = screener.getInnerRect().getWidth() * partX;
+        int y = screener.getInnerRect().getHeight() * partY;
+        screener.scrollToPoint(new Point(x, y));
     }
 
     //-------------------------------------------------------------------------------//
@@ -79,7 +78,7 @@ public class PageOperator extends ShooterOperator {
      */
     protected void mergeShot0Y(BufferedImage shot, int part) {
         int x = 0;
-        int y = (int) screener.getInnerRect().getHeight() * part;
+        int y = screener.getInnerRect().getHeight() * part;
         screenshot.mergePart(shot, x, y);
     }
 
@@ -90,7 +89,7 @@ public class PageOperator extends ShooterOperator {
      * @param part The multiplier to calculate the X coordinate of the current {@link Screenshot}.
      */
     protected void mergeShotX0(BufferedImage shot, int part) {
-        int x = (int) screener.getInnerRect().getWidth() * part;
+        int x = screener.getInnerRect().getWidth() * part;
         int y = 0;
         screenshot.mergePart(shot, x, y);
     }

@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -71,9 +70,9 @@ public class ElementOperator extends ShooterOperator {
      * @param part The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
     protected void scrollSY(int part) {
-        int pointX = screener.getElementScrollX(element);
-        int pointY = (int) (part * screener.getInnerRect().getHeight());
-        screener.scrollElementToPoint(element, new Point(pointX, pointY));
+        int x = screener.getElementScrollX(element);
+        int y = screener.getInnerRect().getHeight() * part;
+        screener.scrollElementToPoint(element, new Point(x, y));
     }
 
     /**
@@ -82,9 +81,9 @@ public class ElementOperator extends ShooterOperator {
      * @param part The multiplier to calculate the X coordinate of the next point be to scrolled to.
      */
     protected void scrollXS(int part) {
-        int pointX = (int) (part * screener.getInnerRect().getWidth());
-        int pointY = screener.getElementScrollY(element);
-        screener.scrollElementToPoint(element, new Point(pointX, pointY));
+        int x = screener.getInnerRect().getWidth() * part;
+        int y = screener.getElementScrollY(element);
+        screener.scrollElementToPoint(element, new Point(x, y));
     }
 
     /**
@@ -94,9 +93,9 @@ public class ElementOperator extends ShooterOperator {
      * @param partY The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
     protected void scrollXY(int partX, int partY) {
-        int pointX = (int) (partX * screener.getInnerRect().getWidth());
-        int pointY = (int) (partY * screener.getInnerRect().getHeight());
-        screener.scrollElementToPoint(element, new Point(pointX, pointY));
+        int x = screener.getInnerRect().getWidth() * partX;
+        int y = screener.getInnerRect().getHeight() * partY;
+        screener.scrollElementToPoint(element, new Point(x, y));
     }
 
     //-------------------------------------------------------------------------------//
@@ -158,14 +157,14 @@ public class ElementOperator extends ShooterOperator {
      * @return The element image.
      */
     protected BufferedImage getElementShot(BufferedImage shot) {
-        int x = screener.getOuterRect().x;
-        int y = screener.getOuterRect().y;
-        int w = screener.getInnerRect().width;
-        int h = screener.getInnerRect().height;
+        int x = screener.getOuterRect().getX();
+        int y = screener.getOuterRect().getY();
+        int w = screener.getInnerRect().getWidth();
+        int h = screener.getInnerRect().getHeight();
 
         if (options.shooter() == 1) {
             if (shot.getHeight() < screener.getInnerRect().getHeight()) {
-                h = shot.getHeight() - screener.getInnerRect().y;
+                h = shot.getHeight() - screener.getInnerRect().getY();
                 screenshot.updateImage(w, h);
             }
         }

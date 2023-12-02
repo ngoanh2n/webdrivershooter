@@ -275,9 +275,9 @@ public class Screenshot {
     protected void updatedRects(int xToMinus, int yToMinus) {
         if (!updatedRects) {
             for (Rectangle rectangle : rects) {
-                int newX = rectangle.x - xToMinus;
-                int newY = rectangle.y - yToMinus;
-                rectangle.setLocation(newX, newY);
+                int newX = rectangle.getX() - xToMinus;
+                int newY = rectangle.getY() - yToMinus;
+                rectangle.setLocation(new Point(newX, newY));
             }
             updatedRects = true;
         }
@@ -302,10 +302,10 @@ public class Screenshot {
     }
 
     private BufferedImage cutImage(BufferedImage srcImage, Rectangle rectToCut) {
-        int x = (int) rectToCut.getX();
-        int y = (int) rectToCut.getY();
-        int w = (int) rectToCut.getWidth();
-        int h = (int) rectToCut.getHeight();
+        int x = rectToCut.getX();
+        int y = rectToCut.getY();
+        int w = rectToCut.getWidth();
+        int h = rectToCut.getHeight();
         int t = BufferedImage.TYPE_INT_ARGB;
 
         BufferedImage area = new BufferedImage(w, h, t);
@@ -317,7 +317,7 @@ public class Screenshot {
 
     private void drawAreaOverMaskedImage(BufferedImage area, Rectangle rectToDraw) {
         maskedGraphics.drawImage(maskedImage, 0, 0, null);
-        maskedGraphics.drawImage(area, (int) rectToDraw.getX(), (int) rectToDraw.getY(), null);
+        maskedGraphics.drawImage(area, rectToDraw.getX(), rectToDraw.getY(), null);
     }
 
     private File createDefaultOutput() {

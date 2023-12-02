@@ -13,36 +13,38 @@ package com.github.ngoanh2n.wds;
  * @since 2021
  */
 public class Rectangle {
-    private Position p;
+    private Point p;
     private Dimension d;
 
     /**
-     * Construct a new {@link Rectangle} by {@code 0:0} of the coordinate and {@code d}.
+     * Construct a new {@link Rectangle} by location {@code 0:0} and size {@code d}.
      *
-     * @param d The dimension of the newly constructed {@code Rectangle}.
+     * @param d The size of the newly constructed {@code Rectangle}.
      */
     public Rectangle(Dimension d) {
         this(0, 0, d.getWidth(), d.getHeight());
     }
 
     /**
-     * Construct a new {@link Rectangle} by {@code p} and {@code d}.
+     * Construct a new {@link Rectangle} by location {@code p} and size {@code d}.
      *
      * @param p The position of the newly constructed {@code Rectangle}.
      * @param d The dimension of the newly constructed {@code Rectangle}.
      */
-    public Rectangle(Position p, Dimension d) {
+    public Rectangle(Point p, Dimension d) {
         this(p.getX(), p.getY(), d.getWidth(), d.getHeight());
     }
 
     /**
-     * Construct a new {@link Rectangle} by {@code x:y} of the coordinate and {@code w}, {@code h}.
+     * Construct a new {@link Rectangle} by location {@code x:y} and size {@code w,h}.
      *
-     * @param x The X coordinate of the newly constructed {@code Position}.
-     * @param y The Y coordinate of the newly constructed {@code Position}.
+     * @param x The X coordinate of the newly constructed {@code Point}.
+     * @param y The Y coordinate of the newly constructed {@code Point}.
+     * @param w The width of the newly constructed {@code Dimension}.
+     * @param h The height of the newly constructed {@code Dimension}.
      */
     public Rectangle(int x, int y, int w, int h) {
-        this.p = new Position(x, y);
+        this.p = new Point(x, y);
         this.d = new Dimension(w, h);
     }
 
@@ -83,38 +85,38 @@ public class Rectangle {
     }
 
     /**
-     * Get position of this {@code Rectangle}.
+     * Get location of this {@code Rectangle}.
      *
-     * @return The position of this {@code Rectangle}.
+     * @return The location of this {@code Rectangle}.
      */
-    public Position getPosition() {
+    public Point getLocation() {
         return p;
     }
 
     /**
-     * Set position for this {@code Rectangle}.
+     * Set location for this {@code Rectangle}.
      *
-     * @param p The new position for this {@code Rectangle}.
+     * @param p The new location for this {@code Rectangle}.
      */
-    public void setPosition(Position p) {
+    public void setLocation(Point p) {
         this.p = p;
     }
 
     /**
-     * Get dimension of this {@code Rectangle}.
+     * Get size of this {@code Rectangle}.
      *
-     * @return The dimension of this {@code Rectangle}.
+     * @return The size of this {@code Rectangle}.
      */
-    public Dimension getDimension() {
+    public Dimension getSize() {
         return d;
     }
 
     /**
-     * Set dimension for this {@code Rectangle}.
+     * Set size for this {@code Rectangle}.
      *
-     * @param d The new dimension for this {@code Rectangle}.
+     * @param d The new size for this {@code Rectangle}.
      */
-    public void setDimension(Dimension d) {
+    public void setSize(Dimension d) {
         this.d = d;
     }
 
