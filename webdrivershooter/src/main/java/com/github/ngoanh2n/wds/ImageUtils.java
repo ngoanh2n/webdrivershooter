@@ -29,19 +29,6 @@ public class ImageUtils {
         return new BufferedImage(w, h, t);
     }
 
-    public static BufferedImage cut(BufferedImage srcImage, Rectangle rectToCut) {
-        int x = rectToCut.getX();
-        int y = rectToCut.getY();
-        int w = rectToCut.getWidth();
-        int h = rectToCut.getHeight();
-
-        BufferedImage image = create(new Dimension(w, h));
-        Graphics graphics = image.getGraphics();
-        graphics.drawImage(srcImage, 0, 0, w, h, x, y, w + x, h + y, null);
-        graphics.dispose();
-        return image;
-    }
-
     public BufferedImage fill(BufferedImage image, Color color) {
         int w = image.getWidth();
         int h = image.getHeight();
@@ -49,6 +36,27 @@ public class ImageUtils {
         Graphics2D graphics = image.createGraphics();
         graphics.setPaint(color);
         graphics.fillRect(0, 0, w, h);
+        graphics.dispose();
+        return image;
+    }
+
+    public static BufferedImage cut(BufferedImage image, Rectangle rectToCut) {
+        int x = rectToCut.getX();
+        int y = rectToCut.getY();
+        int w = rectToCut.getWidth();
+        int h = rectToCut.getHeight();
+
+        BufferedImage result = create(new Dimension(w, h));
+        Graphics graphics = result.getGraphics();
+        graphics.drawImage(image, 0, 0, w, h, x, y, w + x, h + y, null);
+        graphics.dispose();
+        return result;
+    }
+
+    private BufferedImage drawArea(BufferedImage image, BufferedImage area, Point location) {
+        Graphics graphics = image.getGraphics();
+        graphics.drawImage(image, 0, 0, null);
+        graphics.drawImage(area, location.getX(), location.getY(), null);
         graphics.dispose();
         return image;
     }
