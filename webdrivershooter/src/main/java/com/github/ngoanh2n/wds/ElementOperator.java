@@ -55,16 +55,12 @@ public class ElementOperator extends ShooterOperator {
      */
     @Override
     protected boolean isImageFull(BufferedImage shot) {
-        switch (options.shooter()) {
-            case 1:
-                return true;
-            case 2:
-                return getShotImageHeight() == shot.getHeight(null);
-            case 3:
-                return getShotImageWidth() == shot.getWidth(null);
-            default:
-                return getShotImageWidth() == shot.getWidth(null) && getShotImageHeight() == shot.getHeight(null);
-        }
+        return switch (options.shooter()) {
+            case 1 -> true;
+            case 2 -> getShotImageHeight() == shot.getHeight(null);
+            case 3 -> getShotImageWidth() == shot.getWidth(null);
+            default -> getShotImageWidth() == shot.getWidth(null) && getShotImageHeight() == shot.getHeight(null);
+        };
     }
 
     //-------------------------------------------------------------------------------//
