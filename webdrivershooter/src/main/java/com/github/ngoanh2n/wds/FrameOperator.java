@@ -68,8 +68,8 @@ public class FrameOperator extends PageOperator {
         return switch (options.shooter()) {
             case 1 -> true;
             case 2 -> getImageHeight() == shot.getHeight(null);
-            case 3 -> getImageWidth() == shot.getWidth(null);
-            default -> getImageWidth() == shot.getWidth(null) && getImageHeight() == shot.getHeight(null);
+            case 3 -> getShotImageWidth() == shot.getWidth(null);
+            default -> getShotImageWidth() == shot.getWidth(null) && getImageHeight() == shot.getHeight(null);
         };
     }
 
