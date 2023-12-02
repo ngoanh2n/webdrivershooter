@@ -161,7 +161,14 @@ public class Screenshot {
      */
     public BufferedImage getMaskedImage() {
         if (!masked) {
-            initializeMaskedImage();
+            int w = image.getWidth();
+            int h = image.getHeight();
+            Dimension size = new Dimension(w, h);
+
+            maskedImage = ImageUtils.create(size);
+            maskedGraphics = maskedImage.createGraphics();
+            maskedGraphics.drawImage(image, 0, 0, null);
+
             if (maskForRects) {
                 for (Rectangle rect : rects) {
                     BufferedImage maskedArea = ImageUtils.cut(image, rect);
@@ -281,15 +288,6 @@ public class Screenshot {
     }
 
     //-------------------------------------------------------------------------------//
-
-    private void initializeMaskedImage() {
-        int w = image.getWidth();
-        int h = image.getHeight();
-        int t = BufferedImage.TYPE_INT_ARGB;
-        maskedImage = new BufferedImage(w, h, t);
-        maskedGraphics = maskedImage.createGraphics();
-        maskedGraphics.drawImage(image, 0, 0, null);
-    }
 
     private File createDefaultOutput() {
         String fileName = Commons.timestamp() + ".png";
