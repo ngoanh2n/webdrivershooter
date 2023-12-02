@@ -46,7 +46,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, ElementOperator operator) {
         Screenshot screenshot = page(ShooterOptions.builder().shootViewport().build(), driver);
         BufferedImage image = screenshot.getImage();
-        operator.mergePart00(image);
+        operator.mergeShot00(image);
 
         if (operator.isImageFull(image)) {
             operator.getScreenshot().dispose();
@@ -59,15 +59,15 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
      */
     @Override
     public Screenshot shootVerticalScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
-        int partsY = operator.getPartsY();
+        int parts = operator.getPartsY();
 
-        for (int partY = 0; partY < partsY; partY++) {
-            operator.scrollSY(partY);
+        for (int part = 0; part < parts; part++) {
+            operator.scrollSY(part);
             operator.sleep();
 
             Screenshot screenshot = page(driver);
             BufferedImage image = screenshot.getImage();
-            operator.mergePart0S(image);
+            operator.mergeShot0S(image);
 
             if (operator.isImageFull(image)) {
                 operator.screenshot.dispose();
@@ -82,17 +82,17 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
      */
     @Override
     public Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
-        int partsX = operator.getPartsX();
+        int parts = operator.getPartsX();
 
-        for (int partX = 0; partX < partsX; partX++) {
-            operator.scrollXS(partX);
+        for (int part = 0; part < parts; part++) {
+            operator.scrollXS(part);
             operator.sleep();
 
             Screenshot screenshot = page(driver);
-            BufferedImage part = screenshot.getImage();
-            operator.mergePartS0(part);
+            BufferedImage image = screenshot.getImage();
+            operator.mergeShotS0(image);
 
-            if (operator.isImageFull(part)) {
+            if (operator.isImageFull(image)) {
                 operator.getScreenshot().dispose();
                 break;
             }
@@ -116,10 +116,10 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
                 operator.sleep();
 
                 Screenshot screenshot = page(driver);
-                BufferedImage part = screenshot.getImage();
-                operator.mergePartSS(part);
+                BufferedImage image = screenshot.getImage();
+                operator.mergeShotSS(image);
 
-                if (operator.isImageFull(part)) {
+                if (operator.isImageFull(image)) {
                     operator.getScreenshot().dispose();
                     break;
                 }

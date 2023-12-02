@@ -44,10 +44,10 @@ public class FrameShooter extends PageShooter {
      */
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, PageOperator operator) {
-        BufferedImage part = shot(driver);
-        ((FrameOperator) operator).mergePart00(part);
+        BufferedImage shot = shoot(driver);
+        ((FrameOperator) operator).mergeShot00(shot);
 
-        if (operator.isImageFull(part)) {
+        if (operator.isImageFull(shot)) {
             operator.getScreenshot().dispose();
         }
         return operator.getScreenshot();

@@ -54,16 +54,16 @@ public class ElementOperator extends ShooterOperator {
      * {@inheritDoc}
      */
     @Override
-    protected boolean isImageFull(BufferedImage part) {
+    protected boolean isImageFull(BufferedImage shot) {
         switch (options.shooter()) {
             case 1:
                 return true;
             case 2:
-                return getImageHeight() == part.getHeight(null);
+                return getImageHeight() == shot.getHeight(null);
             case 3:
-                return getImageWidth() == part.getWidth(null);
+                return getImageWidth() == shot.getWidth(null);
             default:
-                return getImageWidth() == part.getWidth(null) && getImageHeight() == part.getHeight(null);
+                return getImageWidth() == shot.getWidth(null) && getImageHeight() == shot.getHeight(null);
         }
     }
 
@@ -72,21 +72,21 @@ public class ElementOperator extends ShooterOperator {
     /**
      * Scroll down with distance of element bounding rectangle height.
      *
-     * @param multiplierY The multiplier to calculate the Y coordinate of the next point be to scrolled to.
+     * @param part The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
-    protected void scrollSY(int multiplierY) {
+    protected void scrollSY(int part) {
         int pointX = screener.getElementScrollX(element);
-        int pointY = (int) (multiplierY * screener.getInnerRect().getHeight());
+        int pointY = (int) (part * screener.getInnerRect().getHeight());
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
     }
 
     /**
      * Scroll down with distance of element bounding rectangle width.
      *
-     * @param multiplierX The multiplier to calculate the X coordinate of the next point be to scrolled to.
+     * @param part The multiplier to calculate the X coordinate of the next point be to scrolled to.
      */
-    protected void scrollXS(int multiplierX) {
-        int pointX = (int) (multiplierX * screener.getInnerRect().getWidth());
+    protected void scrollXS(int part) {
+        int pointX = (int) (part * screener.getInnerRect().getWidth());
         int pointY = screener.getElementScrollY(element);
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
     }
@@ -94,82 +94,86 @@ public class ElementOperator extends ShooterOperator {
     /**
      * Scroll to the specified point.
      *
-     * @param multiplierX The multiplier to calculate the X coordinate of the next point be to scrolled to.
-     * @param multiplierY The multiplier to calculate the Y coordinate of the next point be to scrolled to.
+     * @param partX The multiplier to calculate the X coordinate of the next point be to scrolled to.
+     * @param partY The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
-    protected void scrollXY(int multiplierX, int multiplierY) {
-        int pointX = (int) (multiplierX * screener.getInnerRect().getWidth());
-        int pointY = (int) (multiplierY * screener.getInnerRect().getHeight());
+    protected void scrollXY(int partX, int partY) {
+        int pointX = (int) (partX * screener.getInnerRect().getWidth());
+        int pointY = (int) (partY * screener.getInnerRect().getHeight());
         screener.scrollElementToPoint(element, new Point(pointX, pointY));
     }
 
+    //-------------------------------------------------------------------------------//
+
     /**
-     * Draw the specified part over the current image of {@link Screenshot} with its top-left corner at (0,0).
+     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (0,0).
      *
-     * @param part The specified part to be drawn over the current {@link Screenshot}.
+     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
      */
-    protected void mergePart00(BufferedImage part) {
-        part = getElementImage(part);
+    protected void mergeShot00(BufferedImage shot) {
+        shot = getElementShot(shot);
         int x = 0;
         int y = 0;
-        screenshot.mergePart(part, x, y);
+        screenshot.mergePart(shot, x, y);
     }
 
     /**
-     * Draw the specified part over the current image of {@link Screenshot} with its top-left corner at (0,scrollTop).
+     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (0,scrollTop).
      *
-     * @param part The specified part to be drawn over the current {@link Screenshot}.
+     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
      */
-    protected void mergePart0S(BufferedImage part) {
-        part = getElementImage(part);
+    protected void mergeShot0S(BufferedImage shot) {
+        shot = getElementShot(shot);
         int x = 0;
         int y = screener.getElementScrollY(element);
-        screenshot.mergePart(part, x, y);
+        screenshot.mergePart(shot, x, y);
     }
 
     /**
-     * Draw the specified part over the current image of {@link Screenshot} with its top-left corner at (scrollLeft,0).
+     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (scrollLeft,0).
      *
-     * @param part The specified part to be drawn over the current {@link Screenshot}.
+     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
      */
-    protected void mergePartS0(BufferedImage part) {
-        part = getElementImage(part);
+    protected void mergeShotS0(BufferedImage shot) {
+        shot = getElementShot(shot);
         int x = screener.getElementScrollX(element);
         int y = 0;
-        screenshot.mergePart(part, x, y);
+        screenshot.mergePart(shot, x, y);
     }
 
     /**
-     * Draw the specified part over the current image of {@link Screenshot} with its top-left corner at (scrollLeft,scrollTop).
+     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (scrollLeft,scrollTop).
      *
-     * @param part The specified part to be drawn over the current {@link Screenshot}.
+     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
      */
-    protected void mergePartSS(BufferedImage part) {
-        part = getElementImage(part);
+    protected void mergeShotSS(BufferedImage shot) {
+        shot = getElementShot(shot);
         int x = screener.getElementScrollX(element);
         int y = screener.getElementScrollY(element);
-        screenshot.mergePart(part, x, y);
+        screenshot.mergePart(shot, x, y);
     }
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * Cut image defined by a specified rectangular element.
      *
-     * @param outerImage The larger image contains element.
+     * @param shot The larger image contains element.
      * @return The element image.
      */
-    protected BufferedImage getElementImage(BufferedImage outerImage) {
+    protected BufferedImage getElementShot(BufferedImage shot) {
         int x = screener.getOuterRect().x;
         int y = screener.getOuterRect().y;
         int w = screener.getInnerRect().width;
         int h = screener.getInnerRect().height;
 
         if (options.shooter() == 1) {
-            if (outerImage.getHeight() < screener.getInnerRect().getHeight()) {
-                h = outerImage.getHeight() - screener.getInnerRect().y;
+            if (shot.getHeight() < screener.getInnerRect().getHeight()) {
+                h = shot.getHeight() - screener.getInnerRect().y;
                 screenshot.updateImage(w, h);
             }
         }
         screenshot.updatedRects(x, y);
-        return outerImage.getSubimage(x, y, w, h);
+        return shot.getSubimage(x, y, w, h);
     }
 }

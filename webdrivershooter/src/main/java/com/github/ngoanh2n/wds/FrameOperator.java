@@ -64,69 +64,71 @@ public class FrameOperator extends PageOperator {
      * {@inheritDoc}
      */
     @Override
-    protected boolean isImageFull(BufferedImage part) {
+    protected boolean isImageFull(BufferedImage shot) {
         switch (options.shooter()) {
             case 1:
                 return true;
             case 2:
-                return getImageHeight() == part.getHeight(null);
+                return getImageHeight() == shot.getHeight(null);
             case 3:
-                return getImageWidth() == part.getWidth(null);
+                return getImageWidth() == shot.getWidth(null);
             default:
-                return getImageWidth() == part.getWidth(null) && getImageHeight() == part.getHeight(null);
+                return getImageWidth() == shot.getWidth(null) && getImageHeight() == shot.getHeight(null);
         }
     }
 
     //-------------------------------------------------------------------------------//
 
     /**
-     * Draw the specified part over the current image of {@link Screenshot} with its top-left corner at (0,0).
+     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (0,0).
      *
-     * @param part The specified part to be drawn over the current {@link Screenshot}.
+     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
      */
-    protected void mergePart00(BufferedImage part) {
-        part = getFrameImage(part);
-        screenshot.mergePart(part, 0, 0);
+    protected void mergeShot00(BufferedImage shot) {
+        shot = getFrameShot(shot);
+        screenshot.mergePart(shot, 0, 0);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void mergePart0Y(BufferedImage part, int multiplierY) {
-        part = getFrameImage(part);
-        super.mergePart0Y(part, multiplierY);
+    protected void mergeShot0Y(BufferedImage shot, int part) {
+        shot = getFrameShot(shot);
+        super.mergeShot0Y(shot, part);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void mergePartX0(BufferedImage part, int multiplierX) {
-        part = getFrameImage(part);
-        super.mergePartX0(part, multiplierX);
+    protected void mergeShotX0(BufferedImage shot, int part) {
+        shot = getFrameShot(shot);
+        super.mergeShotX0(shot, part);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void mergePartSS(BufferedImage part) {
-        part = getFrameImage(part);
-        super.mergePartSS(part);
+    protected void mergeShotSS(BufferedImage shot) {
+        shot = getFrameShot(shot);
+        super.mergeShotSS(shot);
     }
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * Cut image defined by a specified rectangular iframe.
      *
-     * @param outerImage The larger image contains iframe.
+     * @param shot The larger image contains iframe.
      * @return The iframe image.
      */
-    protected BufferedImage getFrameImage(BufferedImage outerImage) {
+    protected BufferedImage getFrameShot(BufferedImage shot) {
         int x = (int) framer.getInnerRect().getX();
         int y = (int) framer.getInnerRect().getY();
         int w = (int) framer.getInnerRect().getWidth();
         int h = (int) framer.getInnerRect().getHeight();
-        return outerImage.getSubimage(x, y, w, h);
+        return shot.getSubimage(x, y, w, h);
     }
 }

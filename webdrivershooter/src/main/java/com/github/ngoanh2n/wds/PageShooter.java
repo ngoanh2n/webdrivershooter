@@ -35,8 +35,8 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
      */
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, PageOperator operator) {
-        BufferedImage part = shot(driver);
-        operator.mergePart0Y(part, 0);
+        BufferedImage shot = shoot(driver);
+        operator.mergeShot0Y(shot, 0);
         return operator.getScreenshot();
     }
 
@@ -45,16 +45,16 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
      */
     @Override
     public Screenshot shootVerticalScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
-        int partsY = operator.getPartsY();
+        int parts = operator.getPartsY();
 
-        for (int partY = 0; partY < partsY; partY++) {
-            operator.scrollSY(partY);
+        for (int part = 0; part < parts; part++) {
+            operator.scrollSY(part);
             operator.sleep();
 
-            BufferedImage part = shot(driver);
-            operator.mergePart0Y(part, partY);
+            BufferedImage shot = shoot(driver);
+            operator.mergeShot0Y(shot, part);
 
-            if (operator.isImageFull(part)) {
+            if (operator.isImageFull(shot)) {
                 operator.getScreenshot().dispose();
                 break;
             }
@@ -67,16 +67,16 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
      */
     @Override
     public Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, PageOperator operator) {
-        int partsX = operator.getPartsX();
+        int parts = operator.getPartsX();
 
-        for (int partX = 0; partX < partsX; partX++) {
-            operator.scrollXS(partX);
+        for (int part = 0; part < parts; part++) {
+            operator.scrollXS(part);
             operator.sleep();
 
-            BufferedImage part = shot(driver);
-            operator.mergePartX0(part, partX);
+            BufferedImage shot = shoot(driver);
+            operator.mergeShotX0(shot, part);
 
-            if (operator.isImageFull(part)) {
+            if (operator.isImageFull(shot)) {
                 operator.getScreenshot().dispose();
                 break;
             }
@@ -99,10 +99,10 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
                 operator.scrollXY(partX, partY);
                 operator.sleep();
 
-                BufferedImage part = shot(driver);
-                operator.mergePartSS(part);
+                BufferedImage shot = shoot(driver);
+                operator.mergeShotSS(shot);
 
-                if (operator.isImageFull(part)) {
+                if (operator.isImageFull(shot)) {
                     operator.getScreenshot().dispose();
                     break;
                 }

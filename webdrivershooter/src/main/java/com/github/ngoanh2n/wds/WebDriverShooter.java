@@ -320,7 +320,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * @return The {@link BufferedImage}.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    protected BufferedImage shot(WebDriver driver) {
+    protected BufferedImage shoot(WebDriver driver) {
         File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             return ImageIO.read(file);
