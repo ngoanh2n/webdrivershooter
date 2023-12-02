@@ -384,8 +384,8 @@ public class Screener {
     /**
      * Scroll element to the specified position.
      *
-     * @param element  The current {@link WebElement}.
-     * @param point The target position.
+     * @param element The current {@link WebElement}.
+     * @param point   The target position.
      */
     public void scrollElementToPoint(WebElement element, Point point) {
         double x = point.getX() / dpr;
