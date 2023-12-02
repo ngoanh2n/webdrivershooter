@@ -16,15 +16,32 @@ public class Rectangle {
     private Position p;
     private Dimension d;
 
+    /**
+     * Construct a new {@link Rectangle} by {@code x:y} of the coordinate and {@code w}, {@code h}.
+     *
+     * @param x The X coordinate of the newly constructed {@code Position}.
+     * @param y The Y coordinate of the newly constructed {@code Position}.
+     */
     public Rectangle(int x, int y, int w, int h) {
         this.p = new Position(x, y);
         this.d = new Dimension(w, h);
     }
 
     /**
+     * Construct a new {@link Rectangle} by {@code p} and {@code d}.
+     *
+     * @param p The position of the newly constructed {@code Rectangle}.
+     * @param d The dimension of the newly constructed {@code Rectangle}.
+     */
+    public Rectangle(Position p, Dimension d) {
+        this.p = new Position(p.getX(), p.getY());
+        this.d = new Dimension(d.getWidth(), d.getHeight());
+    }
+
+    /**
      * Get the X coordinate of this {@code Rectangle}.
      *
-     * @return The X coordinate.
+     * @return The X coordinate of this {@code Rectangle}.
      */
     public int getX() {
         return p.getX();
@@ -33,7 +50,7 @@ public class Rectangle {
     /**
      * Get the Y coordinate of this {@code Rectangle}.
      *
-     * @return The Y coordinate.
+     * @return The Y coordinate of this {@code Rectangle}.
      */
     public int getY() {
         return p.getY();

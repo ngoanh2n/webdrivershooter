@@ -17,7 +17,7 @@ public class Dimension {
     private int h;
 
     /**
-     * Construct a new {@link Dimension} by width and height.
+     * Construct a new {@link Dimension} by {@code w}, {@code h}.
      */
     public Dimension(int w, int h) {
         this.w = w;
@@ -34,9 +34,9 @@ public class Dimension {
     }
 
     /**
-     * Set width for this {@code Position}.
+     * Set width for this {@code Dimension}.
      *
-     * @param w The new width for this {@code Position}.
+     * @param w The new width for this {@code Dimension}.
      */
     public void setWidth(int w) {
         this.w = w;
@@ -61,9 +61,9 @@ public class Dimension {
     }
 
     /**
-     * Returns a string representation of this dimension.
+     * Returns a string representation of this {@code Dimension}.
      *
-     * @return A string representation of this position.
+     * @return A string representation of this {@code Dimension}.
      */
     @Override
     public String toString() {

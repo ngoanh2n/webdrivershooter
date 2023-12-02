@@ -17,7 +17,7 @@ public class Position {
     private int y;
 
     /**
-     * Construct a new {@link Position} at the origin (0,&nbsp;0) of the coordinate.
+     * Construct a new {@link Position} at {@code 0:0} of the coordinate.
      */
     public Position() {
         this.x = 0;
@@ -25,7 +25,7 @@ public class Position {
     }
 
     /**
-     * Construct a new {@link Position} at the origin (x,&nbsp;y) of the coordinate.
+     * Construct a new {@link Position} by {@code x:y} of the coordinate.
      *
      * @param x The X coordinate of the newly constructed {@code Position}.
      * @param y The Y coordinate of the newly constructed {@code Position}.
@@ -38,16 +38,16 @@ public class Position {
     /**
      * Get the X coordinate of this {@code Position}.
      *
-     * @return The X coordinate.
+     * @return The X coordinate of this {@code Position}.
      */
     public int getX() {
         return x;
     }
 
     /**
-     * Set X coordinate of this {@code Position}.
+     * Set X coordinate for this {@code Position}.
      *
-     * @param x The new X coordinate.
+     * @param x The new X coordinate for this {@code Position}.
      */
     public void setX(int x) {
         this.x = x;
@@ -56,25 +56,25 @@ public class Position {
     /**
      * Get the Y coordinate of this {@code Position}.
      *
-     * @return The Y coordinate.
+     * @return The Y coordinate of this {@code Position}.
      */
     public int getY() {
         return y;
     }
 
     /**
-     * Set Y coordinate of this {@code Position}.
+     * Set Y coordinate for this {@code Position}.
      *
-     * @param y The new X coordinate.
+     * @param y The new X coordinate for this {@code Position}.
      */
     public void setY(int y) {
         this.y = y;
     }
 
     /**
-     * Returns a string representation of this position in the {@code x:y} coordinate.
+     * Returns a string representation of this {@code Position}.
      *
-     * @return A string representation of this position in the {@code x:y} coordinate.
+     * @return A string representation of this {@code Position}.
      */
     @Override
     public String toString() {
