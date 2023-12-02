@@ -164,7 +164,7 @@ public class Screenshot {
             initializeMaskedImage();
             if (maskForRects) {
                 for (Rectangle rect : rects) {
-                    BufferedImage maskedArea = cutImage(image, rect);
+                    BufferedImage maskedArea = ImageUtils.cut(image, rect);
                     maskImage(maskedArea);
                     ImageUtils.drawArea(maskedImage, maskedArea, rect.getLocation());
                 }
@@ -172,7 +172,7 @@ public class Screenshot {
                 if (!rects.isEmpty()) {
                     maskImage(maskedImage);
                     for (Rectangle rect : rects) {
-                        BufferedImage area = cutImage(image, rect);
+                        BufferedImage area = ImageUtils.cut(image, rect);
                         ImageUtils.drawArea(maskedImage, area, rect.getLocation());
                     }
                 }
@@ -296,20 +296,6 @@ public class Screenshot {
         graphics.setPaint(maskedColor);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
         graphics.dispose();
-    }
-
-    private BufferedImage cutImage(BufferedImage srcImage, Rectangle rectToCut) {
-        int x = rectToCut.getX();
-        int y = rectToCut.getY();
-        int w = rectToCut.getWidth();
-        int h = rectToCut.getHeight();
-        int t = BufferedImage.TYPE_INT_ARGB;
-
-        BufferedImage area = new BufferedImage(w, h, t);
-        Graphics graphics = area.getGraphics();
-        graphics.drawImage(srcImage, 0, 0, w, h, x, y, w + x, h + y, null);
-        graphics.dispose();
-        return area;
     }
 
     private File createDefaultOutput() {
