@@ -4,15 +4,12 @@ import com.github.ngoanh2n.Commons;
 import com.github.ngoanh2n.img.ImageComparator;
 import com.github.ngoanh2n.img.ImageComparisonOptions;
 import com.github.ngoanh2n.img.ImageComparisonResult;
-import org.apache.commons.io.FilenameUtils;
 import org.openqa.selenium.WebDriver;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -120,7 +117,7 @@ public class Screenshot {
      */
     public File saveImage(File output) {
         BufferedImage image = getImage();
-        return saveImageToOutput(image, output);
+        return ImageUtils.save(image, output);
     }
 
     /**
@@ -145,7 +142,7 @@ public class Screenshot {
      */
     public File saveMaskedImage(File output) {
         BufferedImage image = getMaskedImage();
-        return saveImageToOutput(image, output);
+        return ImageUtils.save(image, output);
     }
 
     /**
@@ -324,16 +321,5 @@ public class Screenshot {
         String fileName = Commons.timestamp() + ".png";
         Path location = Paths.get("build/ngoanh2n/wds");
         return Commons.createDir(location).resolve(fileName).toFile();
-    }
-
-    private File saveImageToOutput(BufferedImage image, File output) {
-        try {
-            Commons.createDir(output);
-            String extension = FilenameUtils.getExtension(output.getName());
-            ImageIO.write(image, extension, output);
-        } catch (IOException e) {
-            throw new ShooterException("Error during creating ImageOutputStream");
-        }
-        return output;
     }
 }
