@@ -245,17 +245,6 @@ public class Screenshot {
     }
 
     /**
-     * Draw the specified part over the current image with its top-left corner at (x,y).
-     *
-     * @param part The sub image to be drawn over the current image.
-     * @param x    The x coordinate.
-     * @param y    The Y coordinate
-     */
-    protected void mergePart(BufferedImage part, int x, int y) {
-        graphics.drawImage(part, x, y, null);
-    }
-
-    /**
      * Update dimension of {@link BufferedImage} and its {@link Graphics}.
      *
      * @param newWidth  The new width of dimension.
