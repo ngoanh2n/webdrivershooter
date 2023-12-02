@@ -80,7 +80,7 @@ public abstract class ShooterOperator {
      */
     protected Screenshot createScreenshot() {
         int width = getShotImageWidth();
-        int height = getImageHeight();
+        int height = getShotImageHeight();
         List<WebElement> elements = getElements();
         List<Rectangle> rects = getRectangles(elements);
         boolean maskForRects = options.maskForElements();
@@ -155,7 +155,7 @@ public abstract class ShooterOperator {
      *
      * @return The height of image.
      */
-    protected int getImageHeight() {
+    protected int getShotImageHeight() {
         return switch (options.shooter()) {
             case 1, 3 -> (int) screener.getInnerRect().getHeight();
             default -> (int) screener.getOuterRect().getHeight();
@@ -170,9 +170,9 @@ public abstract class ShooterOperator {
      */
     protected boolean isImageFull(BufferedImage part) {
         return switch (options.shooter()) {
-            case 1, 2 -> getImageHeight() == part.getHeight(null);
+            case 1, 2 -> getShotImageHeight() == part.getHeight(null);
             case 3 -> getShotImageWidth() == part.getWidth(null);
-            default -> getShotImageWidth() == part.getWidth(null) && getImageHeight() == part.getHeight(null);
+            default -> getShotImageWidth() == part.getWidth(null) && getShotImageHeight() == part.getHeight(null);
         };
     }
 

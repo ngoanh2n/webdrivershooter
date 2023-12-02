@@ -67,9 +67,9 @@ public class FrameOperator extends PageOperator {
     protected boolean isImageFull(BufferedImage shot) {
         return switch (options.shooter()) {
             case 1 -> true;
-            case 2 -> getImageHeight() == shot.getHeight(null);
+            case 2 -> getShotImageHeight() == shot.getHeight(null);
             case 3 -> getShotImageWidth() == shot.getWidth(null);
-            default -> getShotImageWidth() == shot.getWidth(null) && getImageHeight() == shot.getHeight(null);
+            default -> getShotImageWidth() == shot.getWidth(null) && getShotImageHeight() == shot.getHeight(null);
         };
     }
 
