@@ -54,7 +54,7 @@ public class ImageUtils {
         return result;
     }
 
-    private BufferedImage drawArea(BufferedImage image, BufferedImage area, Point location) {
+    public static BufferedImage drawArea(BufferedImage image, BufferedImage area, Point location) {
         Graphics graphics = image.getGraphics();
         graphics.drawImage(image, 0, 0, null);
         graphics.drawImage(area, location.getX(), location.getY(), null);
