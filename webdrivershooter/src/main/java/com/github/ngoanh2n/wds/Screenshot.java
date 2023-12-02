@@ -166,14 +166,14 @@ public class Screenshot {
                 for (Rectangle rect : rects) {
                     BufferedImage maskedArea = cutImage(image, rect);
                     maskImage(maskedArea);
-                    drawAreaOverMaskedImage(maskedArea, rect);
+                    ImageUtils.drawArea(maskedImage, maskedArea, rect.getLocation());
                 }
             } else {
                 if (!rects.isEmpty()) {
                     maskImage(maskedImage);
                     for (Rectangle rect : rects) {
                         BufferedImage area = cutImage(image, rect);
-                        drawAreaOverMaskedImage(area, rect);
+                        ImageUtils.drawArea(maskedImage, area, rect.getLocation());
                     }
                 }
             }
@@ -310,11 +310,6 @@ public class Screenshot {
         graphics.drawImage(srcImage, 0, 0, w, h, x, y, w + x, h + y, null);
         graphics.dispose();
         return area;
-    }
-
-    private void drawAreaOverMaskedImage(BufferedImage area, Rectangle rectToDraw) {
-        maskedGraphics.drawImage(maskedImage, 0, 0, null);
-        maskedGraphics.drawImage(area, rectToDraw.getX(), rectToDraw.getY(), null);
     }
 
     private File createDefaultOutput() {
