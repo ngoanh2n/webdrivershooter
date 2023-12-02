@@ -121,10 +121,10 @@ public class FrameOperator extends PageOperator {
      * @return The iframe image.
      */
     protected BufferedImage getFrameShot(BufferedImage shot) {
-        int x = (int) framer.getInnerRect().getX();
-        int y = (int) framer.getInnerRect().getY();
-        int w = (int) framer.getInnerRect().getWidth();
-        int h = (int) framer.getInnerRect().getHeight();
+        int x = framer.getInnerRect().getX();
+        int y = framer.getInnerRect().getY();
+        int w = framer.getInnerRect().getWidth();
+        int h = framer.getInnerRect().getHeight();
         return shot.getSubimage(x, y, w, h);
     }
 }

@@ -126,10 +126,10 @@ public abstract class ShooterOperator {
     protected List<Rectangle> getRectangles(List<WebElement> elements) {
         List<Rectangle> rectangles = new ArrayList<>();
         for (WebElement element : elements) {
-            int x = (int) (element.getLocation().getX() * screener.getDPR());
-            int y = (int) (element.getLocation().getY() * screener.getDPR());
-            int w = (int) (element.getSize().getWidth() * screener.getDPR());
-            int h = (int) (element.getSize().getHeight() * screener.getDPR());
+            int x = (int) (screener.getDPR() * element.getLocation().getX());
+            int y = (int) (screener.getDPR() * element.getLocation().getY());
+            int w = (int) (screener.getDPR() * element.getSize().getWidth());
+            int h = (int) (screener.getDPR() * element.getSize().getHeight());
 
             Point location = new Point(x, y);
             Dimension size = new Dimension(w, h);
@@ -145,8 +145,8 @@ public abstract class ShooterOperator {
      */
     protected int getShotImageWidth() {
         return switch (options.shooter()) {
-            case 1, 2 -> (int) screener.getInnerRect().getWidth();
-            default -> (int) screener.getOuterRect().getWidth();
+            case 1, 2 -> screener.getInnerRect().getWidth();
+            default -> screener.getOuterRect().getWidth();
         };
     }
 
@@ -157,8 +157,8 @@ public abstract class ShooterOperator {
      */
     protected int getShotImageHeight() {
         return switch (options.shooter()) {
-            case 1, 3 -> (int) screener.getInnerRect().getHeight();
-            default -> (int) screener.getOuterRect().getHeight();
+            case 1, 3 -> screener.getInnerRect().getHeight();
+            default -> screener.getOuterRect().getHeight();
         };
     }
 
@@ -195,8 +195,8 @@ public abstract class ShooterOperator {
      * @return The number of screenshot parts need to merge into the screenshot image by vertically.
      */
     protected int getPartsY() {
-        int outerH = (int) screener.getOuterRect().getHeight();
-        int innerH = (int) screener.getInnerRect().getHeight();
+        int outerH = screener.getOuterRect().getHeight();
+        int innerH = screener.getInnerRect().getHeight();
         return (int) Math.ceil(((double) outerH) / innerH);
     }
 
@@ -206,8 +206,8 @@ public abstract class ShooterOperator {
      * @return The number of screenshot parts need to merge into the screenshot image by horizontally.
      */
     protected int getPartsX() {
-        int outerW = (int) screener.getOuterRect().getWidth();
-        int innerW = (int) screener.getInnerRect().getWidth();
+        int outerW = screener.getOuterRect().getWidth();
+        int innerW = screener.getInnerRect().getWidth();
         return (int) Math.ceil(((double) outerW) / innerW);
     }
 
