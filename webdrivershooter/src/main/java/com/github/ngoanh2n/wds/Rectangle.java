@@ -127,6 +127,6 @@ public class Rectangle {
      */
     @Override
     public String toString() {
-        return String.format("%s %s", p, d);
+        return String.format("Size [%s] Location [%s]", d, p);
     }
 }
