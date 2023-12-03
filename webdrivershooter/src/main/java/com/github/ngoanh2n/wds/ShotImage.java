@@ -28,6 +28,13 @@ public class ShotImage {
     private final LinkedList<Rectangle> parts;
     private BufferedImage image;
 
+    /**
+     * Construct a new {@link ShotImage}.
+     *
+     * @param options    {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param size       The size of image for creating the {@link Screenshot}.
+     * @param rectangles Areas to mask or ignore to be not masked.
+     */
     protected ShotImage(ShooterOptions options, Dimension size, List<Rectangle> rectangles) {
         this.options = options;
         this.rectangles = rectangles;
@@ -38,6 +45,12 @@ public class ShotImage {
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * Merge the specified shot part over the screenshot image with its top-left corner at {@code location}.
+     *
+     * @param shot     The shot part to be drawn over the screenshot image.
+     * @param location The top-left corner to start to be drawn.
+     */
     protected void merge(BufferedImage shot, Point location) {
         checkSizeForViewport(shot);
         drawShotImage(shot, location);
@@ -45,6 +58,11 @@ public class ShotImage {
         log.debug("Shot -> " + parts.getLast());
     }
 
+    /**
+     * Get the screenshot image and masked screenshot image.
+     *
+     * @return The screenshot image and masked screenshot image.
+     */
     protected ImmutablePair<BufferedImage, BufferedImage> getResult() {
         BufferedImage maskedImage = getMaskedImage();
         return new ImmutablePair<>(image, maskedImage);
