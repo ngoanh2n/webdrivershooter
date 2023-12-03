@@ -82,7 +82,7 @@ public class FrameOperator extends PageOperator {
      */
     protected void mergeShot00(BufferedImage shot) {
         shot = getFrameShot(shot);
-        screenshot.mergePart(shot, 0, 0);
+        shotImage.merge(shot, new Point(0, 0));
     }
 
     /**

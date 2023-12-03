@@ -79,7 +79,7 @@ public class PageOperator extends ShooterOperator {
     protected void mergeShot0Y(BufferedImage shot, int part) {
         int x = 0;
         int y = screener.getInnerRect().getHeight() * part;
-        screenshot.mergePart(shot, x, y);
+        shotImage.merge(shot, new Point(x, y));
     }
 
     /**
@@ -91,7 +91,7 @@ public class PageOperator extends ShooterOperator {
     protected void mergeShotX0(BufferedImage shot, int part) {
         int x = screener.getInnerRect().getWidth() * part;
         int y = 0;
-        screenshot.mergePart(shot, x, y);
+        shotImage.merge(shot, new Point(x, y));
     }
 
     /**
@@ -102,6 +102,6 @@ public class PageOperator extends ShooterOperator {
     protected void mergeShotSS(BufferedImage shot) {
         int x = screener.getDocumentScrollX();
         int y = screener.getDocumentScrollY();
-        screenshot.mergePart(shot, x, y);
+        shotImage.merge(shot, new Point(x, y));
     }
 }

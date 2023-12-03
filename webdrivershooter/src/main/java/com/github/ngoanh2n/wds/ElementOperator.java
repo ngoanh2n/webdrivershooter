@@ -107,9 +107,7 @@ public class ElementOperator extends ShooterOperator {
      */
     protected void mergeShot00(BufferedImage shot) {
         shot = getElementShot(shot);
-        int x = 0;
-        int y = 0;
-        screenshot.mergePart(shot, x, y);
+        shotImage.merge(shot, new Point(0, 0));
     }
 
     /**
@@ -121,7 +119,7 @@ public class ElementOperator extends ShooterOperator {
         shot = getElementShot(shot);
         int x = 0;
         int y = screener.getElementScrollY(element);
-        screenshot.mergePart(shot, x, y);
+        shotImage.merge(shot, new Point(x, y));
     }
 
     /**
@@ -133,7 +131,7 @@ public class ElementOperator extends ShooterOperator {
         shot = getElementShot(shot);
         int x = screener.getElementScrollX(element);
         int y = 0;
-        screenshot.mergePart(shot, x, y);
+        shotImage.merge(shot, new Point(x, y));
     }
 
     /**
@@ -145,7 +143,7 @@ public class ElementOperator extends ShooterOperator {
         shot = getElementShot(shot);
         int x = screener.getElementScrollX(element);
         int y = screener.getElementScrollY(element);
-        screenshot.mergePart(shot, x, y);
+        shotImage.merge(shot, new Point(x, y));
     }
 
     //-------------------------------------------------------------------------------//
@@ -165,10 +163,8 @@ public class ElementOperator extends ShooterOperator {
         if (options.shooter() == 1) {
             if (shot.getHeight() < screener.getInnerRect().getHeight()) {
                 h = shot.getHeight() - screener.getInnerRect().getY();
-                screenshot.updateImage(w, h);
             }
         }
-        screenshot.updatedRects(x, y);
         return shot.getSubimage(x, y, w, h);
     }
 }

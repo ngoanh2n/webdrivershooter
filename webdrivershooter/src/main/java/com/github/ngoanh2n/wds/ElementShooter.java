@@ -45,12 +45,8 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
     @Override
     public Screenshot shootViewport(ShooterOptions options, WebDriver driver, ElementOperator operator) {
         Screenshot screenshot = page(ShooterOptions.builder().shootViewport().build(), driver);
-        BufferedImage image = screenshot.getImage();
-        operator.mergeShot00(image);
-
-        if (operator.isImageFull(image)) {
-            operator.getScreenshot().dispose();
-        }
+        BufferedImage shot = screenshot.getImage();
+        operator.mergeShot00(shot);
         return operator.getScreenshot();
     }
 
@@ -66,11 +62,10 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
             operator.sleep();
 
             Screenshot screenshot = page(driver);
-            BufferedImage image = screenshot.getImage();
-            operator.mergeShot0S(image);
+            BufferedImage shot = screenshot.getImage();
+            operator.mergeShot0S(shot);
 
-            if (operator.isImageFull(image)) {
-                operator.screenshot.dispose();
+            if (operator.isImageFull(shot)) {
                 break;
             }
         }
@@ -89,11 +84,10 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
             operator.sleep();
 
             Screenshot screenshot = page(driver);
-            BufferedImage image = screenshot.getImage();
-            operator.mergeShotS0(image);
+            BufferedImage shot = screenshot.getImage();
+            operator.mergeShotS0(shot);
 
-            if (operator.isImageFull(image)) {
-                operator.getScreenshot().dispose();
+            if (operator.isImageFull(shot)) {
                 break;
             }
         }
@@ -116,11 +110,10 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
                 operator.sleep();
 
                 Screenshot screenshot = page(driver);
-                BufferedImage image = screenshot.getImage();
-                operator.mergeShotSS(image);
+                BufferedImage shot = screenshot.getImage();
+                operator.mergeShotSS(shot);
 
-                if (operator.isImageFull(image)) {
-                    operator.getScreenshot().dispose();
+                if (operator.isImageFull(shot)) {
                     break;
                 }
             }

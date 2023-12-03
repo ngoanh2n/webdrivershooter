@@ -7,12 +7,10 @@ import com.github.ngoanh2n.img.ImageComparisonResult;
 import org.openqa.selenium.WebDriver;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 /**
  * The result of {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator) WebDriverShooter.shoot(..)}.<br>
@@ -33,64 +31,18 @@ import java.util.List;
  */
 @ParametersAreNonnullByDefault
 public class Screenshot {
-    private final List<Rectangle> rects;
-    private final Color maskedColor;
-    private final boolean maskForRects;
-    private BufferedImage image;
-    private Graphics graphics;
-    private boolean masked;
-    private boolean updatedImage;
-    private boolean updatedRects;
-    private BufferedImage maskedImage;
-    private Graphics maskedGraphics;
+    private final BufferedImage image;
+    private final BufferedImage maskedImage;
 
     /**
      * Construct a new {@link Screenshot}.
      *
-     * @param image The image of the {@link Screenshot}.
-     * @param rects The areas will be masked or ignored to be not masked.
+     * @param image       The image of the {@link Screenshot}.
+     * @param maskedImage The masked image of the {@link Screenshot}.
      */
-    public Screenshot(BufferedImage image, List<Rectangle> rects) {
-        this(image, rects, true, Color.GRAY);
-    }
-
-    /**
-     * Construct a new {@link Screenshot}.
-     *
-     * @param image        The image of the {@link Screenshot}.
-     * @param rects        The areas will be masked or ignored to be not masked.
-     * @param maskForRects Indicate to mask {@code rects} or ignored to be not masked {@code rects}.
-     * @param maskedColor  The color to mask areas.
-     */
-    public Screenshot(BufferedImage image, List<Rectangle> rects, boolean maskForRects, Color maskedColor) {
+    Screenshot(BufferedImage image, BufferedImage maskedImage) {
         this.image = image;
-        this.graphics = null;
-        this.rects = rects;
-        this.maskedColor = maskedColor;
-        this.maskForRects = maskForRects;
-        this.masked = false;
-        this.updatedImage = false;
-        this.updatedRects = false;
-    }
-
-    /**
-     * Construct a new {@link Screenshot}.
-     *
-     * @param width        The image width of the {@link Screenshot}.
-     * @param height       The image height of the {@link Screenshot}.
-     * @param rects        The areas will be masked or ignored to be not masked.
-     * @param maskForRects Indicate to mask {@code rects} or ignored to be not masked {@code rects}.
-     * @param maskedColor  The color to mask areas.
-     */
-    protected Screenshot(int width, int height, List<Rectangle> rects, boolean maskForRects, Color maskedColor) {
-        this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        this.graphics = image.createGraphics();
-        this.rects = rects;
-        this.maskedColor = maskedColor;
-        this.maskForRects = maskForRects;
-        this.masked = false;
-        this.updatedImage = false;
-        this.updatedRects = false;
+        this.maskedImage = maskedImage;
     }
 
     //-------------------------------------------------------------------------------//
@@ -160,33 +112,6 @@ public class Screenshot {
      * @return The {@link BufferedImage}.
      */
     public BufferedImage getMaskedImage() {
-        if (!masked) {
-            int w = image.getWidth();
-            int h = image.getHeight();
-            Dimension size = new Dimension(w, h);
-
-            maskedImage = ImageUtils.create(size);
-            maskedGraphics = maskedImage.createGraphics();
-            maskedGraphics.drawImage(image, 0, 0, null);
-
-            if (maskForRects) {
-                for (Rectangle rect : rects) {
-                    BufferedImage maskedArea = ImageUtils.cut(image, rect);
-                    ImageUtils.fill(maskedArea, maskedColor);
-                    ImageUtils.drawArea(maskedImage, maskedArea, rect.getLocation());
-                }
-            } else {
-                if (!rects.isEmpty()) {
-                    ImageUtils.fill(maskedImage, maskedColor);
-                    for (Rectangle rect : rects) {
-                        BufferedImage area = ImageUtils.cut(image, rect);
-                        ImageUtils.drawArea(maskedImage, area, rect.getLocation());
-                    }
-                }
-            }
-            masked = true;
-            maskedGraphics.dispose();
-        }
         return maskedImage;
     }
 
@@ -233,47 +158,6 @@ public class Screenshot {
         BufferedImage exp = screenshot.getMaskedImage();
         BufferedImage act = getMaskedImage();
         return ImageComparator.compare(exp, act, options);
-    }
-
-    //-------------------------------------------------------------------------------//
-
-    /**
-     * Disposes graphics of the current image and releases any system resources that it is using.
-     */
-    protected void dispose() {
-        graphics.dispose();
-    }
-
-    /**
-     * Update dimension of {@link BufferedImage} and its {@link Graphics}.
-     *
-     * @param newWidth  The new width of dimension.
-     * @param newHeight The new height of dimension.
-     */
-    protected void updateImage(int newWidth, int newHeight) {
-        if (!updatedImage) {
-            image = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
-            graphics = image.createGraphics();
-            updatedImage = true;
-        }
-    }
-
-    /**
-     * Move all rectangles to the specified location.<br>
-     * The new position is determined by moving back to the left position with distance x, moving to the top position with distance y.
-     *
-     * @param xToMinus The distance to move back to the left.
-     * @param yToMinus The distance to move back to the top.
-     */
-    protected void updatedRects(int xToMinus, int yToMinus) {
-        if (!updatedRects) {
-            for (Rectangle rectangle : rects) {
-                int newX = rectangle.getX() - xToMinus;
-                int newY = rectangle.getY() - yToMinus;
-                rectangle.setLocation(new Point(newX, newY));
-            }
-            updatedRects = true;
-        }
     }
 
     //-------------------------------------------------------------------------------//

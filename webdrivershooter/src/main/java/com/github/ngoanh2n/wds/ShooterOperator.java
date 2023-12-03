@@ -1,11 +1,11 @@
 package com.github.ngoanh2n.wds;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,9 @@ public abstract class ShooterOperator {
      */
     protected Screener screener;
     /**
-     * The result after {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator)}
+     * Merge shot parts and mask rectangles.
      */
-    protected Screenshot screenshot;
+    protected ShotImage shotImage;
 
     /**
      * Construct a new {@link ShooterOperator}.
@@ -58,7 +58,7 @@ public abstract class ShooterOperator {
         this.driver = driver;
         this.checkDPR = options.checkDPR();
         this.screener = createScreener(elements);
-        this.screenshot = createScreenshot();
+        this.shotImage = createShotImage(options);
     }
 
     //-------------------------------------------------------------------------------//
@@ -74,18 +74,17 @@ public abstract class ShooterOperator {
     }
 
     /**
-     * Create a {@link Screenshot}.
+     * Create a {@link ShotImage}.
      *
-     * @return The {@link Screenshot}.
+     * @return The {@link ShotImage}.
      */
-    protected Screenshot createScreenshot() {
+    protected ShotImage createShotImage(ShooterOptions options) {
         int width = getShotImageWidth();
         int height = getShotImageHeight();
+        Dimension size = new Dimension(width, height);
         List<WebElement> elements = getElements();
-        List<Rectangle> rects = getRectangles(elements);
-        boolean maskForRects = options.maskForElements();
-        Color maskedColor = options.maskedColor();
-        return new Screenshot(width, height, rects, maskForRects, maskedColor);
+        List<Rectangle> rectangles = getRectangles(elements);
+        return new ShotImage(options, size, rectangles);
     }
 
     //-------------------------------------------------------------------------------//
@@ -212,11 +211,14 @@ public abstract class ShooterOperator {
     }
 
     /**
-     * Get the current {@link Screenshot}.
+     * Get the result after {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator)}.
      *
      * @return The {@link Screenshot}.
      */
     protected Screenshot getScreenshot() {
-        return screenshot;
+        ImmutablePair<BufferedImage, BufferedImage> result = shotImage.getResult();
+        BufferedImage image = result.getLeft();
+        BufferedImage maskedImage = result.getRight();
+        return new Screenshot(image, maskedImage);
     }
 }

@@ -55,7 +55,6 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
             operator.mergeShot0Y(shot, part);
 
             if (operator.isImageFull(shot)) {
-                operator.getScreenshot().dispose();
                 break;
             }
         }
@@ -77,7 +76,6 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
             operator.mergeShotX0(shot, part);
 
             if (operator.isImageFull(shot)) {
-                operator.getScreenshot().dispose();
                 break;
             }
         }
@@ -103,7 +101,6 @@ public class PageShooter extends WebDriverShooter<PageOperator> {
                 operator.mergeShotSS(shot);
 
                 if (operator.isImageFull(shot)) {
-                    operator.getScreenshot().dispose();
                     break;
                 }
             }
