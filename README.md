@@ -36,8 +36,8 @@
 
 ## Version
 - Selenium: 4.15.0
-- Selenide: 7.0.2
-- JUnit5: 5.10.0
+- Selenide: 7.0.3
+- JUnit5: 5.10.1
 - TestNG: 7.8.0
 
 # Extension
