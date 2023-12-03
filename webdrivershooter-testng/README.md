@@ -24,7 +24,7 @@ When using TestNG as a testing framework, `webdrivershooter-testng` should be us
 ## Gradle
 Add to `build.gradle`
 ```gradle
-implementation("com.github.ngoanh2n:webdrivershooter-testng:1.1.0")
+implementation("com.github.ngoanh2n:webdrivershooter-testng:1.1.1")
 ```
 
 ## Maven
@@ -33,7 +33,7 @@ Add to `pom.xml`
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>webdrivershooter-testng</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
