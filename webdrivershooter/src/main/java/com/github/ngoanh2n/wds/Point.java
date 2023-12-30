@@ -1,7 +1,11 @@
 package com.github.ngoanh2n.wds;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
- * A copy of java.awt.Point, avoid to load dependency on Java AWT.<br><br>
+ * A copy of java.awt.Point.<br><br>
  *
  * <em>Repository:</em>
  * <ul>
@@ -12,6 +16,8 @@ package com.github.ngoanh2n.wds;
  * @author ngoanh2n
  * @since 2021
  */
+@CanIgnoreReturnValue
+@ParametersAreNonnullByDefault
 public class Point {
     private int x;
     private int y;
@@ -36,6 +42,15 @@ public class Point {
     }
 
     /**
+     * Construct a new {@link Point} by other {@link Point}.
+     */
+    public Point(Point other) {
+        this(other.x, other.y);
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    /**
      * Get the X coordinate of this {@code Point}.
      *
      * @return The X coordinate of this {@code Point}.
@@ -49,8 +64,9 @@ public class Point {
      *
      * @param x The new X coordinate for this {@code Point}.
      */
-    public void setX(int x) {
+    public Point setX(int x) {
         this.x = x;
+        return this;
     }
 
     /**
@@ -67,8 +83,68 @@ public class Point {
      *
      * @param y The new X coordinate for this {@code Point}.
      */
-    public void setY(int y) {
+    public Point setY(int y) {
         this.y = y;
+        return this;
+    }
+
+    /**
+     * Increase X coordinate for this {@code Point} by {@code value}.
+     *
+     * @param value The value to be added to X coordinate of this {@code Point}.
+     */
+    public Point incX(int value) {
+        x += value;
+        return this;
+    }
+
+    /**
+     * Decrease X coordinate for this {@code Point} by {@code value}.
+     *
+     * @param value The value to be subtracted to X coordinate of this {@code Point}.
+     */
+    public Point decX(int value) {
+        x -= value;
+        return this;
+    }
+
+    /**
+     * Increase Y coordinate for this {@code Point} by {@code value}.
+     *
+     * @param value The value to be added to Y coordinate of this {@code Point}.
+     */
+    public Point incY(int value) {
+        y += value;
+        return this;
+    }
+
+    /**
+     * Decrease Y coordinate for this {@code Point} by {@code value}.
+     *
+     * @param value The value to be subtracted to Y coordinate of this {@code Point}.
+     */
+    public Point decY(int value) {
+        y -= value;
+        return this;
+    }
+
+    /**
+     * Check whether the current {@code Point} at {@code 0:0} of the coordinate.
+     *
+     * @return {@code true} if the current {@code Point} at {@code 0:0} of the coordinate; {@code false} otherwise.
+     */
+    public boolean isOrigin() {
+        return x == 0 && y == 0;
+    }
+
+    /**
+     * Check whether the current {@code Point} equals to other {@code Point}.
+     *
+     * @param other {@code Point} to be compared.
+     * @return {@code true} if the current {@code Point} equals to other {@code Point}; {@code false} otherwise.
+     */
+    public boolean equals(Point other) {
+        return x == other.x && y == other.y;
     }
 
     /**
