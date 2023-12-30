@@ -162,6 +162,19 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get height of document.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @return The height of document.
+     */
+    public static int getHeight(WebDriver driver, double dpr) {
+        String resource = "com/github/ngoanh2n/wds/GetDocumentHeight.js";
+        Object value = executeScript(driver, resource);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -234,9 +247,7 @@ public class Screener {
      * @return The height of document.
      */
     public int getHeight() {
-        String resource = "com/github/ngoanh2n/wds/GetDocumentHeight.js";
-        Object value = executeScript(driver, resource);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getHeight(driver, dpr);
     }
 
     /**
