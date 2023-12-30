@@ -405,6 +405,20 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get height of bounding rectangle for element.
+     *
+     * @param driver  The current {@link WebDriver}.
+     * @param dpr     Device pixel ratio.
+     * @param element The current {@link WebElement}.
+     * @return The height of bounding rectangle.
+     */
+    public static int getRectHeight(WebDriver driver, double dpr, WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementRectHeight.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -444,9 +458,7 @@ public class Screener {
      * @return The height of bounding rectangle.
      */
     public int getRectHeight(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementRectHeight.js";
-        Object value = executeScript(driver, resource, element);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getRectHeight(driver, dpr, element);
     }
 
     /**
