@@ -136,6 +136,19 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get height of viewport.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @return The height of viewport.
+     */
+    public static int getViewportHeight(WebDriver driver, double dpr) {
+        String resource = "com/github/ngoanh2n/wds/GetViewportHeight.js";
+        Object value = executeScript(driver, resource);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -190,9 +203,7 @@ public class Screener {
      * @return The height of viewport.
      */
     public int getViewportHeight() {
-        String resource = "com/github/ngoanh2n/wds/GetViewportHeight.js";
-        Object value = executeScript(driver, resource);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getViewportHeight(driver, dpr);
     }
 
     /**
