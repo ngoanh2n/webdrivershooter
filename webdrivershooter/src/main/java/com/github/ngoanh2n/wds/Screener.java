@@ -510,18 +510,6 @@ public class Screener {
     }
 
     /**
-     * Get the number of pixels an element's content is scrolled vertically.
-     *
-     * @param element The current {@link WebElement}.
-     * @return The number of pixels are scrolled vertically.
-     */
-    public int getScrollY(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementScrollY.js";
-        Object value = executeScript(driver, resource, element);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
-    }
-
-    /**
      * Get the number of pixels an element's content is scrolled horizontally.
      *
      * @param element The current {@link WebElement}.
@@ -602,5 +590,29 @@ public class Screener {
         double y = point.getY() / dpr;
         String resource = "com/github/ngoanh2n/wds/ScrollElementToPoint.js";
         executeScript(driver, resource, element, x, y);
+    }
+
+    /**
+     * Get the number of pixels an element's content is scrolled vertically.
+     *
+     * @param driver  The current {@link WebDriver}.
+     * @param dpr     Device pixel ratio.
+     * @param element The current {@link WebElement}.
+     * @return The number of pixels are scrolled vertically.
+     */
+    public static int getScrollY(WebDriver driver, double dpr, WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollY.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
+    /**
+     * Get the number of pixels an element's content is scrolled vertically.
+     *
+     * @param element The current {@link WebElement}.
+     * @return The number of pixels are scrolled vertically.
+     */
+    public int getScrollY(WebElement element) {
+        return getScrollY(driver, dpr, element);
     }
 }
