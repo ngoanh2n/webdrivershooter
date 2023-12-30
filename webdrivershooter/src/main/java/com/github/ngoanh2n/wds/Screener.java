@@ -366,13 +366,27 @@ public class Screener {
     /**
      * Get top bounding of the element.
      *
+     * @param driver  The current {@link WebDriver}.
+     * @param dpr     Device pixel ratio.
+     * @param element The current {@link WebElement}.
+     * @return The top bounding.
+     */
+    public static int getRectTop(WebDriver driver, double dpr, WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementRectTop.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    /**
+     * Get top bounding of the element.
+     *
      * @param element The current {@link WebElement}.
      * @return The top bounding.
      */
     public int getRectTop(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementRectTop.js";
-        Object value = executeScript(driver, resource, element);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getRectTop(driver, dpr, element);
     }
 
     /**
