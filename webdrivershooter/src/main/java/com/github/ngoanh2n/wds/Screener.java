@@ -433,6 +433,20 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get scroll left of element.
+     *
+     * @param driver  The current {@link WebDriver}.
+     * @param dpr     Device pixel ratio.
+     * @param element The current {@link WebElement}.
+     * @return The scroll left of element.
+     */
+    public static int getScrollLeft(WebDriver driver, double dpr, WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollLeft.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -483,6 +497,16 @@ public class Screener {
      */
     public int getScrollTop(WebElement element) {
         return getScrollTop(driver, dpr, element);
+    }
+
+    /**
+     * Get scroll left of element.
+     *
+     * @param element The current {@link WebElement}.
+     * @return The scroll left of element.
+     */
+    public int getScrollLeft(WebElement element) {
+        return getScrollLeft(driver, dpr, element);
     }
 
     /**
