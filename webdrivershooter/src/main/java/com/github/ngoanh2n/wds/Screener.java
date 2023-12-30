@@ -124,6 +124,21 @@ public class Screener {
     //-------------------------------------------------------------------------------//
 
     /**
+     * Get width of viewport.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @return The width of viewport.
+     */
+    public static int getViewportWidth(WebDriver driver, double dpr) {
+        String resource = "com/github/ngoanh2n/wds/GetViewportWidth.js";
+        Object value = executeScript(driver, resource);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    /**
      * Get device pixel ratio.
      *
      * @return The device pixel ratio.
@@ -166,9 +181,7 @@ public class Screener {
      * @return The width of viewport.
      */
     public int getViewportWidth() {
-        String resource = "com/github/ngoanh2n/wds/GetViewportWidth.js";
-        Object value = executeScript(driver, resource);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getViewportWidth(driver, dpr);
     }
 
     /**
