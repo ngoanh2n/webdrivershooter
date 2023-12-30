@@ -391,6 +391,20 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get width of bounding rectangle for element.
+     *
+     * @param driver  The current {@link WebDriver}.
+     * @param dpr     Device pixel ratio.
+     * @param element The current {@link WebElement}.
+     * @return The width of bounding rectangle.
+     */
+    public static int getRectWidth(WebDriver driver, double dpr, WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementRectWidth.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -420,9 +434,7 @@ public class Screener {
      * @return The width of bounding rectangle.
      */
     public int getRectWidth(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementRectWidth.js";
-        Object value = executeScript(driver, resource, element);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getRectWidth(driver, dpr, element);
     }
 
     /**
