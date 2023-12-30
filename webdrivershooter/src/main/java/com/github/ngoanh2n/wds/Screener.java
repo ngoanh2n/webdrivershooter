@@ -214,6 +214,19 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get scroll bar height of document.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @return The height of scroll bar.
+     */
+    public static int getScrollbarHeight(WebDriver driver, double dpr) {
+        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollbarHeight.js";
+        Object value = executeScript(driver, resource);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -314,6 +327,15 @@ public class Screener {
      */
     public int getScrollbarWidth() {
         return getScrollbarWidth(driver, dpr);
+    }
+
+    /**
+     * Get scroll bar height of document.
+     *
+     * @return The height of scroll bar.
+     */
+    public int getScrollbarHeight() {
+        return getScrollbarHeight(driver, dpr);
     }
 
     /**
