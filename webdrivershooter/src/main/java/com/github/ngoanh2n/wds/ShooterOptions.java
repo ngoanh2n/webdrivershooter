@@ -112,9 +112,16 @@ public interface ShooterOptions {
     /**
      * The height of footer is being fixed.
      *
-     * @return The footer of header is being fixed.
+     * @return The height of footer is being fixed.
      */
     int footerToBeFixed();
+
+    /**
+     * Whether to cut scrollbar.
+     *
+     * @return Indicate to cut scrollbar.
+     */
+    boolean cutScrollbar();
 
     //===============================================================================//
 
@@ -150,8 +157,18 @@ public interface ShooterOptions {
          * The color to mask areas.
          */
         protected Color maskedColor;
+        /**
+         * The height of header is being fixed.
+         */
         protected int headerToBeFixed;
+        /**
+         * The height of footer is being fixed.
+         */
         protected int footerToBeFixed;
+        /**
+         * Indicate to cut scrollbar.
+         */
+        protected boolean cutScrollBar;
 
         /**
          * Default constructor.
@@ -166,6 +183,7 @@ public interface ShooterOptions {
             this.maskedColor = Color.GRAY;
             this.headerToBeFixed = 0;
             this.footerToBeFixed = 0;
+            this.cutScrollBar = true;
         }
 
         /**
@@ -316,6 +334,17 @@ public interface ShooterOptions {
         }
 
         /**
+         * Indicate to cut scrollbar or not.
+         *
+         * @param enabled Flag whether that cuts or not.
+         * @return The current {@link Builder}.
+         */
+        public Builder cutScrollbar(boolean enabled) {
+            this.cutScrollBar = enabled;
+            return this;
+        }
+
+        /**
          * Build {@link ShooterOptions} based on {@link Builder}.
          *
          * @return The current {@link ShooterOptions}.
@@ -423,6 +452,14 @@ public interface ShooterOptions {
         @Override
         public int footerToBeFixed() {
             return builder.footerToBeFixed;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean cutScrollbar() {
+            return builder.cutScrollBar;
         }
     }
 }

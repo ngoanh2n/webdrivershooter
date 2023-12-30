@@ -103,6 +103,7 @@ public class ShotImage {
     private Shot getFinalShot() {
         Rectangle innerRect = screener.getInnerRect();
         Point location = innerRect.getLocation();
+        resizeImage();
         Rectangle rect = new Rectangle(location, size);
         return new Shot(image, rect);
     }
@@ -130,6 +131,7 @@ public class ShotImage {
         int header = screener.getHeader();
         int footer = screener.getFooter();
 
+        Dimension sb = screener.getScrollbar();
         Shot.Position pos = shot.getPosition();
 
         if (pos.getY() == S || pos.getY() == L || pos.getX() == L) {
@@ -152,6 +154,18 @@ public class ShotImage {
             size.decH(footer);
         }
 
+        if (pos.getX() != L) {
+            if (options.shooter() != 1) {
+                if (size.getWidth() < this.size.getWidth()) {
+                    size.decW(sb.getWidth());
+                }
+            }
+        }
+        if (pos.getY() != L) {
+            if (options.shooter() == 2 || options.shooter() == 4) {
+                size.decH(sb.getHeight());
+            }
+        }
         cropRects.add(new Rectangle(loca, size));
     }
 
@@ -186,14 +200,34 @@ public class ShotImage {
             return cropRects.getLast().getY();
         } else {
             Rectangle last = shotRects.getLast();
+            int sb = screener.getScrollbar().getHeight();
             int left = shot.getRect().getY() - last.getY();
-            return shot.getRect().getHeight() - left;
+            return shot.getRect().getHeight() - left - sb;
         }
     }
 
     private int getGoneX(Shot shot) {
         Rectangle last = shotRects.getLast();
+        int sb = screener.getScrollbar().getWidth();
         int left = shot.getRect().getX() - last.getX();
-        return shot.getRect().getWidth() - left;
+        return shot.getRect().getWidth() - left - sb;
+    }
+
+    private void resizeImage() {
+        if (options.cutScrollbar()) {
+            Dimension sb = screener.getScrollbar();
+            Dimension newSize = new Dimension(size);
+
+            newSize.decW(sb.getWidth());
+            newSize.decH(sb.getHeight());
+
+            if (!size.equals(newSize)) {
+                Rectangle newRect = new Rectangle(newSize);
+                image = ImageUtils.crop(image, newRect);
+                log.info("[{}] -> [{}]", size, newSize);
+                size.setWidth(newSize.getWidth());
+                size.setHeight(newSize.getHeight());
+            }
+        }
     }
 }

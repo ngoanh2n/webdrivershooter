@@ -62,13 +62,14 @@ public class ElementOperator extends ShooterOperator {
             screener.scrollIntoView(target);
         }
 
+        Dimension scrollbar = screener.getScrollbar();
         Rectangle outerRect = screener.getOuterRect();
         Rectangle innerRect = screener.getInnerRect();
 
         switch (options.shooter()) {
             case 2:
                 location.setX(screener.getScrollX(target));
-                location.setY((innerRect.getHeight()) * partY);
+                location.setY((innerRect.getHeight() - scrollbar.getHeight()) * partY);
 
                 if (!position.isOrigin()) {
                     if (!screener.hasScrollbarY(target)) {
@@ -80,7 +81,7 @@ public class ElementOperator extends ShooterOperator {
                 }
                 break;
             case 3:
-                location.setX((innerRect.getWidth()) * partX);
+                location.setX((innerRect.getWidth() - scrollbar.getWidth()) * partX);
                 location.setY(screener.getScrollY(target));
 
                 if (!position.isOrigin()) {
@@ -93,8 +94,8 @@ public class ElementOperator extends ShooterOperator {
                 }
                 break;
             case 4:
-                location.setX((innerRect.getWidth()) * partX);
-                location.setY((innerRect.getHeight()) * partY);
+                location.setX((innerRect.getWidth() - scrollbar.getWidth()) * partX);
+                location.setY((innerRect.getHeight() - scrollbar.getHeight()) * partY);
 
                 if (!position.isOrigin()) {
                     if (!screener.hasScrollbarX(target) || !screener.hasScrollbarY(target)) {

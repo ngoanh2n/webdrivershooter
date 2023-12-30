@@ -28,6 +28,7 @@ public class Screener {
     private final WebDriver driver;
     private final int header;
     private final int footer;
+    private final Dimension scrollbar;
     private final Rectangle outerRect;
     private final Rectangle innerRect;
 
@@ -73,6 +74,9 @@ public class Screener {
         this.header = header;
         this.footer = footer;
 
+        int sbW = getScrollbarWidth();
+        int sbH = getScrollbarHeight();
+
         int outerX = 0;
         int outerY = 0;
         int outerW = getWidth();
@@ -92,11 +96,14 @@ public class Screener {
             outerSize.setWidth(innerW);
         }
 
+        this.scrollbar = new Dimension(sbW, sbH);
         this.outerRect = new Rectangle(outerLocation, outerSize);
         this.innerRect = new Rectangle(innerLocation, innerSize);
 
         log.info("Outer [{}]", outerRect);
         log.info("Inner [{}]", innerRect);
+        log.info("Y scrollbar [{}]", scrollbar.getWidth());
+        log.info("X scrollbar [{}]", scrollbar.getHeight());
     }
 
     //-------------------------------------------------------------------------------//
@@ -178,11 +185,14 @@ public class Screener {
             innerSize.setHeight(viewH);
         }
 
+        this.scrollbar = new Dimension(sbW, sbH);
         this.innerRect = new Rectangle(innerLocation, innerSize);
         this.outerRect = new Rectangle(outerLocation, outerSize);
 
         log.info("Outer [{}]", outerRect);
         log.info("Inner [{}]", innerRect);
+        log.info("Y scrollbar [{}]", scrollbar.getWidth());
+        log.info("X scrollbar [{}]", scrollbar.getHeight());
     }
 
     //-------------------------------------------------------------------------------//
@@ -597,6 +607,15 @@ public class Screener {
      */
     public int getFooter() {
         return (int) (footer * dpr);
+    }
+
+    /**
+     * Get the width of vertical scrollbar and height of horizontal scrollbar.
+     *
+     * @return The width of vertical scrollbar and height of horizontal scrollbar.
+     */
+    public Dimension getScrollbar() {
+        return scrollbar;
     }
 
     /**
