@@ -100,10 +100,10 @@ public class Screener {
         this.outerRect = new Rectangle(outerLocation, outerSize);
         this.innerRect = new Rectangle(innerLocation, innerSize);
 
-        log.info("Outer [{}]", outerRect);
-        log.info("Inner [{}]", innerRect);
-        log.info("Y scrollbar [{}]", scrollbar.getWidth());
-        log.info("X scrollbar [{}]", scrollbar.getHeight());
+        log.debug("Outer [{}]", outerRect);
+        log.debug("Inner [{}]", innerRect);
+        log.debug("Y scrollbar [{}]", scrollbar.getWidth());
+        log.debug("X scrollbar [{}]", scrollbar.getHeight());
     }
 
     //-------------------------------------------------------------------------------//
@@ -189,10 +189,10 @@ public class Screener {
         this.innerRect = new Rectangle(innerLocation, innerSize);
         this.outerRect = new Rectangle(outerLocation, outerSize);
 
-        log.info("Outer [{}]", outerRect);
-        log.info("Inner [{}]", innerRect);
-        log.info("Y scrollbar [{}]", scrollbar.getWidth());
-        log.info("X scrollbar [{}]", scrollbar.getHeight());
+        log.debug("Outer [{}]", outerRect);
+        log.debug("Inner [{}]", innerRect);
+        log.debug("Y scrollbar [{}]", scrollbar.getWidth());
+        log.debug("X scrollbar [{}]", scrollbar.getHeight());
     }
 
     //-------------------------------------------------------------------------------//

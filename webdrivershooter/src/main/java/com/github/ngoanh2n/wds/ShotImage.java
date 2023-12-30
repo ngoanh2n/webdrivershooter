@@ -54,7 +54,7 @@ public class ShotImage {
         this.shotRects = new LinkedList<>();
         this.size = size;
         this.image = ImageUtils.create(size);
-        log.info("[{}]", size);
+        log.debug("[{}]", size);
     }
 
     //-------------------------------------------------------------------------------//
@@ -97,7 +97,7 @@ public class ShotImage {
         Rectangle sRect = shotRects.getLast();
         Rectangle cRect = cropRects.getLast();
         Rectangle mRect = mergeRects.getLast();
-        log.info("{} -> [{}], [{}], [{}]", position, sRect, cRect, mRect);
+        log.debug("{} -> [{}], [{}], [{}]", position, sRect, cRect, mRect);
     }
 
     private Shot getFinalShot() {
@@ -224,7 +224,7 @@ public class ShotImage {
             if (!size.equals(newSize)) {
                 Rectangle newRect = new Rectangle(newSize);
                 image = ImageUtils.crop(image, newRect);
-                log.info("[{}] -> [{}]", size, newSize);
+                log.debug("[{}] -> [{}]", size, newSize);
                 size.setWidth(newSize.getWidth());
                 size.setHeight(newSize.getHeight());
             }
