@@ -26,8 +26,40 @@ public class Screener {
     private final static Logger log = LoggerFactory.getLogger(Screener.class);
     private final double dpr;
     private final WebDriver driver;
+    private final int header;
+    private final int footer;
     private final Rectangle outerRect;
     private final Rectangle innerRect;
+
+    /**
+     * Construct a new {@link Screener}.
+     *
+     * @param driver The current {@link WebDriver}.
+     */
+    public Screener(WebDriver driver) {
+        this(driver, 0, 0);
+    }
+
+    /**
+     * Construct a new {@link Screener}.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param header The height of header is being fixed.
+     * @param footer The height of footer is being fixed.
+     */
+    public Screener(WebDriver driver, int header, int footer) {
+        this(driver, true, header, footer);
+    }
+
+    /**
+     * Construct a new {@link Screener}.
+     *
+     * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param driver  The current {@link WebDriver}.
+     */
+    public Screener(ShooterOptions options, WebDriver driver) {
+        this(driver, options.checkDPR(), options.headerToBeFixed(), options.footerToBeFixed());
+    }
 
     /**
      * Construct a new {@link Screener}.
@@ -35,9 +67,11 @@ public class Screener {
      * @param checkDPR Indicate to check device pixel ratio.
      * @param driver   The current {@link WebDriver}.
      */
-    public Screener(ShooterOptions options, WebDriver driver) {
-        this.dpr = getDPR(driver, options.checkDPR());
+    public Screener(WebDriver driver, boolean checkDPR, int header, int footer) {
+        this.dpr = getDPR(driver, checkDPR);
         this.driver = driver;
+        this.header = header;
+        this.footer = footer;
 
         int outerX = 0;
         int outerY = 0;
@@ -70,13 +104,48 @@ public class Screener {
     /**
      * Construct a new {@link Screener}.
      *
+     * @param driver  The current {@link WebDriver}.
+     * @param element The element to operate.
+     */
+    public Screener(WebDriver driver, WebElement element) {
+        this(driver, element, 0, 0);
+    }
+
+    /**
+     * Construct a new {@link Screener}.
+     *
+     * @param driver  The current {@link WebDriver}.
+     * @param element The element to operate.
+     * @param header  The height of header is being fixed.
+     * @param footer  The height of footer is being fixed.
+     */
+    public Screener(WebDriver driver, WebElement element, int header, int footer) {
+        this(driver, element, true, header, footer);
+    }
+
+    /**
+     * Construct a new {@link Screener}.
+     *
+     * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param driver  The current {@link WebDriver}.
+     * @param element The element to operate.
+     */
+    public Screener(ShooterOptions options, WebDriver driver, WebElement element) {
+        this(driver, element, options.checkDPR(), options.headerToBeFixed(), options.footerToBeFixed());
+    }
+
+    /**
+     * Construct a new {@link Screener}.
+     *
      * @param checkDPR Indicate to check device pixel ratio.
      * @param driver   The current {@link WebDriver}.
      * @param element  The element to operate.
      */
-    public Screener(ShooterOptions options, WebDriver driver, WebElement element) {
-        this.dpr = getDPR(driver, options.checkDPR());
+    public Screener(WebDriver driver, WebElement element, boolean checkDPR, int header, int footer) {
+        this.dpr = getDPR(driver, checkDPR);
         this.driver = driver;
+        this.header = header;
+        this.footer = footer;
 
         boolean hasSbX = hasScrollbarX(element);
         boolean hasSbY = hasScrollbarY(element);
@@ -510,6 +579,24 @@ public class Screener {
      */
     public double getDPR() {
         return dpr;
+    }
+
+    /**
+     * Get the height of header.
+     *
+     * @return The height of header.
+     */
+    public int getHeader() {
+        return (int) (header * dpr);
+    }
+
+    /**
+     * Get the height of footer.
+     *
+     * @return The height of footer.
+     */
+    public int getFooter() {
+        return (int) (footer * dpr);
     }
 
     /**

@@ -102,6 +102,20 @@ public interface ShooterOptions {
      */
     Color maskedColor();
 
+    /**
+     * The height of header is being fixed.
+     *
+     * @return The height of header is being fixed.
+     */
+    int headerToBeFixed();
+
+    /**
+     * The height of footer is being fixed.
+     *
+     * @return The footer of header is being fixed.
+     */
+    int footerToBeFixed();
+
     //===============================================================================//
 
     /**
@@ -136,6 +150,8 @@ public interface ShooterOptions {
          * The color to mask areas.
          */
         protected Color maskedColor;
+        protected int headerToBeFixed;
+        protected int footerToBeFixed;
 
         /**
          * Default constructor.
@@ -148,6 +164,8 @@ public interface ShooterOptions {
             this.elements = new ArrayList<>();
             this.maskForAreas = true;
             this.maskedColor = Color.GRAY;
+            this.headerToBeFixed = 0;
+            this.footerToBeFixed = 0;
         }
 
         /**
@@ -276,6 +294,28 @@ public interface ShooterOptions {
         }
 
         /**
+         * Set height of header is being fixed.
+         *
+         * @param value The height of header.
+         * @return The current {@link Builder}.
+         */
+        public Builder headerToBeFixed(int value) {
+            this.headerToBeFixed = value;
+            return this;
+        }
+
+        /**
+         * Set height of footer is being fixed.
+         *
+         * @param value The height of footer.
+         * @return The current {@link Builder}.
+         */
+        public Builder footerToBeFixed(int value) {
+            this.footerToBeFixed = value;
+            return this;
+        }
+
+        /**
          * Build {@link ShooterOptions} based on {@link Builder}.
          *
          * @return The current {@link ShooterOptions}.
@@ -367,6 +407,22 @@ public interface ShooterOptions {
         @Override
         public Color maskedColor() {
             return builder.maskedColor;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int headerToBeFixed() {
+            return builder.headerToBeFixed;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int footerToBeFixed() {
+            return builder.footerToBeFixed;
         }
     }
 }

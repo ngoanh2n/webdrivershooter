@@ -171,8 +171,9 @@ public abstract class ShooterOperator {
 
         switch (options.shooter()) {
             case 2:
+                int header = screener.getHeader();
                 location.setX(screener.getScrollX());
-                location.setY((innerRect.getHeight()) * partY);
+                location.setY((innerRect.getHeight() - header) * partY);
                 break;
             case 3:
                 location.setX(innerRect.getWidth() * partX);

@@ -127,9 +127,15 @@ public class ShotImage {
         Point loca = new Point(0, 0);
         Dimension size = new Dimension(w, h);
 
+        int header = screener.getHeader();
+        int footer = screener.getFooter();
+
         Shot.Position pos = shot.getPosition();
 
         if (pos.getY() == S || pos.getY() == L || pos.getX() == L) {
+            if (pos.getY() == S) {
+                size.decH(footer);
+            }
             if (pos.getY() == L) {
                 int gone = getGoneY(shot);
                 loca.incY(gone);
@@ -140,7 +146,12 @@ public class ShotImage {
                 loca.incX(gone);
                 size.decW(gone);
             }
+        } else {
+            loca.incY(header);
+            size.decH(header);
+            size.decH(footer);
         }
+
         cropRects.add(new Rectangle(loca, size));
     }
 
