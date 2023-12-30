@@ -188,6 +188,19 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get the current scroll top of document.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @return The current scroll top.
+     */
+    public static int getScrollY(WebDriver driver, double dpr) {
+        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollY.js";
+        Object value = executeScript(driver, resource);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -278,9 +291,7 @@ public class Screener {
      * @return The current scroll top.
      */
     public int getScrollY() {
-        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollY.js";
-        Object value = executeScript(driver, resource);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getScrollY(driver, dpr);
     }
 
     /**
