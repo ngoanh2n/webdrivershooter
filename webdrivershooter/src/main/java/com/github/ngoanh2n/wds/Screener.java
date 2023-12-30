@@ -175,6 +175,19 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get the current scroll left of document.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @return The current scroll left.
+     */
+    public static int getScrollX(WebDriver driver, double dpr) {
+        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollX.js";
+        Object value = executeScript(driver, resource);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -256,9 +269,7 @@ public class Screener {
      * @return The current scroll left.
      */
     public int getScrollX() {
-        String resource = "com/github/ngoanh2n/wds/GetDocumentScrollX.js";
-        Object value = executeScript(driver, resource);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getScrollX(driver, dpr);
     }
 
     /**
