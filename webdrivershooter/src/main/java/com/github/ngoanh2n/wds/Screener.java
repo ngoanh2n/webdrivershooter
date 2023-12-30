@@ -433,7 +433,7 @@ public class Screener {
      * @return Scroll bar width of element.
      */
     public int getScrollbarWidth(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementScrollBarWidth.js";
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollbarWidth.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
@@ -445,7 +445,7 @@ public class Screener {
      * @return Scroll bar height of element.
      */
     public int getScrollbarHeight(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementScrollBarHeight.js";
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollbarHeight.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
