@@ -149,6 +149,19 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get width of document.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @return The width of document.
+     */
+    public static int getWidth(WebDriver driver, double dpr) {
+        String resource = "com/github/ngoanh2n/wds/GetDocumentWidth.js";
+        Object value = executeScript(driver, resource);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -212,9 +225,7 @@ public class Screener {
      * @return The width of document.
      */
     public int getWidth() {
-        String resource = "com/github/ngoanh2n/wds/GetDocumentWidth.js";
-        Object value = executeScript(driver, resource);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getWidth(driver, dpr);
     }
 
     /**
