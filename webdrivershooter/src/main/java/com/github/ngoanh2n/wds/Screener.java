@@ -227,6 +227,20 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Scroll to the specified position.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    Device pixel ratio.
+     * @param point  The target position.
+     */
+    public static void scrollToPoint(Point point, WebDriver driver, double dpr) {
+        double x = point.getX() / dpr;
+        double y = point.getY() / dpr;
+        String resource = "com/github/ngoanh2n/wds/ScrollToPoint.js";
+        executeScript(driver, resource, x, y);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -344,10 +358,7 @@ public class Screener {
      * @param point The target position.
      */
     public void scrollToPoint(Point point) {
-        double x = point.getX() / dpr;
-        double y = point.getY() / dpr;
-        String resource = "com/github/ngoanh2n/wds/ScrollToPoint.js";
-        executeScript(driver, resource, x, y);
+        scrollToPoint(point, driver, dpr);
     }
 
     //-------------------------------------------------------------------------------//
