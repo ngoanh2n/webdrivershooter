@@ -93,7 +93,7 @@ public interface ShooterOptions {
      *
      * @return Indicate to mask elements and locators.
      */
-    boolean maskForElements();
+    boolean maskForAreas();
 
     /**
      * The color to mask areas.
@@ -131,7 +131,7 @@ public interface ShooterOptions {
         /**
          * Indicate to mask elements.
          */
-        protected boolean maskForElements;
+        protected boolean maskForAreas;
         /**
          * The color to mask areas.
          */
@@ -146,7 +146,7 @@ public interface ShooterOptions {
             this.checkDPR = true;
             this.locators = new ArrayList<>();
             this.elements = new ArrayList<>();
-            this.maskForElements = true;
+            this.maskForAreas = true;
             this.maskedColor = Color.GRAY;
         }
 
@@ -155,7 +155,7 @@ public interface ShooterOptions {
          *
          * @return The current {@link Builder}.
          */
-        public Builder shootViewport() {
+        public Builder viewport() {
             this.shooter = 1;
             return this;
         }
@@ -165,7 +165,7 @@ public interface ShooterOptions {
          *
          * @return The current {@link Builder}.
          */
-        public Builder shootVerticalScroll() {
+        public Builder vertical() {
             this.shooter = 2;
             return this;
         }
@@ -175,7 +175,7 @@ public interface ShooterOptions {
          *
          * @return The current {@link Builder}.
          */
-        public Builder shootHorizontalScroll() {
+        public Builder horizontal() {
             this.shooter = 3;
             return this;
         }
@@ -185,7 +185,7 @@ public interface ShooterOptions {
          *
          * @return The current {@link Builder}.
          */
-        public Builder shootFullScroll() {
+        public Builder full() {
             this.shooter = 4;
             return this;
         }
@@ -196,7 +196,7 @@ public interface ShooterOptions {
          * @param value Delay duration.
          * @return The current {@link Builder}.
          */
-        public Builder setScrollDelay(int value) {
+        public Builder scrollDelay(int value) {
             if (value >= 0) {
                 this.scrollDelay = value;
             }
@@ -220,8 +220,8 @@ public interface ShooterOptions {
          * @param locators Locators will be masked.
          * @return The current {@link Builder}.
          */
-        public Builder maskElements(By... locators) {
-            this.maskForElements = true;
+        public Builder mask(By... locators) {
+            this.maskForAreas = true;
             this.validateElements(locators);
             return this;
         }
@@ -232,8 +232,8 @@ public interface ShooterOptions {
          * @param elements Elements will be masked.
          * @return The current {@link Builder}.
          */
-        public Builder maskElements(WebElement... elements) {
-            this.maskForElements = true;
+        public Builder mask(WebElement... elements) {
+            this.maskForAreas = true;
             this.validateElements(elements);
             return this;
         }
@@ -244,8 +244,8 @@ public interface ShooterOptions {
          * @param locators Locators are ignored to be not masked.
          * @return The current {@link Builder}.
          */
-        public Builder maskExceptingElements(By... locators) {
-            this.maskForElements = false;
+        public Builder maskExcepting(By... locators) {
+            this.maskForAreas = false;
             this.validateElements(locators);
             return this;
         }
@@ -256,8 +256,8 @@ public interface ShooterOptions {
          * @param elements Elements are ignored to be not masked.
          * @return The current {@link Builder}.
          */
-        public Builder maskExceptingElements(WebElement... elements) {
-            this.maskForElements = false;
+        public Builder maskExcepting(WebElement... elements) {
+            this.maskForAreas = false;
             this.validateElements(elements);
             return this;
         }
@@ -268,7 +268,7 @@ public interface ShooterOptions {
          * @param color The color to mask areas.
          * @return The current {@link Builder}.
          */
-        public Builder setMaskedColor(Color color) {
+        public Builder maskedColor(Color color) {
             if (color != null) {
                 this.maskedColor = color;
             }
@@ -357,8 +357,8 @@ public interface ShooterOptions {
          * {@inheritDoc}
          */
         @Override
-        public boolean maskForElements() {
-            return builder.maskForElements;
+        public boolean maskForAreas() {
+            return builder.maskForAreas;
         }
 
         /**

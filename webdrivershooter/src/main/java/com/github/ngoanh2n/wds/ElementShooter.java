@@ -3,8 +3,6 @@ package com.github.ngoanh2n.wds;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Take element screenshot.<br><br>
  *
@@ -17,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author ngoanh2n
  * @since 2021
  */
-public class ElementShooter extends WebDriverShooter<ElementOperator> {
+public class ElementShooter extends PageShooter {
     private final WebElement element;
 
     /**
@@ -35,89 +33,7 @@ public class ElementShooter extends WebDriverShooter<ElementOperator> {
      * {@inheritDoc}
      */
     @Override
-    protected ElementOperator operator(ShooterOptions options, WebDriver driver) {
+    protected ShooterOperator operator(ShooterOptions options, WebDriver driver) {
         return new ElementOperator(options, driver, element);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Screenshot shootViewport(ShooterOptions options, WebDriver driver, ElementOperator operator) {
-        Screenshot screenshot = page(ShooterOptions.builder().shootViewport().build(), driver);
-        BufferedImage shot = screenshot.getImage();
-        operator.mergeShot00(shot);
-        return operator.getScreenshot();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Screenshot shootVerticalScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
-        int parts = operator.getPartsY();
-
-        for (int part = 0; part < parts; part++) {
-            operator.scrollSY(part);
-            operator.sleep();
-
-            Screenshot screenshot = page(driver);
-            BufferedImage shot = screenshot.getImage();
-            operator.mergeShot0S(shot);
-
-            if (operator.isImageFull(shot)) {
-                break;
-            }
-        }
-        return operator.getScreenshot();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Screenshot shootHorizontalScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
-        int parts = operator.getPartsX();
-
-        for (int part = 0; part < parts; part++) {
-            operator.scrollXS(part);
-            operator.sleep();
-
-            Screenshot screenshot = page(driver);
-            BufferedImage shot = screenshot.getImage();
-            operator.mergeShotS0(shot);
-
-            if (operator.isImageFull(shot)) {
-                break;
-            }
-        }
-        return operator.getScreenshot();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Screenshot shootFullScroll(ShooterOptions options, WebDriver driver, ElementOperator operator) {
-        int partsY = operator.getPartsY();
-        int partsX = operator.getPartsX();
-
-        for (int partY = 0; partY < partsY; partY++) {
-            operator.scrollXY(0, partY);
-
-            for (int partX = 0; partX < partsX; partX++) {
-                operator.scrollXY(partX, partY);
-                operator.sleep();
-
-                Screenshot screenshot = page(driver);
-                BufferedImage shot = screenshot.getImage();
-                operator.mergeShotSS(shot);
-
-                if (operator.isImageFull(shot)) {
-                    break;
-                }
-            }
-        }
-        return operator.getScreenshot();
     }
 }

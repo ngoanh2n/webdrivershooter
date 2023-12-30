@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +34,6 @@ public abstract class ShooterOperator {
      */
     protected WebDriver driver;
     /**
-     * Indicate to check device pixel ratio.
-     */
-    protected boolean checkDPR;
-    /**
      * Operate coordinates on screen.
      */
     protected Screener screener;
@@ -48,16 +45,15 @@ public abstract class ShooterOperator {
     /**
      * Construct a new {@link ShooterOperator}.
      *
-     * @param options  {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
-     * @param driver   The current {@link WebDriver}.
-     * @param elements The element to support {@link #createScreener(WebElement...)}.<br>
-     *                 Only the first {@link WebElement} of element array is used. May be empty.
+     * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param driver  The current {@link WebDriver}.
+     * @param targets The element to support {@link #createScreener(WebElement...)}.<br>
+     *                Only the first {@link WebElement} of element array is used. May be empty.
      */
-    protected ShooterOperator(ShooterOptions options, WebDriver driver, WebElement... elements) {
+    protected ShooterOperator(ShooterOptions options, WebDriver driver, WebElement... targets) {
         this.options = options;
         this.driver = driver;
-        this.checkDPR = options.checkDPR();
-        this.screener = createScreener(elements);
+        this.screener = createScreener(targets);
         this.shotImage = createShotImage(options);
     }
 
@@ -66,11 +62,11 @@ public abstract class ShooterOperator {
     /**
      * Create a {@link Screener}.
      *
-     * @param elements The element to support {@link Screener} when interacting a element.
+     * @param targets The element to support {@link Screener} when interacting a element.
      * @return The {@link Screener}.
      */
-    protected Screener createScreener(WebElement... elements) {
-        return new Screener(checkDPR, driver);
+    protected Screener createScreener(WebElement... targets) {
+        return new Screener(options, driver);
     }
 
     /**
@@ -79,12 +75,12 @@ public abstract class ShooterOperator {
      * @return The {@link ShotImage}.
      */
     protected ShotImage createShotImage(ShooterOptions options) {
-        int width = getShotImageWidth();
-        int height = getShotImageHeight();
-        Dimension size = new Dimension(width, height);
+        int w = getShotImageWidth();
+        int h = getShotImageHeight();
+        Dimension size = new Dimension(w, h);
         List<WebElement> elements = getElements();
-        List<Rectangle> rectangles = getRectangles(elements);
-        return new ShotImage(options, size, rectangles);
+        List<Rectangle> areaRects = getAreaRects(elements);
+        return new ShotImage(options, screener, areaRects, size);
     }
 
     //-------------------------------------------------------------------------------//
@@ -122,8 +118,8 @@ public abstract class ShooterOperator {
      * @param elements The list of {@link WebElement} to mask or ignore to be not masked.
      * @return The {@link Rectangle} list.
      */
-    protected List<Rectangle> getRectangles(List<WebElement> elements) {
-        List<Rectangle> rectangles = new ArrayList<>();
+    protected List<Rectangle> getAreaRects(List<WebElement> elements) {
+        List<Rectangle> rects = new ArrayList<>();
         for (WebElement element : elements) {
             int x = (int) (screener.getDPR() * element.getLocation().getX());
             int y = (int) (screener.getDPR() * element.getLocation().getY());
@@ -132,9 +128,9 @@ public abstract class ShooterOperator {
 
             Point location = new Point(x, y);
             Dimension size = new Dimension(w, h);
-            rectangles.add(new Rectangle(location, size));
+            rects.add(new Rectangle(location, size));
         }
-        return rectangles;
+        return rects;
     }
 
     /**
@@ -161,18 +157,68 @@ public abstract class ShooterOperator {
         };
     }
 
+    //-------------------------------------------------------------------------------//
+
     /**
-     * Whether to check the screenshot image is merged fully.
+     * Scroll to the specified point.
      *
-     * @param part The current screenshot part.
-     * @return Indicate the image is merged fully.
+     * @param partX The multiplier to calculate the X coordinate of the next point be to scrolled to.
+     * @param partY The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
-    protected boolean isImageFull(BufferedImage part) {
-        return switch (options.shooter()) {
-            case 1, 2 -> getShotImageHeight() == part.getHeight(null);
-            case 3 -> getShotImageWidth() == part.getWidth(null);
-            default -> getShotImageWidth() == part.getWidth(null) && getShotImageHeight() == part.getHeight(null);
-        };
+    protected Shot.Position scrollTo(int partX, int partY) {
+        Point location = new Point();
+        Rectangle innerRect = screener.getInnerRect();
+
+        switch (options.shooter()) {
+            case 2:
+                location.setX(screener.getScrollX());
+                location.setY((innerRect.getHeight()) * partY);
+                break;
+            case 3:
+                location.setX(innerRect.getWidth() * partX);
+                location.setY(screener.getScrollY());
+                break;
+            case 4:
+                location.setX(innerRect.getWidth() * partX);
+                location.setY(innerRect.getHeight() * partY);
+                break;
+        }
+
+        screener.scrollToPoint(location);
+        return getShotPosition(partX, partY);
+    }
+
+    protected Shot.Position getShotPosition(int partX, int partY) {
+        int lastX = getPartsX() - 1;
+        int lastY = getPartsY() - 1;
+
+        Shot.Position.Type x = Shot.Position.Type.U;
+        Shot.Position.Type y = Shot.Position.Type.U;
+
+        if (partX == 0) {
+            x = Shot.Position.Type.S;
+        } else if (partX < lastX) {
+            x = Shot.Position.Type.M;
+        } else if (partX == lastX) {
+            x = Shot.Position.Type.L;
+        }
+        if (partY == 0) {
+            y = Shot.Position.Type.S;
+        } else if (partY < lastY) {
+            y = Shot.Position.Type.M;
+        } else if (partY == lastY) {
+            y = Shot.Position.Type.L;
+        }
+        return new Shot.Position(x, y);
+    }
+
+    /**
+     * Draw the specified part over the current image of {@link Screenshot} with its top-left corner at (currentScrollX,currentScrollY).
+     *
+     * @param shot The specified part to be drawn over the current {@link Screenshot}.
+     */
+    protected void mergeShot(Shot shot) {
+        shotImage.merge(shot);
     }
 
     //-------------------------------------------------------------------------------//
@@ -186,6 +232,15 @@ public abstract class ShooterOperator {
         } catch (InterruptedException e) {
             throw new ShooterException(e);
         }
+    }
+
+    /**
+     * Get device pixel ratio.
+     *
+     * @return The device pixel ratio.
+     */
+    protected double getDPR() {
+        return screener.getDPR();
     }
 
     /**
@@ -211,14 +266,17 @@ public abstract class ShooterOperator {
     }
 
     /**
-     * Get the result after {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator)}.
+     * Get the result after {@link WebDriverShooter#shoot(WebDriverShooter, ShooterOptions, WebDriver...)}.
      *
      * @return The {@link Screenshot}.
      */
     protected Screenshot getScreenshot() {
-        ImmutablePair<BufferedImage, BufferedImage> result = shotImage.getResult();
-        BufferedImage image = result.getLeft();
-        BufferedImage maskedImage = result.getRight();
-        return new Screenshot(image, maskedImage);
+        ImmutablePair<Shot, List<Rectangle>> result = shotImage.getResult();
+        Rectangle rect = result.getLeft().getRect();
+        BufferedImage image = result.getLeft().getImage();
+        List<Rectangle> areaRects = result.getRight();
+        boolean maskArea = options.maskForAreas();
+        Color maskedColor = options.maskedColor();
+        return new Screenshot(rect, image, areaRects, maskArea, maskedColor);
     }
 }

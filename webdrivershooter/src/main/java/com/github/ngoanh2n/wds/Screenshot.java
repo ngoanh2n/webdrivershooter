@@ -7,13 +7,15 @@ import com.github.ngoanh2n.img.ImageComparisonResult;
 import org.openqa.selenium.WebDriver;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
- * The result of {@link WebDriverShooter#shoot(ShooterOptions, WebDriver, ShooterOperator) WebDriverShooter.shoot(..)}.<br>
+ * The result of {@link WebDriverShooter#shoot(WebDriverShooter, ShooterOptions, WebDriver...) WebDriverShooter.shoot(..)}.<br>
  * This contains 2 images:
  * <ul>
  *     <li>Screenshot image: {@link #getImage() Screenshot.getImage()}</li>
@@ -31,21 +33,86 @@ import java.nio.file.Paths;
  */
 @ParametersAreNonnullByDefault
 public class Screenshot {
+    private final Rectangle rect;
     private final BufferedImage image;
-    private final BufferedImage maskedImage;
+    private final List<Rectangle> areaRects;
+    private final boolean maskAreas;
+    private final Color maskedColor;
+    private BufferedImage mImage;
+
+    /**
+     * Construct a new {@link Screenshot}.
+     *
+     * @param image     The image of the {@link Screenshot}.
+     * @param areaRects The area rectangles to mask or ignore to be not masked.
+     */
+    public Screenshot(BufferedImage image, List<Rectangle> areaRects) {
+        this(image, areaRects, true, Color.GRAY);
+    }
 
     /**
      * Construct a new {@link Screenshot}.
      *
      * @param image       The image of the {@link Screenshot}.
-     * @param maskedImage The masked image of the {@link Screenshot}.
+     * @param areaRects   The area rectangles to mask or ignore to be not masked.
+     * @param maskAreas   Indicate to mask area rectangles.
+     * @param maskedColor The color to mask areas.
      */
-    Screenshot(BufferedImage image, BufferedImage maskedImage) {
+    public Screenshot(BufferedImage image, List<Rectangle> areaRects, boolean maskAreas, Color maskedColor) {
+        this(new Rectangle(new Dimension(image.getWidth(), image.getHeight())), image, areaRects, maskAreas, maskedColor);
+    }
+
+    /**
+     * Construct a new {@link Screenshot}.
+     *
+     * @param rect        The rectangle of the {@link Screenshot} against document.
+     * @param image       The image of the {@link Screenshot}.
+     * @param areaRects   The area rectangles to mask or ignore to be not masked.
+     * @param maskAreas   Indicate to mask area rectangles.
+     * @param maskedColor The color to mask areas.
+     */
+    public Screenshot(Rectangle rect, BufferedImage image, List<Rectangle> areaRects, boolean maskAreas, Color maskedColor) {
+        this.rect = rect;
         this.image = image;
-        this.maskedImage = maskedImage;
+        this.areaRects = areaRects;
+        this.maskAreas = maskAreas;
+        this.maskedColor = maskedColor;
     }
 
     //-------------------------------------------------------------------------------//
+
+    /**
+     * Get rectangle of the current {@link Screenshot}.
+     *
+     * @return The {@link Rectangle}.
+     */
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    /**
+     * Get the image of the current {@link Screenshot}.
+     *
+     * @return The {@link BufferedImage}.
+     */
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    /**
+     * Get the masked image of the current {@link Screenshot}.
+     *
+     * @return The {@link BufferedImage}.
+     */
+    public BufferedImage getMaskedImage() {
+        if (areaRects.isEmpty()) {
+            return image;
+        }
+        if (mImage == null) {
+            return maskImage();
+        }
+        return mImage;
+    }
 
     /**
      * Save the image of the current {@link Screenshot} to the default target file.<br>
@@ -98,24 +165,6 @@ public class Screenshot {
     }
 
     /**
-     * Get the image of the current {@link Screenshot}.
-     *
-     * @return The {@link BufferedImage}.
-     */
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    /**
-     * Get the masked image of the current {@link Screenshot}.
-     *
-     * @return The {@link BufferedImage}.
-     */
-    public BufferedImage getMaskedImage() {
-        return maskedImage;
-    }
-
-    /**
      * Compare the image of the current Screenshot with other image.
      *
      * @param image The expected image.
@@ -161,6 +210,30 @@ public class Screenshot {
     }
 
     //-------------------------------------------------------------------------------//
+
+    private BufferedImage maskImage() {
+        Dimension size = rect.getSize();
+        mImage = ImageUtils.create(image, size);
+
+        if (maskAreas) {
+            for (Rectangle aRect : areaRects) {
+                BufferedImage aImage = ImageUtils.crop(image, aRect);
+                Point aLocation = aRect.getLocation();
+                ImageUtils.fill(aImage, maskedColor);
+                ImageUtils.drawArea(mImage, aImage, aLocation);
+            }
+        } else {
+            if (!areaRects.isEmpty()) {
+                ImageUtils.fill(mImage, maskedColor);
+                for (Rectangle aRect : areaRects) {
+                    Point aLocation = aRect.getLocation();
+                    BufferedImage aImage = ImageUtils.crop(image, aRect);
+                    ImageUtils.drawArea(mImage, aImage, aLocation);
+                }
+            }
+        }
+        return mImage;
+    }
 
     private File createDefaultOutput() {
         String fileName = Commons.timestamp() + ".png";

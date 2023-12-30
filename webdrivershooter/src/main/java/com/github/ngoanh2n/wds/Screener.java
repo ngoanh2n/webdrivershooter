@@ -35,8 +35,8 @@ public class Screener {
      * @param checkDPR Indicate to check device pixel ratio.
      * @param driver   The current {@link WebDriver}.
      */
-    public Screener(boolean checkDPR, WebDriver driver) {
-        this.dpr = getDPR(driver, checkDPR);
+    public Screener(ShooterOptions options, WebDriver driver) {
+        this.dpr = getDPR(driver, options.checkDPR());
         this.driver = driver;
 
         int outerX = 0;
@@ -74,8 +74,8 @@ public class Screener {
      * @param driver   The current {@link WebDriver}.
      * @param element  The element to operate.
      */
-    public Screener(boolean checkDPR, WebDriver driver, WebElement element) {
-        this.dpr = getDPR(driver, checkDPR);
+    public Screener(ShooterOptions options, WebDriver driver, WebElement element) {
+        this.dpr = getDPR(driver, options.checkDPR());
         this.driver = driver;
 
         boolean hasSbX = hasScrollbarX(element);
@@ -511,7 +511,6 @@ public class Screener {
     public double getDPR() {
         return dpr;
     }
-
 
     /**
      * Get the inner rectangle:

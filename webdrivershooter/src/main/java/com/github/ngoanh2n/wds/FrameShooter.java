@@ -3,8 +3,6 @@ package com.github.ngoanh2n.wds;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Take iframe screenshot.<br><br>
  *
@@ -35,17 +33,7 @@ public class FrameShooter extends PageShooter {
      * {@inheritDoc}
      */
     @Override
-    protected PageOperator operator(ShooterOptions options, WebDriver driver) {
+    protected ShooterOperator operator(ShooterOptions options, WebDriver driver) {
         return new FrameOperator(options, driver, frame);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Screenshot shootViewport(ShooterOptions options, WebDriver driver, PageOperator operator) {
-        BufferedImage shot = shoot(driver);
-        ((FrameOperator) operator).mergeShot00(shot);
-        return operator.getScreenshot();
     }
 }

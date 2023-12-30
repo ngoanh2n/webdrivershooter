@@ -22,10 +22,10 @@ import java.util.ServiceLoader;
  *
  * <b>Strategy:</b>
  * <ul>
- *     <li>{@link ShooterOptions.Builder#shootViewport() ShooterOptions.builder().shootViewport()}</li>
- *     <li>{@link ShooterOptions.Builder#shootVerticalScroll() ShooterOptions.builder().shootVerticalScroll()}</li>
- *     <li>{@link ShooterOptions.Builder#shootHorizontalScroll() ShooterOptions.builder().shootHorizontalScroll()}</li>
- *     <li>{@link ShooterOptions.Builder#shootFullScroll() ShooterOptions.builder().shootFullScroll()}</li>
+ *     <li>{@link ShooterOptions.Builder#viewport() ShooterOptions.builder().viewport()}</li>
+ *     <li>{@link ShooterOptions.Builder#vertical() ShooterOptions.builder().vertical()}</li>
+ *     <li>{@link ShooterOptions.Builder#horizontal() ShooterOptions.builder().horizontal()}</li>
+ *     <li>{@link ShooterOptions.Builder#full() ShooterOptions.builder().full()}</li>
  * </ul>
  *
  * <b>Screenshot</b><br>
@@ -110,7 +110,7 @@ import java.util.ServiceLoader;
  * @author ngoanh2n
  * @since 2021
  */
-public abstract class WebDriverShooter<Operator extends ShooterOperator> implements ShooterStrategy<Operator> {
+public abstract class WebDriverShooter {
     /**
      * Default constructor.
      */
@@ -137,7 +137,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * @return The {@link Screenshot}.
      */
     public static Screenshot page(By[] locatorsToMask, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(locatorsToMask).build();
+        ShooterOptions options = ShooterOptions.builder().mask(locatorsToMask).build();
         return WebDriverShooter.page(options, driver);
     }
 
@@ -150,7 +150,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * @return The {@link Screenshot}.
      */
     public static Screenshot page(WebElement[] elementsToMask, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(elementsToMask).build();
+        ShooterOptions options = ShooterOptions.builder().mask(elementsToMask).build();
         return WebDriverShooter.page(options, driver);
     }
 
@@ -189,7 +189,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * @return The {@link Screenshot}.
      */
     public static Screenshot frame(WebElement frame, By[] locatorsToMask, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(locatorsToMask).build();
+        ShooterOptions options = ShooterOptions.builder().mask(locatorsToMask).build();
         return WebDriverShooter.frame(options, frame, driver);
     }
 
@@ -229,7 +229,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * @return The {@link Screenshot}.
      */
     public static Screenshot element(WebElement element, By[] locatorsToMask, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(locatorsToMask).build();
+        ShooterOptions options = ShooterOptions.builder().mask(locatorsToMask).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
@@ -243,7 +243,7 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * @return The {@link Screenshot}.
      */
     public static Screenshot element(WebElement element, WebElement[] elementsToMask, WebDriver... driver) {
-        ShooterOptions options = ShooterOptions.builder().maskElements(elementsToMask).build();
+        ShooterOptions options = ShooterOptions.builder().mask(elementsToMask).build();
         return WebDriverShooter.element(options, element, driver);
     }
 
@@ -296,20 +296,29 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
     }
 
     /**
-     * Take screenshot by a specific shooting strategy.
+     * Take screenshot.
      *
-     * @param shooter    A {@link WebDriverShooter} implementation.
-     * @param options    {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
-     * @param args       The {@link WebDriver} for the first argument, and can be empty.<br>
-     *                   {@link ShooterOperator} doesn't care from the second argument onwards.
-     * @param <Operator> A {@link ShooterOperator} implementation.
+     * @param shooter A {@link WebDriverShooter} implementation.
+     * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param args    The {@link WebDriver} for the first argument, and can be empty.<br>
+     *                {@link ShooterOperator} doesn't care from the second argument onwards.
      * @return The {@link Screenshot}.
      */
-    protected static <Operator extends ShooterOperator> Screenshot shoot(WebDriverShooter<Operator> shooter, ShooterOptions options, WebDriver... args) {
+    protected static Screenshot shoot(WebDriverShooter shooter, ShooterOptions options, WebDriver... args) {
         WebDriver driver = getDriver(args);
-        Operator operator = shooter.operator(options, driver);
-        return shooter.shoot(options, driver, operator);
+        return shooter.shoot(options, driver);
     }
+
+    //-------------------------------------------------------------------------------//
+
+    /**
+     * Take screenshot.
+     *
+     * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param driver  The current {@link WebDriver}.
+     * @return The {@link Screenshot}.
+     */
+    protected abstract Screenshot shoot(ShooterOptions options, WebDriver driver);
 
     //-------------------------------------------------------------------------------//
 
@@ -319,28 +328,51 @@ public abstract class WebDriverShooter<Operator extends ShooterOperator> impleme
      * @param driver The current {@link WebDriver}.
      * @return The {@link BufferedImage}.
      */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     protected BufferedImage shoot(WebDriver driver) {
-        File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File file = ts.getScreenshotAs(OutputType.FILE);
+
         try {
             return ImageIO.read(file);
         } catch (IOException e) {
             throw new ShooterException(e);
         } finally {
             if (file.exists()) {
+                //noinspection ResultOfMethodCallIgnored
                 file.delete();
             }
         }
     }
 
-    //-------------------------------------------------------------------------------//
+    /**
+     * Take viewport screenshot.
+     *
+     * @param driver The current {@link WebDriver}.
+     * @param dpr    The device pixel ratio.
+     * @return The {@link BufferedImage}.
+     */
+    protected Shot shoot(WebDriver driver, double dpr) {
+        return shoot(driver, dpr, new Shot.Position());
+    }
 
     /**
-     * Provide a {@link ShooterOperator} implementation.
+     * Take viewport screenshot.
      *
-     * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
-     * @param driver  The current {@link WebDriver}.
-     * @return The {@link ShooterOperator}.
+     * @param driver   The current {@link WebDriver}.
+     * @param dpr      The device pixel ratio.
+     * @param position The position of viewport screenshot against document.
+     * @return The {@link BufferedImage}.
      */
-    protected abstract Operator operator(ShooterOptions options, WebDriver driver);
+    protected Shot shoot(WebDriver driver, double dpr, Shot.Position position) {
+        BufferedImage image = shoot(driver);
+        int x = Screener.getScrollX(driver, dpr);
+        int y = Screener.getScrollY(driver, dpr);
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        Point location = new Point(x, y);
+        Dimension size = new Dimension(w, h);
+        Rectangle rect = new Rectangle(location, size);
+        return new Shot(image, rect, position);
+    }
 }

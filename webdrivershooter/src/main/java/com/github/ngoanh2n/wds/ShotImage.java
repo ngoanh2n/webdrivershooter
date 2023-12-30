@@ -1,13 +1,17 @@
 package com.github.ngoanh2n.wds;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.github.ngoanh2n.wds.Shot.Position.Type.L;
+import static com.github.ngoanh2n.wds.Shot.Position.Type.S;
 
 /**
  * Merge shot parts and mask rectangles.<br><br>
@@ -21,129 +25,164 @@ import java.util.List;
  * @author ngoanh2n
  * @since 2021
  */
+@CanIgnoreReturnValue
+@ParametersAreNonnullByDefault
 public class ShotImage {
-    protected final static Logger log = LoggerFactory.getLogger(ShotImage.class);
+    private final static Logger log = LoggerFactory.getLogger(ShotImage.class);
     private final ShooterOptions options;
-    private final List<Rectangle> rectangles;
-    private final LinkedList<Rectangle> parts;
+    private final Screener screener;
+    private final List<Rectangle> areaRects;
+    private final LinkedList<Rectangle> cropRects;
+    private final LinkedList<Rectangle> mergeRects;
+    private final LinkedList<Rectangle> shotRects;
+    private final Dimension size;
     private BufferedImage image;
 
     /**
      * Construct a new {@link ShotImage}.
      *
-     * @param options    {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
-     * @param size       The size of image for creating the {@link Screenshot}.
-     * @param rectangles Areas to mask or ignore to be not masked.
+     * @param options   {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
+     * @param size      The size of image for creating the {@link Screenshot}.
+     * @param areaRects Areas to mask or ignore to be not masked.
      */
-    protected ShotImage(ShooterOptions options, Dimension size, List<Rectangle> rectangles) {
+    protected ShotImage(ShooterOptions options, Screener screener, List<Rectangle> areaRects, Dimension size) {
         this.options = options;
-        this.rectangles = rectangles;
-        this.parts = new LinkedList<>();
+        this.screener = screener;
+        this.areaRects = areaRects;
+        this.cropRects = new LinkedList<>();
+        this.mergeRects = new LinkedList<>();
+        this.shotRects = new LinkedList<>();
+        this.size = size;
         this.image = ImageUtils.create(size);
-        log.info(String.valueOf(size));
+        log.info("[{}]", size);
     }
 
     //-------------------------------------------------------------------------------//
 
     /**
-     * Merge the specified shot part over the screenshot image with its top-left corner at {@code location}.
+     * Merge the specified shot part over the screenshot image with its top-left corner at (currentScrollX,currentScrollY).
      *
-     * @param shot     The shot part to be drawn over the screenshot image.
-     * @param location The top-left corner to start to be drawn.
+     * @param shot The shot part to be drawn over the screenshot image and its rectangle.
      */
-    protected void merge(BufferedImage shot, Point location) {
-        checkSizeForViewport(shot);
-        drawShotImage(shot, location);
-        collectShotRect(shot, location);
-        log.debug("Shot -> " + parts.getLast());
+    protected void merge(Shot shot) {
+        solveShotRect(shot);
+        mergeShotImage(shot);
+        logShotPosition(shot);
     }
 
-    /**
-     * Get the screenshot image and masked screenshot image.
-     *
-     * @return The screenshot image and masked screenshot image.
-     */
-    protected ImmutablePair<BufferedImage, BufferedImage> getResult() {
-        BufferedImage maskedImage = getMaskedImage();
-        return new ImmutablePair<>(image, maskedImage);
+    protected ImmutablePair<Shot, List<Rectangle>> getResult() {
+        Shot shot = getFinalShot();
+        List<Rectangle> rects = getFinalAreaRects();
+        return new ImmutablePair<>(shot, rects);
     }
 
     //-------------------------------------------------------------------------------//
 
-    private int getLeft(Point location) {
-        return image.getHeight() - location.getY();
+    private void solveShotRect(Shot shot) {
+        solveRectToCrop(shot);
+        solveRectToMerge(shot);
+        shotRects.add(shot.getRect());
     }
 
-    private void checkSizeForViewport(BufferedImage shot) {
-        if (options.shooter() == 1) {
-            int w = shot.getWidth();
-            int h = shot.getHeight();
-            Dimension size = new Dimension(w, h);
-            image = ImageUtils.create(size);
+    private void mergeShotImage(Shot shot) {
+        Rectangle cRect = cropRects.getLast();
+        Rectangle mRect = mergeRects.getLast();
+        BufferedImage sImage = shot.getImage();
+        BufferedImage cImage = ImageUtils.crop(sImage, cRect);
+        ImageUtils.drawArea(image, cImage, mRect.getLocation());
+    }
+
+    private void logShotPosition(Shot shot) {
+        Shot.Position position = shot.getPosition();
+        Rectangle sRect = shotRects.getLast();
+        Rectangle cRect = cropRects.getLast();
+        Rectangle mRect = mergeRects.getLast();
+        log.info("{} -> [{}], [{}], [{}]", position, sRect, cRect, mRect);
+    }
+
+    private Shot getFinalShot() {
+        Rectangle innerRect = screener.getInnerRect();
+        Point location = innerRect.getLocation();
+        Rectangle rect = new Rectangle(location, size);
+        return new Shot(image, rect);
+    }
+
+    private List<Rectangle> getFinalAreaRects() {
+        int xToDec = shotRects.getFirst().getX();
+        int yToDec = shotRects.getFirst().getY();
+
+        for (Rectangle areaRect : areaRects) {
+            areaRect.getLocation().decX(xToDec);
+            areaRect.getLocation().decY(yToDec);
         }
-    }
-
-    private void drawShotImage(BufferedImage shot, Point location) {
-        int x = location.getX();
-        int y = location.getY();
-
-        if (isTheLastShot(shot, location)) {
-            int left = getLeft(location);
-            y = y - shot.getHeight() + left;
-        }
-
-        Graphics graphics = image.createGraphics();
-        graphics.drawImage(shot, x, y, null);
-        graphics.dispose();
-    }
-
-    private void collectShotRect(BufferedImage shot, Point location) {
-        int x = location.getX();
-        int y = location.getY();
-        int w = shot.getWidth();
-        int h = shot.getHeight();
-
-        if (isTheLastShot(shot, location)) {
-            h = getLeft(location);
-        }
-
-        Rectangle part = new Rectangle(x, y, w, h);
-        parts.add(part);
-    }
-
-    private boolean isTheLastShot(BufferedImage shot, Point location) {
-        int left = getLeft(location);
-        return left < shot.getHeight();
+        return areaRects;
     }
 
     //-------------------------------------------------------------------------------//
 
-    private BufferedImage getMaskedImage() {
-        int w = image.getWidth();
-        int h = image.getHeight();
+    private void solveRectToCrop(Shot shot) {
+        int w = shot.getRect().getWidth();
+        int h = shot.getRect().getHeight();
+
+        Point loca = new Point(0, 0);
         Dimension size = new Dimension(w, h);
 
-        BufferedImage maskedImage = ImageUtils.create(size);
-        Graphics maskedGraphics = maskedImage.createGraphics();
-        maskedGraphics.drawImage(image, 0, 0, null);
+        Shot.Position pos = shot.getPosition();
 
-        if (options.maskForElements()) {
-            for (Rectangle rectangle : rectangles) {
-                BufferedImage maskedArea = ImageUtils.cut(image, rectangle);
-                ImageUtils.fill(maskedArea, options.maskedColor());
-                ImageUtils.drawArea(maskedImage, maskedArea, rectangle.getLocation());
+        if (pos.getY() == S || pos.getY() == L || pos.getX() == L) {
+            if (pos.getY() == L) {
+                int gone = getGoneY(shot);
+                loca.incY(gone);
+                size.decH(gone);
             }
-        } else {
-            if (!rectangles.isEmpty()) {
-                ImageUtils.fill(maskedImage, options.maskedColor());
-                for (Rectangle rectangle : rectangles) {
-                    BufferedImage area = ImageUtils.cut(image, rectangle);
-                    ImageUtils.drawArea(maskedImage, area, rectangle.getLocation());
-                }
+            if (pos.getX() == L) {
+                int gone = getGoneX(shot);
+                loca.incX(gone);
+                size.decW(gone);
             }
         }
+        cropRects.add(new Rectangle(loca, size));
+    }
 
-        maskedGraphics.dispose();
-        return maskedImage;
+    private void solveRectToMerge(Shot shot) {
+        Shot.Position pos = shot.getPosition();
+        Rectangle last = cropRects.getLast();
+
+        Point loca = new Point(0, 0);
+        Dimension size = last.getSize();
+
+        if (!pos.isOrigin()) {
+            last = mergeRects.getLast();
+
+            if (pos.getY() != S && pos.getX() == S) {
+                int lastY = last.getY() + last.getHeight();
+                loca.setY(lastY);
+            } else if (pos.getX() != S && pos.getY() == S) {
+                int lastX = last.getX() + last.getWidth();
+                loca.setX(lastX);
+            } else if (pos.getY() != S && pos.getX() != S) {
+                loca.setY(last.getY());
+                loca.setX(last.getX() + last.getWidth());
+            }
+        }
+        mergeRects.add(new Rectangle(loca, size));
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    private int getGoneY(Shot shot) {
+        if (shot.getPosition().getX() != S) {
+            return cropRects.getLast().getY();
+        } else {
+            Rectangle last = shotRects.getLast();
+            int left = shot.getRect().getY() - last.getY();
+            return shot.getRect().getHeight() - left;
+        }
+    }
+
+    private int getGoneX(Shot shot) {
+        Rectangle last = shotRects.getLast();
+        int left = shot.getRect().getX() - last.getX();
+        return shot.getRect().getWidth() - left;
     }
 }

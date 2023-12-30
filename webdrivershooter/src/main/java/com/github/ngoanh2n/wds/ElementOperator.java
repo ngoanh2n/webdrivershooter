@@ -23,19 +23,18 @@ public class ElementOperator extends ShooterOperator {
     /**
      * The element to be captured.
      */
-    protected WebElement element;
+    private final WebElement target;
 
     /**
      * Construct a new {@link ElementOperator}.
      *
      * @param options {@link ShooterOptions} to adjust behaviors of {@link WebDriverShooter}.
      * @param driver  The current {@link WebDriver}.
-     * @param element The element to support {@link #createScreener(WebElement...)}.<br>
+     * @param target  The element to support {@link #createScreener(WebElement...)}.<br>
      */
-    protected ElementOperator(ShooterOptions options, WebDriver driver, WebElement element) {
-        super(options, driver, element);
-        this.element = element;
-        this.screener.scrollIntoView(element);
+    protected ElementOperator(ShooterOptions options, WebDriver driver, WebElement target) {
+        super(options, driver, target);
+        this.target = target;
     }
 
     //-------------------------------------------------------------------------------//
@@ -44,127 +43,133 @@ public class ElementOperator extends ShooterOperator {
      * {@inheritDoc}
      */
     @Override
-    protected Screener createScreener(WebElement... elements) {
-        WebElement element = elements[0];
-        return new Screener(checkDPR, driver, element);
+    protected Screener createScreener(WebElement... targets) {
+        WebElement target = targets[0];
+        return new Screener(options, driver, target);
     }
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected boolean isImageFull(BufferedImage shot) {
-        return switch (options.shooter()) {
-            case 1 -> true;
-            case 2 -> getShotImageHeight() == shot.getHeight(null);
-            case 3 -> getShotImageWidth() == shot.getWidth(null);
-            default -> getShotImageWidth() == shot.getWidth(null) && getShotImageHeight() == shot.getHeight(null);
-        };
-    }
+    protected Shot.Position scrollTo(int partX, int partY) {
+        Point location = new Point();
+        Shot.Position position = getShotPosition(partX, partY);
 
-    //-------------------------------------------------------------------------------//
+        if (position.isOrigin()) {
+            screener.scrollIntoView(target);
+        }
 
-    /**
-     * Scroll down with distance of element bounding rectangle height.
-     *
-     * @param part The multiplier to calculate the Y coordinate of the next point be to scrolled to.
-     */
-    protected void scrollSY(int part) {
-        int x = screener.getScrollX(element);
-        int y = screener.getInnerRect().getHeight() * part;
-        screener.scrollToPoint(element, new Point(x, y));
-    }
+        Rectangle outerRect = screener.getOuterRect();
+        Rectangle innerRect = screener.getInnerRect();
 
-    /**
-     * Scroll down with distance of element bounding rectangle width.
-     *
-     * @param part The multiplier to calculate the X coordinate of the next point be to scrolled to.
-     */
-    protected void scrollXS(int part) {
-        int x = screener.getInnerRect().getWidth() * part;
-        int y = screener.getScrollY(element);
-        screener.scrollToPoint(element, new Point(x, y));
-    }
+        switch (options.shooter()) {
+            case 2:
+                location.setX(screener.getScrollX(target));
+                location.setY((innerRect.getHeight()) * partY);
 
-    /**
-     * Scroll to the specified point.
-     *
-     * @param partX The multiplier to calculate the X coordinate of the next point be to scrolled to.
-     * @param partY The multiplier to calculate the Y coordinate of the next point be to scrolled to.
-     */
-    protected void scrollXY(int partX, int partY) {
-        int x = screener.getInnerRect().getWidth() * partX;
-        int y = screener.getInnerRect().getHeight() * partY;
-        screener.scrollToPoint(element, new Point(x, y));
-    }
+                if (!position.isOrigin()) {
+                    if (!screener.hasScrollbarY(target)) {
+                        location.incY(outerRect.getY());
+                        screener.scrollToPoint(location);
+                    } else {
+                        screener.scrollToPoint(target, location);
+                    }
+                }
+                break;
+            case 3:
+                location.setX((innerRect.getWidth()) * partX);
+                location.setY(screener.getScrollY(target));
 
-    //-------------------------------------------------------------------------------//
+                if (!position.isOrigin()) {
+                    if (!screener.hasScrollbarX(target)) {
+                        location.incX(outerRect.getX());
+                        screener.scrollToPoint(location);
+                    } else {
+                        screener.scrollToPoint(target, location);
+                    }
+                }
+                break;
+            case 4:
+                location.setX((innerRect.getWidth()) * partX);
+                location.setY((innerRect.getHeight()) * partY);
 
-    /**
-     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (0,0).
-     *
-     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
-     */
-    protected void mergeShot00(BufferedImage shot) {
-        shot = getElementShot(shot);
-        shotImage.merge(shot, new Point(0, 0));
-    }
-
-    /**
-     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (0,scrollTop).
-     *
-     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
-     */
-    protected void mergeShot0S(BufferedImage shot) {
-        shot = getElementShot(shot);
-        int x = 0;
-        int y = screener.getScrollY(element);
-        shotImage.merge(shot, new Point(x, y));
+                if (!position.isOrigin()) {
+                    if (!screener.hasScrollbarX(target) || !screener.hasScrollbarY(target)) {
+                        if (!screener.hasScrollbarX(target)) {
+                            location.incX(outerRect.getX());
+                        }
+                        if (!screener.hasScrollbarY(target)) {
+                            location.incY(outerRect.getY());
+                        }
+                        screener.scrollToPoint(location);
+                    } else {
+                        screener.scrollToPoint(target, location);
+                    }
+                }
+                break;
+        }
+        return position;
     }
 
     /**
-     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (scrollLeft,0).
-     *
-     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
+     * {@inheritDoc}
      */
-    protected void mergeShotS0(BufferedImage shot) {
-        shot = getElementShot(shot);
-        int x = screener.getScrollX(element);
-        int y = 0;
-        shotImage.merge(shot, new Point(x, y));
+    protected void mergeShot(Shot shot) {
+        solveElementShot(shot);
+        super.mergeShot(shot);
     }
-
-    /**
-     * Draw the specified shot over the current image of {@link Screenshot} with its top-left corner at (scrollLeft,scrollTop).
-     *
-     * @param shot The specified shot to be drawn over the current {@link Screenshot}.
-     */
-    protected void mergeShotSS(BufferedImage shot) {
-        shot = getElementShot(shot);
-        int x = screener.getScrollX(element);
-        int y = screener.getScrollY(element);
-        shotImage.merge(shot, new Point(x, y));
-    }
-
-    //-------------------------------------------------------------------------------//
 
     /**
      * Cut image defined by a specified rectangular element.
      *
      * @param shot The larger image contains element.
-     * @return The element image.
      */
-    protected BufferedImage getElementShot(BufferedImage shot) {
-        int x = screener.getOuterRect().getX();
-        int y = screener.getOuterRect().getY();
+    protected void solveElementShot(Shot shot) {
+        BufferedImage image = shot.getImage();
+        Rectangle eRect = getElementRect();
+        BufferedImage eImage = ImageUtils.crop(image, eRect);
+
+        shot.setImage(eImage);
+        shot.getRect().setSize(eRect.getSize());
+
+        Rectangle outerRect = screener.getOuterRect();
+        shot.getRect().getLocation().setX(outerRect.getX());
+        shot.getRect().getLocation().setY(outerRect.getY());
+
+        if (screener.hasScrollbarY(target)) {
+            int scrollTop = screener.getScrollTop(target);
+            shot.getRect().getLocation().incY(scrollTop);
+        } else {
+            int rectTop = screener.getRectTop(target);
+            if (rectTop < 0) {
+                shot.getRect().getLocation().incY(Math.abs(rectTop));
+            }
+        }
+        if (screener.hasScrollbarX(target)) {
+            int scrollLeft = screener.getScrollLeft(target);
+            shot.getRect().getLocation().incX(scrollLeft);
+        } else {
+            int rectLeft = screener.getRectLeft(target);
+            if (rectLeft < 0) {
+                shot.getRect().getLocation().incX(Math.abs(rectLeft));
+            }
+        }
+    }
+
+    protected Rectangle getElementRect() {
+        int x = screener.getRectLeft(target);
+        int y = screener.getRectTop(target);
         int w = screener.getInnerRect().getWidth();
         int h = screener.getInnerRect().getHeight();
 
-        if (options.shooter() == 1) {
-            if (shot.getHeight() < screener.getInnerRect().getHeight()) {
-                h = shot.getHeight() - screener.getInnerRect().getY();
-            }
-        }
-        return shot.getSubimage(x, y, w, h);
+        x = Math.max(0, x);
+        y = Math.max(0, y);
+
+        Point location = new Point(x, y);
+        Dimension size = new Dimension(w, h);
+        return new Rectangle(location, size);
     }
 }

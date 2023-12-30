@@ -27,28 +27,28 @@ public class BrowserPageShooterTest extends AbstractBrowserTest {
     @Test
     @Order(1)
     void viewport() {
-        ShooterOptions options = ShooterOptions.builder().shootViewport().maskElements(ignore1, ignore2).build();
+        ShooterOptions options = ShooterOptions.builder().viewport().mask(ignore1, ignore2).build();
         screenshot = WebDriverShooter.page(options, driver);
     }
 
     @Test
     @Order(2)
     void verticalScroll() {
-        ShooterOptions options = ShooterOptions.builder().shootVerticalScroll().maskElements(ignore1, ignore2).build();
+        ShooterOptions options = ShooterOptions.builder().vertical().mask(ignore1, ignore2).build();
         screenshot = WebDriverShooter.page(options, driver);
     }
 
     @Test
     @Order(3)
     void horizontalScroll() {
-        ShooterOptions options = ShooterOptions.builder().shootHorizontalScroll().maskElements(ignore1, ignore2).build();
+        ShooterOptions options = ShooterOptions.builder().horizontal().mask(ignore1, ignore2).build();
         screenshot = WebDriverShooter.page(options, driver);
     }
 
     @Test
     @Order(4)
     void fullScroll() {
-        ShooterOptions options = ShooterOptions.builder().shootFullScroll().maskElements(ignore1, ignore2).build();
+        ShooterOptions options = ShooterOptions.builder().full().mask(ignore1, ignore2).build();
         screenshot = WebDriverShooter.page(options, driver);
     }
 }
