@@ -1,7 +1,11 @@
 package com.github.ngoanh2n.wds;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
- * A copy of java.awt.Rectangle, avoid to load dependency on Java AWT.<br><br>
+ * A copy of java.awt.Rectangle.<br><br>
  *
  * <em>Repository:</em>
  * <ul>
@@ -12,27 +16,29 @@ package com.github.ngoanh2n.wds;
  * @author ngoanh2n
  * @since 2021
  */
+@CanIgnoreReturnValue
+@ParametersAreNonnullByDefault
 public class Rectangle {
-    private Point p;
-    private Dimension d;
+    private Point point;
+    private Dimension dimension;
 
     /**
      * Construct a new {@link Rectangle} by location {@code 0:0} and size {@code d}.
      *
-     * @param d The size of the newly constructed {@code Rectangle}.
+     * @param dimension The size of the newly constructed {@code Rectangle}.
      */
-    public Rectangle(Dimension d) {
-        this(0, 0, d.getWidth(), d.getHeight());
+    public Rectangle(Dimension dimension) {
+        this(new Point(), dimension);
     }
 
     /**
      * Construct a new {@link Rectangle} by location {@code p} and size {@code d}.
      *
-     * @param p The position of the newly constructed {@code Rectangle}.
-     * @param d The dimension of the newly constructed {@code Rectangle}.
+     * @param point     The position of the newly constructed {@code Rectangle}.
+     * @param dimension The size of the newly constructed {@code Rectangle}.
      */
-    public Rectangle(Point p, Dimension d) {
-        this(p.getX(), p.getY(), d.getWidth(), d.getHeight());
+    public Rectangle(Point point, Dimension dimension) {
+        this(point.getX(), point.getY(), dimension.getWidth(), dimension.getHeight());
     }
 
     /**
@@ -44,9 +50,11 @@ public class Rectangle {
      * @param h The height of the newly constructed {@code Dimension}.
      */
     public Rectangle(int x, int y, int w, int h) {
-        this.p = new Point(x, y);
-        this.d = new Dimension(w, h);
+        this.point = new Point(x, y);
+        this.dimension = new Dimension(w, h);
     }
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * Get the X coordinate of this {@code Rectangle}.
@@ -54,7 +62,7 @@ public class Rectangle {
      * @return The X coordinate of this {@code Rectangle}.
      */
     public int getX() {
-        return p.getX();
+        return point.getX();
     }
 
     /**
@@ -63,7 +71,7 @@ public class Rectangle {
      * @return The Y coordinate of this {@code Rectangle}.
      */
     public int getY() {
-        return p.getY();
+        return point.getY();
     }
 
     /**
@@ -72,7 +80,7 @@ public class Rectangle {
      * @return The width of this {@code Rectangle}.
      */
     public int getWidth() {
-        return d.getWidth();
+        return dimension.getWidth();
     }
 
     /**
@@ -81,7 +89,7 @@ public class Rectangle {
      * @return The height of this {@code Rectangle}.
      */
     public int getHeight() {
-        return d.getHeight();
+        return dimension.getHeight();
     }
 
     /**
@@ -90,16 +98,16 @@ public class Rectangle {
      * @return The location of this {@code Rectangle}.
      */
     public Point getLocation() {
-        return p;
+        return point;
     }
 
     /**
-     * Set location for this {@code Rectangle}.
+     * Set value for this {@code Rectangle}.
      *
-     * @param p The new location for this {@code Rectangle}.
+     * @param value The new value for this {@code Rectangle}.
      */
-    public void setLocation(Point p) {
-        this.p = p;
+    public void setLocation(Point value) {
+        this.point = value;
     }
 
     /**
@@ -108,16 +116,16 @@ public class Rectangle {
      * @return The size of this {@code Rectangle}.
      */
     public Dimension getSize() {
-        return d;
+        return dimension;
     }
 
     /**
      * Set size for this {@code Rectangle}.
      *
-     * @param d The new size for this {@code Rectangle}.
+     * @param value The new size for this {@code Rectangle}.
      */
-    public void setSize(Dimension d) {
-        this.d = d;
+    public void setSize(Dimension value) {
+        this.dimension = value;
     }
 
     /**
@@ -127,6 +135,6 @@ public class Rectangle {
      */
     @Override
     public String toString() {
-        return String.format("Size [%s] Location [%s]", d, p);
+        return String.format("%s:%s %sx%s", getX(), getY(), getWidth(), getHeight());
     }
 }
