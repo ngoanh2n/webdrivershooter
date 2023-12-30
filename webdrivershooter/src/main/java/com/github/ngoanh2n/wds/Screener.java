@@ -377,6 +377,20 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get left bounding of the element.
+     *
+     * @param driver  The current {@link WebDriver}.
+     * @param dpr     Device pixel ratio.
+     * @param element The current {@link WebElement}.
+     * @return The left bounding.
+     */
+    public static int getRectLeft(WebDriver driver, double dpr, WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementRectLeft.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -396,9 +410,7 @@ public class Screener {
      * @return The left bounding.
      */
     public int getRectLeft(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementRectLeft.js";
-        Object value = executeScript(driver, resource, element);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
+        return getRectLeft(driver, dpr, element);
     }
 
     /**
