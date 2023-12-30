@@ -40,7 +40,7 @@ public class PageOperator extends ShooterOperator {
      * @param part The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
     protected void scrollSY(int part) {
-        int x = screener.getDocumentScrollX();
+        int x = screener.getScrollX();
         int y = screener.getInnerRect().getHeight() * part;
         screener.scrollToPoint(new Point(x, y));
     }
@@ -52,7 +52,7 @@ public class PageOperator extends ShooterOperator {
      */
     protected void scrollXS(int part) {
         int x = screener.getInnerRect().getWidth() * part;
-        int y = screener.getDocumentScrollY();
+        int y = screener.getScrollY();
         screener.scrollToPoint(new Point(x, y));
     }
 
@@ -100,8 +100,8 @@ public class PageOperator extends ShooterOperator {
      * @param shot The specified part to be drawn over the current {@link Screenshot}.
      */
     protected void mergeShotSS(BufferedImage shot) {
-        int x = screener.getDocumentScrollX();
-        int y = screener.getDocumentScrollY();
+        int x = screener.getScrollX();
+        int y = screener.getScrollY();
         shotImage.merge(shot, new Point(x, y));
     }
 }

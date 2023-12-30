@@ -39,9 +39,9 @@ public class Screener {
         int innerW = getViewportWidth();
         int innerH = getViewportHeight();
 
-        int outerW = getDocumentWidth();
-        int outerH = getDocumentHeight();
-        int outerSBW = getDocumentScrollBarWidth();
+        int outerW = getWidth();
+        int outerH = getHeight();
+        int outerSBW = getScrollbarWidth();
 
         if (innerW < outerW || (innerH < outerH && innerW - outerSBW < outerW)) {
             innerH = innerH - outerSBW;
@@ -65,17 +65,17 @@ public class Screener {
         this.dpr = getDPR(checkDPR, driver);
         this.driver = driver;
 
-        int innerX = getElementRectLeft(element);
-        int innerY = getElementRectTop(element);
-        int innerW = getElementRectWidth(element);
-        int innerH = getElementRectHeight(element);
+        int innerX = getRectLeft(element);
+        int innerY = getRectTop(element);
+        int innerW = getRectWidth(element);
+        int innerH = getRectHeight(element);
 
         int outerX = (int) (element.getLocation().x * dpr);
         int outerY = (int) (element.getLocation().y * dpr);
-        int outerW = getElementScrollWidth(element);
-        int outerH = getElementScrollHeight(element);
-        int outerSBW = getElementScrollBarWidth(element);
-        int outerSBH = getElementScrollBarHeight(element);
+        int outerW = getScrollWidth(element);
+        int outerH = getScrollHeight(element);
+        int outerSBW = getScrollbarWidth(element);
+        int outerSBH = getScrollbarHeight(element);
 
         if (innerW < outerW || (innerH < outerH && (innerW - outerSBH) < outerSBW)) {
             innerH = innerH - outerSBH;
@@ -187,7 +187,7 @@ public class Screener {
      *
      * @return The width of document.
      */
-    public int getDocumentWidth() {
+    public int getWidth() {
         String resource = "com/github/ngoanh2n/wds/GetDocumentWidth.js";
         Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -198,7 +198,7 @@ public class Screener {
      *
      * @return The height of document.
      */
-    public int getDocumentHeight() {
+    public int getHeight() {
         String resource = "com/github/ngoanh2n/wds/GetDocumentHeight.js";
         Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -209,7 +209,7 @@ public class Screener {
      *
      * @return The current scroll left.
      */
-    public int getDocumentScrollX() {
+    public int getScrollX() {
         String resource = "com/github/ngoanh2n/wds/GetDocumentScrollX.js";
         Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -220,7 +220,7 @@ public class Screener {
      *
      * @return The current scroll top.
      */
-    public int getDocumentScrollY() {
+    public int getScrollY() {
         String resource = "com/github/ngoanh2n/wds/GetDocumentScrollY.js";
         Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -231,7 +231,7 @@ public class Screener {
      *
      * @return The scroll bar.
      */
-    public int getDocumentScrollBarWidth() {
+    public int getScrollbarWidth() {
         String resource = "com/github/ngoanh2n/wds/GetDocumentScrollBarWidth.js";
         Object value = executeScript(driver, resource);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -252,25 +252,25 @@ public class Screener {
     //-------------------------------------------------------------------------------//
 
     /**
-     * Get left bounding of the element.
-     *
-     * @param element The current {@link WebElement}.
-     * @return The left bounding.
-     */
-    public int getElementRectLeft(WebElement element) {
-        String resource = "com/github/ngoanh2n/wds/GetElementRectLeft.js";
-        Object value = executeScript(driver, resource, element);
-        return (int) (Double.parseDouble(value.toString()) * dpr);
-    }
-
-    /**
      * Get top bounding of the element.
      *
      * @param element The current {@link WebElement}.
      * @return The top bounding.
      */
-    public int getElementRectTop(WebElement element) {
+    public int getRectTop(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementRectTop.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
+    /**
+     * Get left bounding of the element.
+     *
+     * @param element The current {@link WebElement}.
+     * @return The left bounding.
+     */
+    public int getRectLeft(WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementRectLeft.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
@@ -281,7 +281,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return The width of bounding rectangle.
      */
-    public int getElementRectWidth(WebElement element) {
+    public int getRectWidth(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementRectWidth.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -293,7 +293,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return The height of bounding rectangle.
      */
-    public int getElementRectHeight(WebElement element) {
+    public int getRectHeight(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementRectHeight.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -305,7 +305,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return The number of pixels are scrolled vertically.
      */
-    public int getElementScrollY(WebElement element) {
+    public int getScrollY(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementScrollY.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -317,7 +317,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return The number of pixels are scrolled horizontally.
      */
-    public int getElementScrollX(WebElement element) {
+    public int getScrollX(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementScrollX.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -329,7 +329,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return The width of element.
      */
-    public int getElementScrollWidth(WebElement element) {
+    public int getScrollWidth(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementScrollWidth.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -341,7 +341,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return The height of element.
      */
-    public int getElementScrollHeight(WebElement element) {
+    public int getScrollHeight(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementScrollHeight.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -353,7 +353,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return Scroll bar width of element.
      */
-    public int getElementScrollBarWidth(WebElement element) {
+    public int getScrollbarWidth(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementScrollBarWidth.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -365,7 +365,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @return Scroll bar height of element.
      */
-    public int getElementScrollBarHeight(WebElement element) {
+    public int getScrollbarHeight(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/GetElementScrollBarHeight.js";
         Object value = executeScript(driver, resource, element);
         return (int) (Double.parseDouble(value.toString()) * dpr);
@@ -376,7 +376,7 @@ public class Screener {
      *
      * @param element The current {@link WebElement}.
      */
-    public void scrollElementIntoView(WebElement element) {
+    public void scrollIntoView(WebElement element) {
         String resource = "com/github/ngoanh2n/wds/ScrollElementIntoView.js";
         executeScript(driver, resource, element);
     }
@@ -387,7 +387,7 @@ public class Screener {
      * @param element The current {@link WebElement}.
      * @param point   The target position.
      */
-    public void scrollElementToPoint(WebElement element, Point point) {
+    public void scrollToPoint(WebElement element, Point point) {
         double x = point.getX() / dpr;
         double y = point.getY() / dpr;
         String resource = "com/github/ngoanh2n/wds/ScrollElementToPoint.js";

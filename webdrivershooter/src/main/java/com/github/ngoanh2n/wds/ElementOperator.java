@@ -35,7 +35,7 @@ public class ElementOperator extends ShooterOperator {
     protected ElementOperator(ShooterOptions options, WebDriver driver, WebElement element) {
         super(options, driver, element);
         this.element = element;
-        this.screener.scrollElementIntoView(element);
+        this.screener.scrollIntoView(element);
     }
 
     //-------------------------------------------------------------------------------//
@@ -70,9 +70,9 @@ public class ElementOperator extends ShooterOperator {
      * @param part The multiplier to calculate the Y coordinate of the next point be to scrolled to.
      */
     protected void scrollSY(int part) {
-        int x = screener.getElementScrollX(element);
+        int x = screener.getScrollX(element);
         int y = screener.getInnerRect().getHeight() * part;
-        screener.scrollElementToPoint(element, new Point(x, y));
+        screener.scrollToPoint(element, new Point(x, y));
     }
 
     /**
@@ -82,8 +82,8 @@ public class ElementOperator extends ShooterOperator {
      */
     protected void scrollXS(int part) {
         int x = screener.getInnerRect().getWidth() * part;
-        int y = screener.getElementScrollY(element);
-        screener.scrollElementToPoint(element, new Point(x, y));
+        int y = screener.getScrollY(element);
+        screener.scrollToPoint(element, new Point(x, y));
     }
 
     /**
@@ -95,7 +95,7 @@ public class ElementOperator extends ShooterOperator {
     protected void scrollXY(int partX, int partY) {
         int x = screener.getInnerRect().getWidth() * partX;
         int y = screener.getInnerRect().getHeight() * partY;
-        screener.scrollElementToPoint(element, new Point(x, y));
+        screener.scrollToPoint(element, new Point(x, y));
     }
 
     //-------------------------------------------------------------------------------//
@@ -118,7 +118,7 @@ public class ElementOperator extends ShooterOperator {
     protected void mergeShot0S(BufferedImage shot) {
         shot = getElementShot(shot);
         int x = 0;
-        int y = screener.getElementScrollY(element);
+        int y = screener.getScrollY(element);
         shotImage.merge(shot, new Point(x, y));
     }
 
@@ -129,7 +129,7 @@ public class ElementOperator extends ShooterOperator {
      */
     protected void mergeShotS0(BufferedImage shot) {
         shot = getElementShot(shot);
-        int x = screener.getElementScrollX(element);
+        int x = screener.getScrollX(element);
         int y = 0;
         shotImage.merge(shot, new Point(x, y));
     }
@@ -141,8 +141,8 @@ public class ElementOperator extends ShooterOperator {
      */
     protected void mergeShotSS(BufferedImage shot) {
         shot = getElementShot(shot);
-        int x = screener.getElementScrollX(element);
-        int y = screener.getElementScrollY(element);
+        int x = screener.getScrollX(element);
+        int y = screener.getScrollY(element);
         shotImage.merge(shot, new Point(x, y));
     }
 

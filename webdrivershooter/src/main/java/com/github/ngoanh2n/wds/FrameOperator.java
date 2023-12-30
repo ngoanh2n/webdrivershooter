@@ -45,7 +45,7 @@ public class FrameOperator extends PageOperator {
     @Override
     protected Screener createScreener(WebElement... elements) {
         WebElement frame = elements[0];
-        super.createScreener().scrollElementIntoView(frame);
+        super.createScreener().scrollIntoView(frame);
 
         framer = new Screener(checkDPR, driver, frame);
         driver.switchTo().frame(frame);
