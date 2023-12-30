@@ -419,6 +419,20 @@ public class Screener {
         return (int) (Double.parseDouble(value.toString()) * dpr);
     }
 
+    /**
+     * Get scroll top of element.
+     *
+     * @param driver  The current {@link WebDriver}.
+     * @param dpr     Device pixel ratio.
+     * @param element The current {@link WebElement}.
+     * @return The scroll top of element.
+     */
+    public static int getScrollTop(WebDriver driver, double dpr, WebElement element) {
+        String resource = "com/github/ngoanh2n/wds/GetElementScrollTop.js";
+        Object value = executeScript(driver, resource, element);
+        return (int) (Double.parseDouble(value.toString()) * dpr);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -459,6 +473,16 @@ public class Screener {
      */
     public int getRectHeight(WebElement element) {
         return getRectHeight(driver, dpr, element);
+    }
+
+    /**
+     * Get scroll top of element.
+     *
+     * @param element The current {@link WebElement}.
+     * @return The scroll top of element.
+     */
+    public int getScrollTop(WebElement element) {
+        return getScrollTop(driver, dpr, element);
     }
 
     /**
