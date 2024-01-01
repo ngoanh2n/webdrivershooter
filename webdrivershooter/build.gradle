@@ -7,7 +7,6 @@ dependencies {
 
     testImplementation("org.seleniumhq.selenium:selenium-java:$versions.selenium")
     testImplementation("io.appium:java-client:$versions.appium")
-    testImplementation("io.github.bonigarcia:webdrivermanager:$versions.wdm")
     testImplementation("com.github.ngoanh2n:commons-junit5:$versions.cms")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$versions.jupiter")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$versions.jupiter")

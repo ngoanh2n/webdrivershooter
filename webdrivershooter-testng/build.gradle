@@ -12,7 +12,6 @@ dependencies {
     implementation("com.github.ngoanh2n:commons-testng:$versions.cms")
 
     testImplementation("org.seleniumhq.selenium:selenium-java:$versions.selenium")
-    testImplementation("io.github.bonigarcia:webdrivermanager:$versions.wdm")
 }
 
 test {
