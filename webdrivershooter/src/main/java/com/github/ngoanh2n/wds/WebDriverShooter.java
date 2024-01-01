@@ -1,5 +1,8 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.Dimension;
+import com.github.ngoanh2n.Point;
+import com.github.ngoanh2n.Rectangle;
 import com.github.ngoanh2n.wdc.WebDriverChecker;
 import org.openqa.selenium.*;
 

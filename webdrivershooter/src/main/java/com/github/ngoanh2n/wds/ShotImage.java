@@ -1,5 +1,9 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.Dimension;
+import com.github.ngoanh2n.ImageUtils;
+import com.github.ngoanh2n.Point;
+import com.github.ngoanh2n.Rectangle;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.slf4j.Logger;

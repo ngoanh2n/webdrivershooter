@@ -1,5 +1,6 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.Rectangle;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import javax.annotation.ParametersAreNonnullByDefault;

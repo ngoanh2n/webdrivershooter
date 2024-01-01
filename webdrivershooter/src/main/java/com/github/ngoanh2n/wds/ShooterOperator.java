@@ -1,5 +1,8 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.Dimension;
+import com.github.ngoanh2n.Point;
+import com.github.ngoanh2n.Rectangle;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -1,6 +1,9 @@
 package com.github.ngoanh2n.wds;
 
-import com.github.ngoanh2n.Commons;
+import com.github.ngoanh2n.Dimension;
+import com.github.ngoanh2n.Point;
+import com.github.ngoanh2n.Rectangle;
+import com.github.ngoanh2n.*;
 import com.github.ngoanh2n.img.ImageComparator;
 import com.github.ngoanh2n.img.ImageComparisonOptions;
 import com.github.ngoanh2n.img.ImageComparisonResult;

@@ -1,5 +1,9 @@
 package com.github.ngoanh2n.wds;
 
+import com.github.ngoanh2n.Dimension;
+import com.github.ngoanh2n.ImageUtils;
+import com.github.ngoanh2n.Point;
+import com.github.ngoanh2n.Rectangle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
