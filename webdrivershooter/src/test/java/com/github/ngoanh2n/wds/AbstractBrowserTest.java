@@ -34,7 +34,7 @@ public abstract class AbstractBrowserTest {
         if (browser.equals("appium")) {
             driver = AppiumDriverProvider.startDriver(null);
         } else {
-            driver = SeleniumDriverProvider.startDriver(browser);
+            driver = SeleniumDriverProvider.createDriver(browser);
         }
         this.testInfo = testInfo;
     }

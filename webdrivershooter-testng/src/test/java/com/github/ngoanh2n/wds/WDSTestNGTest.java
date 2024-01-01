@@ -1,6 +1,5 @@
 package com.github.ngoanh2n.wds;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -14,7 +13,6 @@ public abstract class WDSTestNGTest {
     protected static WebDriver driver;
 
     protected static void createWebDriver() {
-        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
