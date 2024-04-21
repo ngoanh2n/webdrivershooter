@@ -10,3 +10,4 @@ updates:
       - ngoanh2n
     target-branch: master
     rebase-strategy: disabled
+    open-pull-requests-limit: 20
