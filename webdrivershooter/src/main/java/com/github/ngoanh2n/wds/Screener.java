@@ -31,6 +31,7 @@ public class Screener {
     private final WebDriver driver;
     private final int header;
     private final int footer;
+    private final int scrollDeviation;
     private final Dimension scrollbar;
     private final Rectangle outerRect;
     private final Rectangle innerRect;
@@ -76,6 +77,7 @@ public class Screener {
         this.driver = driver;
         this.header = header;
         this.footer = footer;
+        this.scrollDeviation = 20;
 
         int sbW = getScrollbarWidth();
         int sbH = getScrollbarHeight();
@@ -103,6 +105,7 @@ public class Screener {
         this.outerRect = new Rectangle(outerLocation, outerSize);
         this.innerRect = new Rectangle(innerLocation, innerSize);
 
+        log.debug("DPR: {}", dpr);
         log.debug("Outer [{}]", outerRect);
         log.debug("Inner [{}]", innerRect);
         log.debug("Y scrollbar [{}]", scrollbar.getWidth());
@@ -156,6 +159,7 @@ public class Screener {
         this.driver = driver;
         this.header = header;
         this.footer = footer;
+        this.scrollDeviation = 0;
 
         boolean hasSbX = hasScrollbarX(element);
         boolean hasSbY = hasScrollbarY(element);
@@ -192,6 +196,7 @@ public class Screener {
         this.innerRect = new Rectangle(innerLocation, innerSize);
         this.outerRect = new Rectangle(outerLocation, outerSize);
 
+        log.debug("DPR: {}", dpr);
         log.debug("Outer [{}]", outerRect);
         log.debug("Inner [{}]", innerRect);
         log.debug("Y scrollbar [{}]", scrollbar.getWidth());
@@ -610,6 +615,10 @@ public class Screener {
      */
     public int getFooter() {
         return (int) (footer * dpr);
+    }
+
+    public int getScrollDeviation() {
+        return scrollDeviation;
     }
 
     /**

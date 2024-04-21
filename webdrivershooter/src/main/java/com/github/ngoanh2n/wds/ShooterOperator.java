@@ -65,7 +65,7 @@ public abstract class ShooterOperator {
     /**
      * Create a {@link Screener}.
      *
-     * @param targets The element to support {@link Screener} when interacting a element.
+     * @param targets The element to support {@link Screener} when interacting an element.
      * @return The {@link Screener}.
      */
     protected Screener createScreener(WebElement... targets) {
@@ -170,11 +170,11 @@ public abstract class ShooterOperator {
      */
     protected Shot.Position scrollTo(int partX, int partY) {
         Point location = new Point();
+        int header = screener.getHeader();
         Rectangle innerRect = screener.getInnerRect();
 
         switch (options.shooter()) {
             case 2:
-                int header = screener.getHeader();
                 location.setX(screener.getScrollX());
                 location.setY((innerRect.getHeight() - header) * partY);
                 break;
@@ -184,7 +184,7 @@ public abstract class ShooterOperator {
                 break;
             case 4:
                 location.setX(innerRect.getWidth() * partX);
-                location.setY(innerRect.getHeight() * partY);
+                location.setY((innerRect.getHeight() - header) * partY);
                 break;
         }
 
@@ -223,6 +223,9 @@ public abstract class ShooterOperator {
      */
     protected void mergeShot(Shot shot) {
         shotImage.merge(shot);
+        Point location = shot.getRect().getLocation();
+        location.decY(options.scrollDeviation());
+        screener.scrollToPoint(location);
     }
 
     //-------------------------------------------------------------------------------//
@@ -253,9 +256,10 @@ public abstract class ShooterOperator {
      * @return The number of screenshot parts need to merge into the screenshot image by vertically.
      */
     protected int getPartsY() {
+        int header = screener.getHeader();
         int outerH = screener.getOuterRect().getHeight();
         int innerH = screener.getInnerRect().getHeight();
-        return (int) Math.ceil(((double) outerH) / innerH);
+        return (int) Math.ceil(((double) outerH) / (innerH - header));
     }
 
     /**

@@ -168,6 +168,7 @@ public class ShotImage {
         if (pos.getY() != L) {
             if (options.shooter() == 2 || options.shooter() == 4) {
                 size.decH(sb.getHeight());
+                size.decH(options.scrollDeviation());
             }
         }
         cropRects.add(new Rectangle(loca, size));

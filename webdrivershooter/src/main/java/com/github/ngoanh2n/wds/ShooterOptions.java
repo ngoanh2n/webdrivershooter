@@ -116,6 +116,8 @@ public interface ShooterOptions {
      */
     int footerToBeFixed();
 
+    int scrollDeviation();
+
     /**
      * Whether to cut scrollbar.
      *
@@ -165,6 +167,7 @@ public interface ShooterOptions {
          * The height of footer is being fixed.
          */
         protected int footerToBeFixed;
+        protected int scrollDeviation;
         /**
          * Indicate to cut scrollbar.
          */
@@ -183,6 +186,7 @@ public interface ShooterOptions {
             this.maskedColor = Color.GRAY;
             this.headerToBeFixed = 0;
             this.footerToBeFixed = 0;
+            this.scrollDeviation = 0;
             this.cutScrollBar = true;
         }
 
@@ -333,6 +337,11 @@ public interface ShooterOptions {
             return this;
         }
 
+        public Builder scrollDeviation(int value) {
+            this.scrollDeviation = value;
+            return this;
+        }
+
         /**
          * Indicate to cut scrollbar or not.
          *
@@ -452,6 +461,11 @@ public interface ShooterOptions {
         @Override
         public int footerToBeFixed() {
             return builder.footerToBeFixed;
+        }
+
+        @Override
+        public int scrollDeviation() {
+            return builder.scrollDeviation;
         }
 
         /**
