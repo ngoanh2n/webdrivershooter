@@ -9,7 +9,7 @@ selenium         = "4.16.1"
 selenide         = "7.0.4"
 appium           = "9.0.0"
 slf4j            = "2.0.10"
-testng           = "7.9.0"
+testng           = "7.10.1"
 junit-jupiter    = "5.10.1"
 junit-platform   = "1.10.2"
 
