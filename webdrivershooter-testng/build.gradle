@@ -7,11 +7,11 @@ sourceCompatibility = JavaVersion.VERSION_17
 
 dependencies {
     api(project(":webdrivershooter"))
-    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versions.selenium")
-    implementation("org.testng:testng:$versions.testng")
-    implementation("com.github.ngoanh2n:commons-testng:$versions.cms")
+    implementation(libs.selenium.remote.driver)
+    implementation(libs.testng)
+    implementation(libs.commons.testng)
 
-    testImplementation("org.seleniumhq.selenium:selenium-java:$versions.selenium")
+    testImplementation(libs.selenium.java)
 }
 
 test {

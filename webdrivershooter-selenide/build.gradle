@@ -3,12 +3,12 @@
  */
 dependencies {
     api(project(":webdrivershooter"))
-    implementation("com.codeborne:selenide:$versions.selenide")
+    implementation(libs.selenide)
 
-    testImplementation("com.github.ngoanh2n:commons-junit5:$versions.cms")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$versions.jupiter")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$versions.jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.commons.junit5)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 apply { from(config.test) }

@@ -2,8 +2,8 @@
  * Author: ngoanh2n
  */
 dependencies {
-    api("com.github.ngoanh2n:image-comparator:$versions.imgc")
-    implementation("com.github.ngoanh2n:commons:$versions.cms")
+    api(libs.image.comparator)
+    implementation(libs.commons)
 
-    testImplementation("org.slf4j:slf4j-log4j12:$versions.slf4j")
+    testImplementation(libs.slf4j.log4j12)
 }

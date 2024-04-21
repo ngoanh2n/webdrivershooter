@@ -2,15 +2,15 @@
  * Author: ngoanh2n
  */
 dependencies {
-    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versions.selenium")
-    implementation("com.github.ngoanh2n:webdriverchecker:$versions.wdc")
+    implementation(libs.selenium.remote.driver)
+    implementation(libs.webdriverchecker)
 
-    testImplementation("org.seleniumhq.selenium:selenium-java:$versions.selenium")
-    testImplementation("io.appium:java-client:$versions.appium")
-    testImplementation("com.github.ngoanh2n:commons-junit5:$versions.cms")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$versions.jupiter")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$versions.jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.selenium.java)
+    testImplementation(libs.appium.client)
+    testImplementation(libs.commons.junit5)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 apply { from(config.test) }

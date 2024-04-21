@@ -1,0 +1,31 @@
+#
+# Author: ngoanh2n
+#
+[versions]
+commons          = "1.4.0"
+image-comparator = "1.3.0"
+webdriverchecker = "2.8.0"
+selenium         = "4.16.1"
+selenide         = "7.0.4"
+appium           = "9.0.0"
+slf4j            = "2.0.10"
+testng           = "7.9.0"
+junit-jupiter    = "5.10.1"
+junit-platform   = "1.10.2"
+
+[libraries]
+commons                 = { group = "com.github.ngoanh2n",     name = "commons",                 version.ref = "commons"          }
+commons-junit5          = { group = "com.github.ngoanh2n",     name = "commons-junit5",          version.ref = "commons"          }
+commons-testng          = { group = "com.github.ngoanh2n",     name = "commons-testng",          version.ref = "commons"          }
+image-comparator        = { group = "com.github.ngoanh2n",     name = "image-comparator",        version.ref = "image-comparator" }
+webdriverchecker        = { group = "com.github.ngoanh2n",     name = "webdriverchecker",        version.ref = "webdriverchecker" }
+selenium-remote-driver  = { group = "org.seleniumhq.selenium", name = "selenium-remote-driver",  version.ref = "selenium"         }
+selenium-java           = { group = "org.seleniumhq.selenium", name = "selenium-java",           version.ref = "selenium"         }
+selenide                = { group = "com.codeborne",           name = "selenide",                version.ref = "selenide"         }
+appium-client           = { group = "io.appium",               name = "java-client",             version.ref = "appium"           }
+slf4j-log4j12           = { group = "org.slf4j",               name = "slf4j-log4j12",           version.ref = "slf4j"            }
+testng                  = { group = "org.testng",              name = "testng",                  version.ref = "testng"           }
+junit-jupiter           = { group = "org.junit.jupiter",       name = "junit-jupiter",           version.ref = "junit-jupiter"    }
+junit-jupiter-api       = { group = "org.junit.jupiter",       name = "junit-jupiter-api",       version.ref = "junit-jupiter"    }
+junit-jupiter-engine    = { group = "org.junit.jupiter",       name = "junit-jupiter-engine",    version.ref = "junit-jupiter"    }
+junit-platform-launcher = { group = "org.junit.platform",      name = "junit-platform-launcher", version.ref = "junit-platform"   }
