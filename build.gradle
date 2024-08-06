@@ -31,6 +31,12 @@ subprojects {
         from(config.dependencies)
     }
 
+    idea {
+        module {
+            downloadSources = true
+        }
+    }
+
     getTasks().clean.doFirst {
         delete(getProject().file("out"))
         delete(getRootProject().files("build"))
