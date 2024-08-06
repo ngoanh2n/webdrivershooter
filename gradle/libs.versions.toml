@@ -2,7 +2,7 @@
 ### Author: ngoanh2n
 ###
 [versions]
-commons          = "1.4.0"
+commons          = "1.6.0"
 image-comparator = "1.3.0"
 webdriverchecker = "2.8.0"
 selenium         = "4.16.1"
