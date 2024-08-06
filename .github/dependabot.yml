@@ -1,13 +1,18 @@
+###
+### Author: ngoanh2n
+### https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide
+###
 version: 2
 updates:
   - package-ecosystem: gradle
     directory: "/"
     schedule:
-      interval: daily
-      time: "04:00"
+      interval: weekly
+      day: friday
+      time: "03:00"
       timezone: Asia/Ho_Chi_Minh
     assignees:
       - ngoanh2n
-    target-branch: master
+    target-branch: develop
     rebase-strategy: disabled
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 15
