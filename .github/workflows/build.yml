@@ -1,0 +1,28 @@
+###
+### Author: ngoanh2n
+### https://docs.github.com/en/actions
+### https://github.com/marketplace?type=actions
+###
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, review_requested]
+jobs:
+  build:
+    defaults:
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
+    steps:
+      - name: "[Prepare] Checkout"
+        uses: actions/checkout@v4
+      - name: "[Prepare] Setup JDK"
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: "[Build] Execute"
+        run: ./gradlew clean build
