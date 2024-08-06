@@ -1,6 +1,6 @@
-#
-# Author: ngoanh2n
-#
+###
+### Author: ngoanh2n
+###
 [versions]
 commons          = "1.4.0"
 image-comparator = "1.3.0"
