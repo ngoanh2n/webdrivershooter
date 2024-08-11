@@ -3,15 +3,16 @@
 ### https://docs.github.com/en/actions
 ### https://github.com/marketplace?type=actions
 ###
-name: Auto Merge
+name: Dependabot PRs Merge
 on:
   workflow_run:
-    workflows: [Build]
+    workflows: ["Build"]
+    branches: [develop]
     types:
       - completed
 jobs:
   automerge-dependabot:
-    name: Auto merge dependabot PR
+    name: Merge dependabot PR
     if: ${{ github.actor == 'dependabot[bot]' }}
     timeout-minutes: 10
     runs-on: ubuntu-latest
@@ -19,8 +20,7 @@ jobs:
       pull-requests: write
       contents: write
     steps:
-      - name: Merge dependabot PR
-        uses: fastify/github-action-merge-dependabot@v3.10.1
+      - uses: fastify/github-action-merge-dependabot@v3.10.1
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           target: minor

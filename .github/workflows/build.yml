@@ -5,16 +5,14 @@
 ###
 name: Build
 on:
-  push:
-    branches:
-      - master
   pull_request:
     types: [opened, review_requested]
 jobs:
-  build:
+  test:
     defaults:
       run:
         shell: bash
+    name: ubuntu-latest_java17
     runs-on: ubuntu-latest
     steps:
       - name: "[Prepare] Checkout"
@@ -26,3 +24,9 @@ jobs:
           java-version: 17
       - name: "[Build] Execute"
         run: ./gradlew clean build
+      - if: success() || failure()
+        name: "[Report] JUnit report"
+        uses: mikepenz/action-junit-report@v4
+        with:
+          check_name: JUnit ubuntu-latest_java17
+          report_paths: build/reports/test/TEST-*.xml
