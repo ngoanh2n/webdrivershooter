@@ -11,7 +11,7 @@ appium           = "9.3.0"
 slf4j            = "2.0.15"
 testng           = "7.10.2"
 junit-jupiter    = "5.10.3"
-junit-platform   = "1.10.3"
+junit-platform   = "1.11.0"
 
 [libraries]
 commons                 = { group = "com.github.ngoanh2n",     name = "commons",                 version.ref = "commons"          }
