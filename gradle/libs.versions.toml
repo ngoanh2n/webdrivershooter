@@ -10,7 +10,7 @@ selenide         = "7.4.1"
 appium           = "9.3.0"
 slf4j            = "2.0.15"
 testng           = "7.10.2"
-junit-jupiter    = "5.10.3"
+junit-jupiter    = "5.11.0"
 junit-platform   = "1.10.3"
 
 [libraries]
