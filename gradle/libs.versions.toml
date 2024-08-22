@@ -5,7 +5,7 @@
 commons          = "1.6.0"
 image-comparator = "1.5.0"
 webdriverchecker = "2.8.0"
-selenium         = "4.23.0"
+selenium         = "4.23.1"
 selenide         = "7.4.2"
 appium           = "9.3.0"
 slf4j            = "2.0.16"
