@@ -6,27 +6,38 @@
 name: Build
 on:
   pull_request:
-    types: [opened, review_requested]
+  workflow_dispatch:
 jobs:
-  test:
+  build:
+    name: Build on Ubuntu
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-    name: ubuntu-latest_java17
-    runs-on: ubuntu-latest
+    permissions:
+      checks: write
     steps:
-      - name: "[Prepare] Checkout"
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: "[Prepare] Setup JDK"
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - name: "[Build] Execute"
+      - name: Build
         run: ./gradlew clean build
-      - if: success() || failure()
-        name: "[Report] JUnit report"
-        uses: mikepenz/action-junit-report@v4
+  dependabot_merge:
+    name: Merge dependabot PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [ build ]
+    permissions:
+      contents: write
+      pull-requests: write
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3
         with:
-          check_name: JUnit ubuntu-latest_java17
-          report_paths: build/reports/test/TEST-*.xml
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: minor
+          merge-method: rebase
