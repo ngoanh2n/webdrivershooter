@@ -1,7 +1,6 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/webdrivershooter-selenide/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/webdrivershooter-selenide)
-[![javadoc](https://javadoc.io/badge2/com.github.ngoanh2n/webdrivershooter-selenide/javadoc.svg)](https://javadoc.io/doc/com.github.ngoanh2n/webdrivershooter-selenide)
-[![badge-jdk](https://img.shields.io/badge/jdk-17-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
+[![Java](https://img.shields.io/badge/Java-17-orange)](https://adoptium.net)
+[![Maven](https://img.shields.io/maven-central/v/com.github.ngoanh2n/webdrivershooter-selenide?label=Maven)](https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter-selenide)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/ngoanh2n/webdrivershooter/build.yml?logo=github&label=GitHub%20Actions)](https://github.com/ngoanh2n/webdrivershooter/actions/workflows/build.yml)
 
 # WebDriverShooter for Selenide
 **Table of Contents**
